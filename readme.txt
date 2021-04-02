@@ -3,8 +3,8 @@ Contributors: urvanov
 Donate link: https://money.yandex.ru/to/41001288941320
 License: GPLv3 or later
 Tags: syntax highlighter, syntax, highlighter, highlighting, crayon, code highlighter, bbpress
-Requires at least: 5.6
-Tested up to: 5.6
+Requires at least: 5.7
+Tested up to: 5.7
 Stable tag: trunk
 
 Reincarnation of Crayon Syntax Highlighter. Syntax Highlighter supporting multiple languages, themes, fonts, highlighting from a URL, or post text.
@@ -327,6 +327,16 @@ Contact me at http://twitter.com/crayonsyntax or crayon.syntax@gmail.com.
 5. Theme Editor.
 
 == Changelog ==
+
+= 2.8.22 =
+* ADDED
+    * Basic example for a new block
+* FIXED:
+    * error in JS log function
+
+= 2.8.21 =
+* ADDED
+    * Removing jQuery. Replaced jQuery.ready to DOMContentLoaded
 
 = 2.8.20 =
 * FIXED
