@@ -544,7 +544,7 @@
                     var close = $('.ui-dialog-titlebar-close', e);
                     inst._hoverable(close);
                     inst._focusable(close);
-                    close.click(function(event) {
+                    close.on( 'click', function(event) {
 						event.preventDefault();
                         inst.close();
                     });
@@ -578,9 +578,9 @@
                     if (x >= 0 && x < width && y >= 0 && y < height) {
                         event.stopImmediatePropagation();
                         event.preventDefault();
-						e.unbind('mousedown', _mousedown);
-                        $(document).bind('mouseup', _mouseup);
-                        $(document).bind('mousemove', _mousemove);
+						e.off('mousedown', _mousedown);
+                        $(document).on('mouseup', _mouseup);
+                        $(document).on('mousemove', _mousemove);
                         _mousemove(event);
                     }
                 };
@@ -588,9 +588,9 @@
                 _mouseup = function (event) {
                     event.stopImmediatePropagation();
                     event.preventDefault();
-                    $(document).unbind('mouseup', _mouseup);
-                    $(document).unbind('mousemove', _mousemove);
-                    e.bind('mousedown', _mousedown);
+                    $(document).off('mouseup', _mouseup);
+                    $(document).off('mousemove', _mousemove);
+                    e.on('mousedown', _mousedown);
                 };
 
                 _mousemove = function (event) {
@@ -747,7 +747,7 @@
                 this.init = function () {
                     e = $(_html()).appendTo($('.ui-colorpicker-map-container', inst.dialog));
 
-                    e.bind('mousedown', _mousedown);
+                    e.on('mousedown', _mousedown);
                 };
             },
 
@@ -771,9 +771,9 @@
                     if (x >= 0 && x < width && y >= 0 && y < height) {
                         event.stopImmediatePropagation();
                         event.preventDefault();
-                        e.unbind('mousedown', _mousedown);
-                        $(document).bind('mouseup', _mouseup);
-                        $(document).bind('mousemove', _mousemove);
+                        e.off('mousedown', _mousedown);
+                        $(document).on('mouseup', _mouseup);
+                        $(document).on('mousemove', _mousemove);
                         _mousemove(event);
                     }
                 };
@@ -781,9 +781,9 @@
                 _mouseup = function (event) {
                     event.stopImmediatePropagation();
                     event.preventDefault();
-                    $(document).unbind('mouseup', _mouseup);
-                    $(document).unbind('mousemove', _mousemove);
-                    e.bind('mousedown', _mousedown);
+                    $(document).off('mouseup', _mouseup);
+                    $(document).off('mousemove', _mousemove);
+                    e.on('mousedown', _mousedown);
                 };
 
                 _mousemove = function (event) {
@@ -981,7 +981,7 @@
                 this.init = function () {
                     e = $(_html()).appendTo($('.ui-colorpicker-bar-container', inst.dialog));
 
-                    e.bind('mousedown', _mousedown);
+                    e.on('mousedown', _mousedown);
                 };
             },
 
@@ -1000,7 +1000,7 @@
                 this.init = function () {
                     e = $(_html()).appendTo($('.ui-colorpicker-preview-container', inst.dialog));
 
-                    $('.ui-colorpicker-preview-initial', e).click(function () {
+                    $('.ui-colorpicker-preview-initial', e).on( 'click',function () {
                         inst.color = inst.currentColor.copy();
                         inst._change();
                     });
@@ -1045,12 +1045,12 @@
                 this.init = function () {
                     e = $(_html()).appendTo($('.ui-colorpicker-hsv-container', inst.dialog));
 
-                    $('.ui-colorpicker-mode', e).click(function () {
+                    $('.ui-colorpicker-mode', e).on( 'click', function () {
                         inst.mode = $(this).val();
                         inst._updateAllParts();
                     });
 
-                    $('.ui-colorpicker-number', e).bind('change keyup', function () {
+                    $('.ui-colorpicker-number', e).on('change keyup', function () {
                         inst.color.setHSV(
 							$('.ui-colorpicker-hsv-h .ui-colorpicker-number', e).val() / 360,
 							$('.ui-colorpicker-hsv-s .ui-colorpicker-number', e).val() / 100,
@@ -1103,12 +1103,12 @@
                 this.init = function () {
                     e = $(_html()).appendTo($('.ui-colorpicker-rgb-container', inst.dialog));
 
-                    $('.ui-colorpicker-mode', e).click(function () {
+                    $('.ui-colorpicker-mode', e).on( 'click', function () {
                         inst.mode = $(this).val();
                         inst._updateAllParts();
                     });
 
-                    $('.ui-colorpicker-number', e).bind('change keyup', function () {
+                    $('.ui-colorpicker-number', e).on('change keyup', function () {
                         inst.color.setRGB(
 							$('.ui-colorpicker-rgb-r .ui-colorpicker-number', e).val() / 255,
 							$('.ui-colorpicker-rgb-g .ui-colorpicker-number', e).val() / 255,
@@ -1252,12 +1252,12 @@
                 this.init = function () {
                     e = $(_html()).appendTo($('.ui-colorpicker-alpha-container', inst.dialog));
 
-                    $('.ui-colorpicker-mode', e).click(function () {
+                    $('.ui-colorpicker-mode', e).on( 'click', function () {
                         inst.mode = $(this).val();
                         inst._updateAllParts();
                     });
 
-                    $('.ui-colorpicker-number', e).bind('change keyup', function () {
+                    $('.ui-colorpicker-number', e).on('change keyup', function () {
                         inst.color.setAlpha($('.ui-colorpicker-a .ui-colorpicker-number', e).val() / 100);
                         inst._change();
                     });
@@ -1300,25 +1300,25 @@
                     e = $(_html()).appendTo($('.ui-colorpicker-hex-container', inst.dialog));
 
                     // repeat here makes the invalid input disappear faster
-                    $('.ui-colorpicker-hex-input', e).bind('change keydown keyup', function (a, b, c) {
+                    $('.ui-colorpicker-hex-input', e).on('change keydown keyup', function (a, b, c) {
 						if (/[^a-fA-F0-9]/.test($(this).val())) {
 							$(this).val($(this).val().replace(/[^a-fA-F0-9]/, ''));
 						}
                     });
 
-                    $('.ui-colorpicker-hex-input', e).bind('change keyup', function () {
+                    $('.ui-colorpicker-hex-input', e).on('change keyup', function () {
                         // repeat here makes sure that the invalid input doesn't get parsed
                         inst.color = _parseHex($(this).val()).setAlpha(inst.color.getAlpha());
                         inst._change();
                     });
 
-                    $('.ui-colorpicker-hex-alpha', e).bind('change keydown keyup', function () {
+                    $('.ui-colorpicker-hex-alpha', e).on('change keydown keyup', function () {
 						if (/[^a-fA-F0-9]/.test($(this).val())) {
 							$(this).val($(this).val().replace(/[^a-fA-F0-9]/, ''));
 						}
                     });
 
-                    $('.ui-colorpicker-hex-alpha', e).bind('change keyup', function () {
+                    $('.ui-colorpicker-hex-alpha', e).on('change keyup', function () {
                         inst.color.setAlpha(parseInt($('.ui-colorpicker-hex-alpha', e).val(), 16) / 255);
                         inst._change();
                     });
@@ -1357,7 +1357,7 @@
                 this.init = function () {
                     part = $(html()).appendTo($('.ui-colorpicker-swatches-container', inst.dialog));
 
-                    $('.ui-colorpicker-swatch', part).click(function () {
+                    $('.ui-colorpicker-swatch', part).on( 'click', function () {
                         inst.color	= _parseColor($(this).css('background-color'));
                         inst._change();
                     });
@@ -1399,11 +1399,11 @@
                 this.init = function () {
                     part = $(html()).appendTo(inst.dialog);
 
-                    $('.ui-colorpicker-ok', part).button().click(function () {
+                    $('.ui-colorpicker-ok', part).button().on( 'click', function () {
                         inst.close();
                     });
 
-                    $('.ui-colorpicker-cancel', part).button().click(function () {
+                    $('.ui-colorpicker-cancel', part).button().on( 'click', function () {
                         inst.color = inst.currentColor.copy();
                         inst._change(inst.color.set);
                         inst.close();
@@ -1412,15 +1412,15 @@
                     //inst._getRegional('transparent')
                     $('.ui-colorpicker-buttonset', part).buttonset();
 
-                    $('.ui-colorpicker-special-color', part).click(function () {
+                    $('.ui-colorpicker-special-color', part).on( 'click', function () {
                         inst._change();
                     });
 
-                    $('#'+id_none, part).click(function () {
+                    $('#'+id_none, part).on( 'click', function () {
                         inst._change(false);
                     });
 
-                    $('#'+id_transparent, part).click(function () {
+                    $('#'+id_transparent, part).on( 'click', function () {
                         inst.color.setAlpha(0);
                         inst._change();
                     });
@@ -2112,7 +2112,7 @@
 				});
 
 				if (that.options.showOn === 'focus' || that.options.showOn === 'both') {
-					that.element.focus(function () {
+					that.element.on( 'focus', function () {
 						that.open();
 					});
 				}
@@ -2135,7 +2135,7 @@
 						that.button = $('<button type="button"></button>').html(that.image || that.options.buttonText).button();
 						that.image = that.image ? $('img', that.button).first() : null;
 					}
-					that.button.insertAfter(that.element).click(function () {
+					that.button.insertAfter(that.element).on( 'click', function () {
 						that[that.opened ? 'close' : 'open']();
 					});
 				}
@@ -2405,7 +2405,7 @@
 		},
 
 		destroy: function() {
-			this.element.unbind();
+			this.element.off();
 
 			if (this.image !== null) {
 				this.image.remove();
@@ -2535,7 +2535,7 @@
 
 		// This will be deprecated by jQueryUI 1.9 widget
 		_focusable: function (e) {
-			e.focus(function () {
+			e.on( 'focus', function () {
 				e.addClass("ui-state-focus");
 			}).blur(function () {
 				e.removeClass("ui-state-focus");
