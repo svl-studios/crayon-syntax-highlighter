@@ -23,7 +23,7 @@
 			var find_qt_urvanov_syntax_highlighter = setInterval( function() {
 				qt_urvanov_syntax_highlighter = $( base.sel ).first();
 				if ( typeof qt_urvanov_syntax_highlighter !== 'undefined' ) {
-					UrvanovSyntaxHighlighterTagEditor.on( base.sel );
+					UrvanovSyntaxHighlighterTagEditor.bind( base.sel );
 					clearInterval( find_qt_urvanov_syntax_highlighter );
 				}
 			}, 100 );
