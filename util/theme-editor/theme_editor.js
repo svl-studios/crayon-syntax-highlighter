@@ -500,7 +500,7 @@
             title = $('#urvanov-syntax-highlighter-theme-editor-name');
             info = $('#urvanov-syntax-highlighter-theme-editor-info');
             $('#urvanov-syntax-highlighter-editor-controls').tabs();
-            $('#urvanov-syntax-highlighter-editor-back').click(function () {
+            $('#urvanov-syntax-highlighter-editor-back').on( 'click', function () {
                 if (changed) {
                     admin.createDialog({
                         html: strings.discardConfirm,
@@ -513,7 +513,7 @@
                     showMain();
                 }
             });
-            $('#urvanov-syntax-highlighter-editor-save').click(base.save);
+            $('#urvanov-syntax-highlighter-editor-save').on( 'click', base.save);
 
             // Set up jQuery UI
             base.getAttributes().each(function () {

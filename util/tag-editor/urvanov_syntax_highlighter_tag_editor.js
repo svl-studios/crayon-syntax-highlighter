@@ -251,7 +251,7 @@
 
                 code.keyup(code_refresh);
                 code.change(code_refresh);
-                clear.click(function () {
+                clear.on( 'click', function () {
                     code.val('');
                     code.removeClass(gs.selected);
                     code.focus();
@@ -371,14 +371,14 @@
 
             // Unbind submit
             submit.unbind();
-            submit.click(function (e) {
+            submit.on( 'click', function (e) {
                 base.submitButton();
                 e.preventDefault();
             });
             base.setSubmitText(s.submit_add);
 
             cancel.unbind();
-            cancel.click(function (e) {
+            cancel.on( 'click', function (e) {
                 base.hide();
                 e.preventDefault();
             });
