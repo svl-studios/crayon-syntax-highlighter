@@ -1,14 +1,8 @@
 <?php
 
-
-
-
-
 if ( !class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 	class Urvanov_Syntax_Highlighter_Global {
-		
 
-		
 		// Turn on the error & exception handlers
 		//crayon_handler_on();
 		
@@ -138,18 +132,11 @@ if ( !class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 	}
 }
 
-
-
 // Switches
 define('URVANOV_SYNTAX_HIGHLIGHTER_DEBUG', FALSE);
-
 define('URVANOV_SYNTAX_HIGHLIGHTER_TAG_EDITOR', TRUE);
 define('URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR', TRUE);
-
-define('URVANOV_SYNTAX_HIGHLIGHTER_MINIFY', false);
-
-// Constants
-
+define('URVANOV_SYNTAX_HIGHLIGHTER_MINIFY', true);
 
 // These are overridden by functions since v1.1.1
 $URVANOV_SYNTAX_HIGHLIGHTER_VERSION = '1.1.1';
