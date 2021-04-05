@@ -1,4 +1,14 @@
 <?php
+/**
+ * Tag Editor WP Class
+ *
+ * @package   Crayon Syntax Highlighter
+ * @author    Fedor Urvanov, Aram Kocharyan
+ * @copyright Copyright 2013, Aram Kocharyan
+ * @link      https://urvanov.ru
+ */
+
+defined( 'ABSPATH' ) || exit;
 
 require_once( URVANOV_SYNTAX_HIGHLIGHTER_ROOT_PATH . 'class-urvanov-syntax-highlighter-settings.php' );
 
@@ -65,8 +75,8 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					'add_text'               => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_ADD_BUTTON_TEXT ),
 					'edit_text'              => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_EDIT_BUTTON_TEXT ),
 					'quicktag_text'          => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_QUICKTAG_BUTTON_TEXT ),
-					'submit_add'             => Urvanov_Syntax_Highlighter_Global::urvanov__( 'Add' ),
-					'submit_edit'            => Urvanov_Syntax_Highlighter_Global::urvanov__( 'Save' ),
+					'submit_add'             => esc_html__( 'Add', 'urvanov-syntax-highlighter' ),
+					'submit_edit'            => esc_html__( 'Save', 'urvanov-syntax-highlighter' ),
 					'bar'                    => '#urvanov-syntax-highlighter-te-bar',
 					'bar_content'            => '#urvanov-syntax-highlighter-te-bar-content',
 					'extensions'             => Urvanov_Syntax_Highlighter_Resources::langs()->extensions_inverted(),
@@ -75,7 +85,7 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 	}
 
 	public static function enqueue_resources() {
-		global $URVANOV_SYNTAX_HIGHLIGHTER_VERSION;
+		global $urvanov_syntax_highlighter_version;
 		self::init_settings();
 		if ( URVANOV_SYNTAX_HIGHLIGHTER_MINIFY ) {
 			wp_deregister_script( 'urvanov_syntax_highlighter_js' );
@@ -88,12 +98,12 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					'wp-blocks',
 					'wp-components',
 					'wp-html-entities',
-			), $URVANOV_SYNTAX_HIGHLIGHTER_VERSION );
+			), $urvanov_syntax_highlighter_version );
 			Urvanov_Syntax_Highlighter_Settings_WP::init_js_settings();
 			wp_localize_script( 'urvanov_syntax_highlighter_js', 'UrvanovSyntaxHighlighterTagEditorSettings', self::$settings );
 		} else {
-			wp_enqueue_script( 'urvanov_syntax_highlighter_colorbox_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_COLORBOX_JS, __FILE__ ), array( 'jquery' ), $URVANOV_SYNTAX_HIGHLIGHTER_VERSION );
-			wp_enqueue_style( 'urvanov_syntax_highlighter_colorbox_css', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_COLORBOX_CSS, __FILE__ ), array(), $URVANOV_SYNTAX_HIGHLIGHTER_VERSION );
+			wp_enqueue_script( 'urvanov_syntax_highlighter_colorbox_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_COLORBOX_JS, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version );
+			wp_enqueue_style( 'urvanov_syntax_highlighter_colorbox_css', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_COLORBOX_CSS, __FILE__ ), array(), $urvanov_syntax_highlighter_version );
 			wp_enqueue_script( 'urvanov_syntax_highlighter_te_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_TAG_EDITOR_JS, __FILE__ ), array(
 					'urvanov_syntax_highlighter_util_js',
 					'urvanov_syntax_highlighter_colorbox_js',
@@ -104,11 +114,11 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					'wp-blocks',
 					'wp-components',
 					'wp-html-entities',
-			), $URVANOV_SYNTAX_HIGHLIGHTER_VERSION );
+			), $urvanov_syntax_highlighter_version );
 			wp_enqueue_script( 'urvanov_syntax_highlighter_qt_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_QUICKTAGS_JS, __FILE__ ), array(
 					'quicktags',
 					'urvanov_syntax_highlighter_te_js',
-			), $URVANOV_SYNTAX_HIGHLIGHTER_VERSION, true );
+			), $urvanov_syntax_highlighter_version, true );
 			wp_localize_script( 'urvanov_syntax_highlighter_te_js', 'UrvanovSyntaxHighlighterTagEditorSettings', self::$settings );
 			Urvanov_Syntax_Highlighter_Settings_WP::other_scripts();
 		}
@@ -206,57 +216,57 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 				<div id="urvanov-syntax-highlighter-te-bar-content">
 					<div id="urvanov-syntax-highlighter-te-title">Title</div>
 					<div id="urvanov-syntax-highlighter-te-controls">
-						<a id="urvanov-syntax-highlighter-te-ok" href="#"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'OK' ); ?></a> <span
+						<a id="urvanov-syntax-highlighter-te-ok" href="#"><?php esc_html_e( 'OK', 'urvanov-syntax-highlighter' ); ?></a> <span
 								class="urvanov-syntax-highlighter-te-seperator">|</span> <a id="urvanov-syntax-highlighter-te-cancel"
-																							href="#"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Cancel' ); ?></a>
+																							href="#"><?php esc_html_e( 'Cancel', 'urvanov-syntax-highlighter' ); ?></a>
 					</div>
 				</div>
 			</div>
 
 			<table id="urvanov-syntax-highlighter-te-table" class="describe">
 				<tr class="urvanov-syntax-highlighter-tr-center">
-					<th><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Title' ); ?>
+					<th><?php esc_html_e( 'Title', 'urvanov-syntax-highlighter' ); ?>
 					</th>
-					<td class="urvanov-syntax-highlighter-nowrap"><?php self::textbox( 'title', array( 'placeholder' => Urvanov_Syntax_Highlighter_Global::urvanov__( 'A short description' ) ) ); ?>
+					<td class="urvanov-syntax-highlighter-nowrap"><?php self::textbox( 'title', array( 'placeholder' => esc_html__( 'A short description', 'urvanov-syntax-highlighter' ) ) ); ?>
 						<span id="urvanov-syntax-highlighter-te-sub-section"> <?php self::checkbox( 'inline' ); ?>
-                            <span class="urvanov-syntax-highlighter-te-section"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Inline' ); ?> </span>
+                            <span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Inline', 'urvanov-syntax-highlighter' ); ?> </span>
 			</span> <span id="urvanov-syntax-highlighter-te-sub-section"> <?php self::checkbox( 'highlight' ); ?>
-                            <span class="urvanov-syntax-highlighter-te-section"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( "Don't Highlight" ); ?>
+                            <span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( "Don't Highlight", 'urvanov-syntax-highlighter' ); ?>
 				</span>
 			</span></td>
 				</tr>
 				<tr class="urvanov-syntax-highlighter-tr-center">
-					<th><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Language' ); ?>
+					<th><?php esc_html_e( 'Language', 'urvanov-syntax-highlighter' ); ?>
 					</th>
 					<td class="urvanov-syntax-highlighter-nowrap"><?php self::select_resource( 'lang', $langs, $curr_lang ); ?>
-						<span class="urvanov-syntax-highlighter-te-section"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Line Range' ); ?> </span>
-						<?php self::textbox( 'range', array( 'placeholder' => Urvanov_Syntax_Highlighter_Global::urvanov__( '(e.g. 3-5 or 3)' ) ) ); ?>
-						<span class="urvanov-syntax-highlighter-te-section"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Marked Lines' ); ?> </span>
-						<?php self::textbox( 'mark', array( 'placeholder' => Urvanov_Syntax_Highlighter_Global::urvanov__( '(e.g. 1,2,3-5)' ) ) ); ?>
+						<span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Line Range', 'urvanov-syntax-highlighter' ); ?> </span>
+						<?php self::textbox( 'range', array( 'placeholder' => esc_html__( '(e.g. 3-5 or 3)', 'urvanov-syntax-highlighter' ) ) ); ?>
+						<span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Marked Lines', 'urvanov-syntax-highlighter' ); ?> </span>
+						<?php self::textbox( 'mark', array( 'placeholder' => esc_html__( '(e.g. 1,2,3-5)', 'urvanov-syntax-highlighter' ) ) ); ?>
 					</td>
 				</tr>
 				<tr class="urvanov-syntax-highlighter-tr-center" style="text-align: center;">
 					<th>
 						<div>
-							<?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Code' ); ?>
+							<?php esc_html_e( 'Code', 'urvanov-syntax-highlighter' ); ?>
 						</div>
 						<input type="button" id="urvanov-syntax-highlighter-te-clear"
-							   class="secondary-primary" value="<?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Clear' ); ?>"
+							   class="secondary-primary" value="<?php esc_html_e( 'Clear', 'urvanov-syntax-highlighter' ); ?>"
 							   name="clear"/>
 					</th>
 					<td><textarea id="urvanov-syntax-highlighter-code" name="code"
-								  placeholder="<?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Paste your code here, or type it in manually.' ); ?>"></textarea>
+								  placeholder="<?php esc_html_e( 'Paste your code here, or type it in manually.', 'urvanov-syntax-highlighter' ); ?>"></textarea>
 					</td>
 				</tr>
 				<tr class="urvanov-syntax-highlighter-tr-center">
-					<th id="urvanov-syntax-highlighter-url-th"><?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'URL' ); ?>
+					<th id="urvanov-syntax-highlighter-url-th"><?php esc_html_e( 'URL', 'urvanov-syntax-highlighter' ); ?>
 					</th>
-					<td><?php self::textbox( 'url', array( 'placeholder' => Urvanov_Syntax_Highlighter_Global::urvanov__( 'Relative local path or absolute URL' ) ) ); ?>
+					<td><?php self::textbox( 'url', array( 'placeholder' => esc_html__( 'Relative local path or absolute URL', 'urvanov-syntax-highlighter' ) ) ); ?>
 						<div id="urvanov-syntax-highlighter-te-url-info" class="urvanov-syntax-highlighter-te-info">
 							<?php
-							Urvanov_Syntax_Highlighter_Global::urvanov_e( "If the URL fails to load, the code above will be shown instead. If no code exists, an error is shown." );
+							esc_html_e( "If the URL fails to load, the code above will be shown instead. If no code exists, an error is shown.", 'urvanov-syntax-highlighter' );
 							echo ' ';
-							printf( Urvanov_Syntax_Highlighter_Global::urvanov__( 'If a relative local path is given it will be appended to %s - which is defined in %sUrvanovSyntaxHighlighter &gt; Settings &gt; Files%s.' ), '<span class="urvanov-syntax-highlighter-te-quote">' . get_home_url() . '/' . Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::LOCAL_PATH ) . '</span>', '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
+							printf( esc_html__( 'If a relative local path is given it will be appended to %s - which is defined in %sUrvanovSyntaxHighlighter &gt; Settings &gt; Files%s.', 'urvanov-syntax-highlighter' ), '<span class="urvanov-syntax-highlighter-te-quote">' . get_home_url() . '/' . Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::LOCAL_PATH ) . '</span>', '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
 							?>
 						</div>
 					</td>
@@ -278,16 +288,16 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 						<hr/>
 						<div>
 							<h2 class="urvanov-syntax-highlighter-te-heading">
-								<?php Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Settings' ); ?>
+								<?php esc_html_e( 'Settings', 'urvanov-syntax-highlighter' ); ?>
 							</h2>
 						</div>
 						<div id="urvanov-syntax-highlighter-te-settings-info" class="urvanov-syntax-highlighter-te-info">
 							<?php
-							Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Change the following settings to override their global values.' );
+							esc_html_e( 'Change the following settings to override their global values.', 'urvanov-syntax-highlighter' );
 							echo ' <span class="', Urvanov_Syntax_Highlighter_Settings::SETTING_CHANGED, '">';
-							Urvanov_Syntax_Highlighter_Global::urvanov_e( 'Only changes (shown yellow) are applied.' );
+							esc_html_e( 'Only changes (shown yellow) are applied.', 'urvanov-syntax-highlighter' );
 							echo '</span><br/>';
-							echo sprintf( Urvanov_Syntax_Highlighter_Global::urvanov__( 'Future changes to the global settings under %sUrvanovSyntaxHighlighter &gt; Settings%s won\'t affect overridden settings.' ), '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
+							echo sprintf( esc_html__( 'Future changes to the global settings under %sUrvanovSyntaxHighlighter &gt; Settings%s won\'t affect overridden settings.', 'urvanov-syntax-highlighter' ), '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
 							?>
 						</div>
 					</td>
@@ -295,7 +305,7 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 				<?php
 				$sections = array( 'Theme', 'Font', 'Metrics', 'Toolbar', 'Lines', 'Code' );
 				foreach ( $sections as $section ) {
-					echo '<tr><th>', Urvanov_Syntax_Highlighter_Global::urvanov__( $section ), '</th><td>';
+					echo '<tr><th>', esc_html__( $section, 'urvanov-syntax-highlighter' ), '</th><td>';
 					call_user_func( 'Urvanov_Syntax_Highlighter_Settings_WP::' . strtolower( $section ), true );
 					echo '</td></tr>';
 				}
