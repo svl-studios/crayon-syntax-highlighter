@@ -309,12 +309,12 @@ class Urvanov_Syntax_Highlighter {
 	/**
 	 * Used to format the glue in between code when finding mixed languages.
 	 *
-	 * @param string|string[] $glue Code.
+	 * @param string|string[] $glue      Code.
 	 * @param bool            $highlight Language.
 	 *
-	 * @return array|mixed|string|string[]|null
+	 * @return array|string|string[]|null
 	 */
-	private function format_glue( $glue, $highlight = true ) {
+	private function format_glue( $glue, bool $highlight ) {
 		// TODO $highlight.
 
 		return Urvanov_Syntax_Highlighter_Formatter::format_code( $glue, $this->language, $this, $highlight );
@@ -352,9 +352,9 @@ class Urvanov_Syntax_Highlighter {
 	 *
 	 * @param string $code Code string.
 	 *
-	 * @return string
+	 * @return mixed
 	 */
-	public function code( $code = null ): string {
+	public function code( $code = null ) {
 		if ( null === $code ) {
 			return $this->code;
 		} else {
@@ -369,10 +369,13 @@ class Urvanov_Syntax_Highlighter {
 			}
 
 			$before = $this->setting_val( Urvanov_Syntax_Highlighter_Settings::WHITESPACE_BEFORE );
+
 			if ( $before > 0 ) {
 				$code = str_repeat( "\n", $before ) . $code;
 			}
+
 			$after = $this->setting_val( Urvanov_Syntax_Highlighter_Settings::WHITESPACE_AFTER );
+
 			if ( $after > 0 ) {
 				$code = $code . str_repeat( "\n", $after );
 			}
@@ -450,6 +453,8 @@ class Urvanov_Syntax_Highlighter {
 		if ( ! UrvanovSyntaxHighlighterUtil::str( $this->title, $title ) ) {
 			return $this->title;
 		}
+
+		return '';
 	}
 
 	/**
@@ -463,6 +468,8 @@ class Urvanov_Syntax_Highlighter {
 		if ( ! UrvanovSyntaxHighlighterUtil::num( $this->line_count, $line_count ) ) {
 			return $this->line_count;
 		}
+
+		return 0;
 	}
 
 	/**
@@ -551,6 +558,8 @@ class Urvanov_Syntax_Highlighter {
 		} else {
 			$this->id = strval( $id );
 		}
+
+		return '';
 	}
 
 	/**
@@ -578,9 +587,9 @@ class Urvanov_Syntax_Highlighter {
 	 *
 	 * @param mixed $mixed Settings.
 	 *
-	 * @return bool|null
+	 * @return mixed
 	 */
-	public function settings( $mixed = null ): ?bool {
+	public function settings( $mixed = null ) {
 		if ( null === $this->settings ) {
 			$this->settings = Urvanov_Syntax_Highlighter_Global_Settings::get_obj();
 		}
@@ -609,9 +618,9 @@ class Urvanov_Syntax_Highlighter {
 	 * @param null|string $name Name.
 	 * @param bool        $default_return Default.
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
-	public function setting_val( $name = null, $default_return = true ): bool {
+	public function setting_val( $name = null, $default_return = true ) {
 		$setting = $this->settings( $name );
 
 		if ( is_string( $name ) && $setting ) {

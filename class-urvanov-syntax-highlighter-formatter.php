@@ -16,9 +16,10 @@ require_once URVANOV_SYNTAX_HIGHLIGHTER_SETTINGS_PHP;
 require_once URVANOV_SYNTAX_HIGHLIGHTER_PARSER_PHP;
 require_once URVANOV_SYNTAX_HIGHLIGHTER_THEMES_PHP;
 
+/*	Manages formatting the html with html and css. */
+
 /**
- * Manages formatting the html with html and css.
- * Class Urvanov_Syntax_Highlighter_Formatter (Old name: CrayonFormatter).
+ * Class Urvanov_Syntax_Highlighter_Formatter
  */
 class Urvanov_Syntax_Highlighter_Formatter {
 
@@ -29,38 +30,38 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	 */
 
 	/**
-	 * Element array.
+	 * Elements.
 	 *
 	 * @var array
 	 */
 	private static $elements = array();
 
 	/**
-	 * Current delimiter.
+	 * Current urvanovSyntaxHighlighter undergoing delimiter replace.
 	 *
-	 * @var string
+	 * @var null
 	 */
-	private static $curr = '';
-
-	/** Delimiters.
-	 *
-	 * @var array
-	 */
-	private static $delimiters = array();
+	private static $curr;
 
 	/**
-	 * Delimiter RegEx.
+	 * Delimiters.
 	 *
-	 * @var string
+	 * @var null
 	 */
-	private static $delim_regex = '';
+	private static $delimiters;
 
 	/**
-	 * Delimiter pieces.
+	 * Delim RegEx.
 	 *
-	 * @var array
+	 * @var null
 	 */
-	private static $delim_pieces = array();
+	private static $delim_regex;
+
+	/** Delim pieces.
+	 *
+	 * @var null
+	 */
+	private static $delim_pieces;
 
 	/**
 	 * Urvanov_Syntax_Highlighter_Formatter constructor.
@@ -70,21 +71,21 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Formats the code using the parsed language elements.
 	 *
-	 * @param string $code     Code.
-	 * @param string $language Language.
-	 * @param object $hl       Highlighter.
+	 * @param mixed $code Code.
+	 * @param mixed $language Language.
+	 * @param null  $hl Highlighter.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function format_code( string $code, string $language, $hl = null ) {
+	public static function format_code( $code, $language, $hl = null ) {
 
 		// Ensure the language is defined.
 		if ( null !== $language && $hl->is_highlighted() ) {
 			$code = self::clean_code( $code, false, false, false, true );
 
 			/**
-			 * Perform the replace on the code using the regex, pass the captured matches
-			 * for formatting before they are replaced.
+			 * Perform the replace on the code using the regex, pass the captured matches for
+			 * formatting before they are replaced
 			 */
 			try {
 				Urvanov_Syntax_Highlighter_Parser::parse( $language->id() );
@@ -100,7 +101,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 				}
 			} catch ( Exception $e ) {
 				$error = 'An error occured when formatting: ' . $e->message();
-				$hl ? $hl->log( $error ) : UrvanovSyntaxHighlighterLog::syslog( $error );
+				isset( $hl ) ? $hl->log( $error ) : UrvanovSyntaxHighlighterLog::syslog( $error );
 			}
 
 			return $code;
@@ -132,7 +133,6 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			if ( $captured_element->name() === Urvanov_Syntax_Highlighter_Parser::URVANOV_SYNTAX_HIGHLIGHTER_ELEMENT ) {
 				return $code; // Return as is.
 			} else {
-
 				// Separate lines and add css class, keep extended class last to allow overriding.
 				$fallback_css = Urvanov_Syntax_Highlighter_Langs::known_elements( $captured_element->fallback() );
 				$element_css  = $captured_element->css();
@@ -141,7 +141,6 @@ class Urvanov_Syntax_Highlighter_Formatter {
 				return self::split_lines( $code, $css );
 			}
 		} else {
-
 			// All else fails, return the match.
 			return $matches[0];
 		}
@@ -150,14 +149,14 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Prints the formatted code, option to override the line numbers with a custom string.
 	 *
-	 * @param object $hl           Highlighter.
-	 * @param string $code         Code string.
+	 * @param object $hl Highlighter.
+	 * @param mixed  $code COde.
 	 * @param bool   $line_numbers Line numbers.
-	 * @param bool   $print        Print.
+	 * @param bool   $print Print.
 	 *
 	 * @return string
 	 */
-	public static function print_code( $hl = null, string $code, $line_numbers = true, $print = true ): string {
+	public static function print_code( $hl = null, $code = '', $line_numbers = true, $print = true ): string {
 		global $urvanov_syntax_highlighter_version;
 
 		// We can print either block or inline, inline is treated differently, factor out common stuff here.
@@ -175,7 +174,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 		// Unique ID for this instance of UrvanovSyntaxHighlighter.
 		$uid = 'urvanov-syntax-highlighter-' . $hl->id();
 
-		// Print theme id
+		// Print theme id.
 		// We make the assumption that the id is correct (checked in class-urvanov-syntax-highlighter-wp).
 		$theme_id        = $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::THEME );
 		$theme_id_dashed = UrvanovSyntaxHighlighterUtil::space_to_hyphen( $theme_id );
@@ -201,7 +200,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 		if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::FONT_SIZE_ENABLE ) ) {
 			$_font_size   = $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::FONT_SIZE );
 			$font_size    = intval( $_font_size ) . 'px !important;';
-			$_line_height = $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::LINE_HEIGHT );
+			$_line_height = intval( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::LINE_HEIGHT ) );
 
 			// Don't allow line height to be less than font size.
 			$line_height    = ( $_line_height > $_font_size ? $_line_height : $_font_size ) . 'px !important;';
@@ -220,7 +219,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			}
 		} elseif ( ! $hl->is_inline() ) {
 			$_font_size = Urvanov_Syntax_Highlighter_Global_Settings::get( Urvanov_Syntax_Highlighter_Settings::FONT_SIZE );
-			if ( false !== ( $_font_size ) ) {
+			if ( false !== $_font_size ) {
 				$font_size   = $_font_size->def() . 'px !important;';
 				$line_height = ( $_font_size->def() * 1.4 ) . 'px !important;';
 			}
@@ -284,6 +283,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 					$marked_num  .= ' crayon-top';
 					$marked_line .= ' crayon-top';
 				}
+
 				// Single lines are both the top and bottom of the multiple marked lines.
 				if ( ! in_array( $i + 1, $marked_lines, true ) ) {
 					$marked_num  .= ' crayon-bottom';
@@ -302,6 +302,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 				$striped_num  = '';
 				$striped_line = '';
 			}
+
 			// Generate the lines.
 			$line_num    = $start_line + $i - 1;
 			$line_id     = $uid . '-' . $line_num;
@@ -310,6 +311,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 				$print_nums .= '<div class="crayon-num' . $marked_num . $striped_num . '" data-line="' . $line_id . '">' . $line_num . '</div>';
 			}
 		}
+
 		// If $line_numbers is a string, display it.
 		if ( is_string( $line_numbers ) && ! empty( $line_numbers ) ) {
 			$print_nums .= '<div class="crayon-num">' . $line_numbers . '</div>';
@@ -338,7 +340,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 					if ( $hl->language()->id() === Urvanov_Syntax_Highlighter_Langs::DEFAULT_LANG ) {
 						break;
 					}
-					// fall through.
+					// Falls through.
 				case 1:
 					$print_lang = '<span class="crayon-language">' . $lang . '</span>';
 					break;
@@ -401,27 +403,27 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			$buttons = array();
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::NUMS_TOGGLE ) ) {
-				$buttons['nums'] = esc_html__( 'Toggle Line Numbers', 'urvanov-syntax-highlighter' );
+				$buttons['nums'] = esc_html__( 'Toggle Line Numbers', 'crayon-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::PLAIN ) && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::PLAIN_TOGGLE ) ) {
-				$buttons['plain'] = esc_html__( 'Toggle Plain Code', 'urvanov-syntax-highlighter' );
+				$buttons['plain'] = esc_html__( 'Toggle Plain Code', 'crayon-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::WRAP_TOGGLE ) ) {
-				$buttons['wrap'] = esc_html__( 'Toggle Line Wrap', 'urvanov-syntax-highlighter' );
+				$buttons['wrap'] = esc_html__( 'Toggle Line Wrap', 'crayon-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::EXPAND_TOGGLE ) ) {
-				$buttons['expand'] = esc_html__( 'Expand Code', 'urvanov-syntax-highlighter' );
+				$buttons['expand'] = esc_html__( 'Expand Code', 'crayon-syntax-highlighter' );
 			}
 
 			if ( ! $touch && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::PLAIN ) && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::COPY ) ) {
-				$buttons['copy'] = esc_html__( 'Copy', 'urvanov-syntax-highlighter' );
+				$buttons['copy'] = esc_html__( 'Copy', 'crayon-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::POPUP ) ) {
-				$buttons['popup'] = esc_html__( 'Open Code In New Window', 'urvanov-syntax-highlighter' );
+				$buttons['popup'] = esc_html__( 'Open Code In New Window', 'crayon-syntax-highlighter' );
 			}
 
 			$buttons_str = '';
@@ -440,7 +442,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			 * The table is rendered invisible by CSS and enabled with JS when asked to. If JS
 			 * is not enabled or fails, the toolbar won't work so there is no point to display it.
 			 */
-			$print_plus = $hl->is_mixed() && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::SHOW_ALTERNATE ) ? '<span class="urvanov-syntax-highlighter-mixed-highlight" title="' . esc_html__( 'Contains Mixed Languages' ) . '"></span>' : '';
+			$print_plus = $hl->is_mixed() && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::SHOW_ALTERNATE ) ? '<span class="urvanov-syntax-highlighter-mixed-highlight" title="' . Urvanov_Syntax_Highlighter_Global::urvanov__( 'Contains Mixed Languages' ) . '"></span>' : '';
 			$buttons    = $print_plus . $buttons_str . $print_lang;
 			$toolbar    = '
 			<div class="crayon-toolbar" data-settings="' . $toolbar_settings . '" style="' . $toolbar_style . '">' . $print_title . '
@@ -476,8 +478,9 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			$readonly           = $touch ? '' : 'readonly';
 			$print_plain        = '';
 			$print_plain_button = '';
-			$textwrap           = ! $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::WRAP ) ? 'wrap="soft"' : '';
-			$print_plain        = '<textarea ' . esc_textarea( $textwrap ) . ' class="urvanov-syntax-highlighter-plain print-no" data-settings="' . esc_attr( $plain_settings ) . '" ' . $readonly . ' style="' . $pre_style . ' ' . $font_style . '">' . "\n" . self::clean_code( $hl->code() ) . '</textarea>';
+
+			$textwrap    = ! $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::WRAP ) ? 'wrap="soft"' : '';
+			$print_plain = '<textarea ' . $textwrap . ' class="urvanov-syntax-highlighter-plain print-no" data-settings="' . $plain_settings . '" ' . $readonly . ' style="' . $pre_style . ' ' . $font_style . '">' . "\n" . self::clean_code( $hl->code() ) . '</textarea>';
 		} else {
 			$print_plain    = '';
 			$plain_settings = '';
@@ -517,14 +520,16 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			$height_style = self::dimension_style( $hl, Urvanov_Syntax_Highlighter_Settings::HEIGHT );
 
 			// XXX Only set height for main, not code (if toolbar always visible, code will cover main).
-			if ( $hl->setting_index( Urvanov_Syntax_Highlighter_Settings::HEIGHT_UNIT ) === 0 ) {
+			if ( 0 === $hl->setting_index( Urvanov_Syntax_Highlighter_Settings::HEIGHT_UNIT ) ) {
 				$main_style .= $height_style;
 			}
 		}
+
 		if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::WIDTH_SET ) ) {
 			$width_style = self::dimension_style( $hl, Urvanov_Syntax_Highlighter_Settings::WIDTH );
 			$code_style .= $width_style;
-			if ( $hl->setting_index( Urvanov_Syntax_Highlighter_Settings::WIDTH_UNIT ) === 0 ) {
+
+			if ( 0 === $hl->setting_index( Urvanov_Syntax_Highlighter_Settings::WIDTH_UNIT ) ) {
 				$main_style .= $width_style;
 			}
 		}
@@ -565,6 +570,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 		} else {
 			$clear_style = '';
 		}
+
 		$code_style .= $clear_style;
 
 		// Determine if operating system is mac.
@@ -586,7 +592,6 @@ class Urvanov_Syntax_Highlighter_Formatter {
 				</td>';
 		}
 
-		// XXX.
 		$output .= '
 						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="' . $font_style . ' ' . $pre_style . '">' . $print_code . '</div></td>
 					</tr>
@@ -597,8 +602,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 		// Debugging stats.
 		$runtime = $hl->runtime();
 		if ( ! $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::DISABLE_RUNTIME ) && is_array( $runtime ) && ! empty( $runtime ) ) {
-			$output = '<!-- Urvanov Syntax Highlighter v' . $urvanov_syntax_highlighter_version . ' -->'
-						. URVANOV_SYNTAX_HIGHLIGHTER_NL . $output . URVANOV_SYNTAX_HIGHLIGHTER_NL . '<!-- ';
+			$output = '<!-- Urvanov Syntax Highlighter v' . esc_html( $urvanov_syntax_highlighter_version ) . ' -->' . URVANOV_SYNTAX_HIGHLIGHTER_NL . $output . URVANOV_SYNTAX_HIGHLIGHTER_NL . '<!-- ';
 			foreach ( $hl->runtime() as $type => $time ) {
 				$output .= '[' . $type . ': ' . sprintf( '%.4f seconds', $time ) . '] ';
 			}
@@ -608,22 +612,23 @@ class Urvanov_Syntax_Highlighter_Formatter {
 		// Determine whether to print to screen or save.
 		if ( $print ) {
 			echo $output; // phpcs:ignore WordPress.Security.EscapeOutput
+			return '';
 		} else {
 			return $output;
 		}
 	}
 
 	/**
-	 * Print Error.
+	 * Print error.
 	 *
 	 * @param object $hl Highlighter.
-	 * @param mixed  $error Error.
+	 * @param string $error Error.
 	 * @param string $line_numbers Line numbers.
-	 * @param bool   $print Print.
+	 * @param bool   $print Is print.
 	 *
 	 * @return string|void
 	 */
-	public static function print_error( $hl = null, $error, $line_numbers = 'ERROR', $print = true ) {
+	public static function print_error( $hl = null, $error = '', $line_numbers = 'ERROR', $print = true ) {
 		if ( get_class( $hl ) !== URVANOV_SYNTAX_HIGHLIGHTER_HIGHLIGHTER ) {
 			return;
 		}
@@ -641,13 +646,13 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Format mixed code.
 	 *
-	 * @param string $code     Code.
+	 * @param mixed  $code Code.
 	 * @param string $language Language.
-	 * @param object $hl       Highlighter.
+	 * @param object $hl Highlighter.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function format_mixed_code( string $code, string $language, $hl = null ) {
+	public static function format_mixed_code( $code, $language = '', $hl = null ) {
 		self::$curr         = $hl;
 		self::$delim_pieces = array();
 
@@ -674,21 +679,21 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	}
 
 	/**
-	 * Delimit to Internal.
+	 * Delim to internal.
 	 *
-	 * @param array $matches Matches.
+	 * @param array $matches RegEx matches.
 	 *
 	 * @return mixed|string
 	 */
 	public static function delim_to_internal( array $matches ) {
-
 		// Mark as mixed so we can show (+).
 		self::$curr->is_mixed( true );
 		$capture_group  = count( $matches ) - 2;
 		$capture_groups = array_keys( self::$delimiters );
 		$lang_id        = $capture_groups[ $capture_group ];
-		$lang           = Urvanov_Syntax_Highlighter_Resources::langs()->get( $lang_id );
-		if ( null === $lang ) {
+
+		$lang = Urvanov_Syntax_Highlighter_Resources::langs()->get( $lang_id );
+		if ( ( null === $lang ) ) {
 			return $matches[0];
 		}
 
@@ -703,7 +708,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Internal to code.
 	 *
-	 * @param array $matches RegEx matches.
+	 * @param array $matches Matches.
 	 *
 	 * @return mixed
 	 */
@@ -714,15 +719,15 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Prepares code for formatting.
 	 *
-	 * @param string $code   Code.
-	 * @param bool   $escape Excape.
-	 * @param false  $spaces Spaces.
-	 * @param false  $tabs   Tabs.
-	 * @param false  $lines  LInes.
+	 * @param string $code Code.
+	 * @param bool   $escape Escape.
+	 * @param bool   $spaces Spaces.
+	 * @param bool   $tabs Tabs.
+	 * @param bool   $lines Lines.
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function clean_code( string $code, $escape = true, $spaces = false, $tabs = false, $lines = false ) {
+	public static function clean_code( $code = '', $escape = true, $spaces = false, $tabs = false, $lines = false ) {
 		if ( empty( $code ) ) {
 			return $code;
 		}
@@ -752,12 +757,12 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Converts the code to entities and wraps in a <pre><code></code></pre>.
 	 *
-	 * @param string $code    Code.
+	 * @param string $code Code.
 	 * @param bool   $encoded Encoded.
 	 *
 	 * @return string
 	 */
-	public static function plain_code( string $code, $encoded = true ): string {
+	public static function plain_code( $code = '', $encoded = true ): string {
 		if ( is_array( $code ) ) {
 
 			// When used as a preg_replace_callback.
@@ -778,12 +783,12 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Split lines.
 	 *
-	 * @param string $code  Code.
+	 * @param string $code Code.
 	 * @param string $class Class.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function split_lines( string $code, string $class ) {
+	public static function split_lines( $code = '', $class = '' ) {
 		$code  = self::clean_code( $code, true, true, true );
 		$class = preg_replace( '#(\w+)#m', 'crayon-$1', $class );
 
@@ -793,12 +798,12 @@ class Urvanov_Syntax_Highlighter_Formatter {
 	/**
 	 * Dimension style.
 	 *
-	 * @param object $hl   Highlighter.
+	 * @param object $hl Highlighter.
 	 * @param string $name Name.
 	 *
 	 * @return string
 	 */
-	private static function dimension_style( $hl = null, string $name ): string {
+	private static function dimension_style( $hl = null, $name = '' ): string {
 		$mode = '';
 		$unit = '';
 
@@ -831,6 +836,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 		}
 
 		$dim_mode .= $name;
+
 		if ( false !== $unit ) {
 			switch ( $unit ) {
 				case 0:

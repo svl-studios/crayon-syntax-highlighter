@@ -95,9 +95,9 @@ if ( ! class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 		 * @param array  $array Array...really tho?.
 		 * @param mixed  $info Info.
 		 *
-		 * @return bool
+		 * @return mixed
 		 */
-		public static function set_info_key( string $key, array $array, &$info ): bool {
+		public static function set_info_key( string $key, array $array, &$info ) {
 			if ( array_key_exists( $key, $array ) ) {
 				$info = $array[ $key ];
 			} else {
@@ -182,7 +182,7 @@ $urvanov_syntax_highlighter_author_site = 'https://urvanov.ru';
 $urvanov_syntax_highlighter_donate      = 'https://money.yandex.ru/to/41001288941320';
 $urvanov_syntax_highlighter_website     = 'https://github.com/urvanov-ru/crayon-syntax-highlighter';
 $urvanov_syntax_highlighter_email       = 'fedor@urvanov.ru';
-$urvanov_syntax_highlighter_twitter     = 'http://twitter.com/crayonsyntax';
+$urvanov_syntax_highlighter_twitter     = 'https://twitter.com/crayonsyntax';
 $urvanov_syntax_highlighter_git         = 'https://github.com/urvanov-ru/crayon-syntax-highlighter';
 $urvanov_syntax_highlighter_plugin_wp   = 'https://wordpress.org/plugins/urvanov-syntax-highlighter/';
 

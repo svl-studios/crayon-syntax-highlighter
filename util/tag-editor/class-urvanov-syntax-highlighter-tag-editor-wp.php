@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-require_once( URVANOV_SYNTAX_HIGHLIGHTER_ROOT_PATH . 'class-urvanov-syntax-highlighter-settings.php' );
+require_once URVANOV_SYNTAX_HIGHLIGHTER_ROOT_PATH . 'class-urvanov-syntax-highlighter-settings.php';
 
 class UrvanovSyntaxHighlighterTagEditorWP {
 
@@ -26,8 +26,8 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 				add_action( 'admin_print_scripts-post.php', 'UrvanovSyntaxHighlighterTagEditorWP::enqueue_resources' );
 				add_filter( 'tiny_mce_before_init', 'UrvanovSyntaxHighlighterTagEditorWP::init_tinymce' );
 				// Must come after
-				add_action( "admin_print_scripts-post-new.php", 'Urvanov_Syntax_Highlighter_Settings_WP::init_js_settings' );
-				add_action( "admin_print_scripts-post.php", 'Urvanov_Syntax_Highlighter_Settings_WP::init_js_settings' );
+				add_action( 'admin_print_scripts-post-new.php', 'Urvanov_Syntax_Highlighter_Settings_WP::init_js_settings' );
+				add_action( 'admin_print_scripts-post.php', 'Urvanov_Syntax_Highlighter_Settings_WP::init_js_settings' );
 				self::addbuttons();
 			} elseif ( Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_FRONT ) ) {
 				// XXX This will always need to enqueue, but only runs on front end
@@ -43,43 +43,43 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 		if ( ! self::$settings ) {
 			// Add settings
 			self::$settings = array(
-					'home_url'               => home_url(),
-					'css'                    => 'urvanov-syntax-highlighter-te',
-					'css_selected'           => 'urvanov-syntax-highlighter-selected',
-					'code_css'               => '#urvanov-syntax-highlighter-code',
-					'url_css'                => '#urvanov-syntax-highlighter-url',
-					'url_info_css'           => '#urvanov-syntax-highlighter-te-url-info',
-					'lang_css'               => '#urvanov-syntax-highlighter-lang',
-					'title_css'              => '#urvanov-syntax-highlighter-title',
-					'mark_css'               => '#urvanov-syntax-highlighter-mark',
-					'range_css'              => '#urvanov-syntax-highlighter-range',
-					'inline_css'             => 'urvanov-syntax-highlighter-inline',
-					'inline_hide_css'        => 'urvanov-syntax-highlighter-hide-inline',
-					'inline_hide_only_css'   => 'urvanov-syntax-highlighter-hide-inline-only',
-					'hl_css'                 => '#urvanov-syntax-highlighter-highlight',
-					'switch_html'            => '#content-html',
-					'switch_tmce'            => '#content-tmce',
-					'tinymce_button_generic' => '.mce-btn',
-					'tinymce_button'         => 'a.mce_urvanov_syntax_highlighter_tinymce,.mce-i-urvanov_syntax_highlighter_tinymce',
-					'tinymce_button_unique'  => 'mce_urvanov_syntax_highlighter_tinymce',
-					'tinymce_highlight'      => 'mce-active',
-					'submit_css'             => '#urvanov-syntax-highlighter-te-ok',
-					'cancel_css'             => '#urvanov-syntax-highlighter-te-cancel',
-					'content_css'            => '#urvanov-syntax-highlighter-te-content',
-					'dialog_title_css'       => '#urvanov-syntax-highlighter-te-title',
-					'submit_wrapper_css'     => '#urvanov-syntax-highlighter-te-submit-wrapper',
-					'data_value'             => 'data-value',
-					'attr_sep'               => Urvanov_Syntax_Highlighter_Global_Settings::val_str( Urvanov_Syntax_Highlighter_Settings::ATTR_SEP ),
-					'css_sep'                => '_',
-					'fallback_lang'          => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG ),
-					'add_text'               => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_ADD_BUTTON_TEXT ),
-					'edit_text'              => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_EDIT_BUTTON_TEXT ),
-					'quicktag_text'          => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_QUICKTAG_BUTTON_TEXT ),
-					'submit_add'             => esc_html__( 'Add', 'urvanov-syntax-highlighter' ),
-					'submit_edit'            => esc_html__( 'Save', 'urvanov-syntax-highlighter' ),
-					'bar'                    => '#urvanov-syntax-highlighter-te-bar',
-					'bar_content'            => '#urvanov-syntax-highlighter-te-bar-content',
-					'extensions'             => Urvanov_Syntax_Highlighter_Resources::langs()->extensions_inverted(),
+				'home_url'               => home_url(),
+				'css'                    => 'urvanov-syntax-highlighter-te',
+				'css_selected'           => 'urvanov-syntax-highlighter-selected',
+				'code_css'               => '#urvanov-syntax-highlighter-code',
+				'url_css'                => '#urvanov-syntax-highlighter-url',
+				'url_info_css'           => '#urvanov-syntax-highlighter-te-url-info',
+				'lang_css'               => '#urvanov-syntax-highlighter-lang',
+				'title_css'              => '#urvanov-syntax-highlighter-title',
+				'mark_css'               => '#urvanov-syntax-highlighter-mark',
+				'range_css'              => '#urvanov-syntax-highlighter-range',
+				'inline_css'             => 'urvanov-syntax-highlighter-inline',
+				'inline_hide_css'        => 'urvanov-syntax-highlighter-hide-inline',
+				'inline_hide_only_css'   => 'urvanov-syntax-highlighter-hide-inline-only',
+				'hl_css'                 => '#urvanov-syntax-highlighter-highlight',
+				'switch_html'            => '#content-html',
+				'switch_tmce'            => '#content-tmce',
+				'tinymce_button_generic' => '.mce-btn',
+				'tinymce_button'         => 'a.mce_urvanov_syntax_highlighter_tinymce,.mce-i-urvanov_syntax_highlighter_tinymce',
+				'tinymce_button_unique'  => 'mce_urvanov_syntax_highlighter_tinymce',
+				'tinymce_highlight'      => 'mce-active',
+				'submit_css'             => '#urvanov-syntax-highlighter-te-ok',
+				'cancel_css'             => '#urvanov-syntax-highlighter-te-cancel',
+				'content_css'            => '#urvanov-syntax-highlighter-te-content',
+				'dialog_title_css'       => '#urvanov-syntax-highlighter-te-title',
+				'submit_wrapper_css'     => '#urvanov-syntax-highlighter-te-submit-wrapper',
+				'data_value'             => 'data-value',
+				'attr_sep'               => Urvanov_Syntax_Highlighter_Global_Settings::val_str( Urvanov_Syntax_Highlighter_Settings::ATTR_SEP ),
+				'css_sep'                => '_',
+				'fallback_lang'          => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG ),
+				'add_text'               => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_ADD_BUTTON_TEXT ),
+				'edit_text'              => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_EDIT_BUTTON_TEXT ),
+				'quicktag_text'          => Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_QUICKTAG_BUTTON_TEXT ),
+				'submit_add'             => esc_html__( 'Add', 'urvanov-syntax-highlighter' ),
+				'submit_edit'            => esc_html__( 'Save', 'urvanov-syntax-highlighter' ),
+				'bar'                    => '#urvanov-syntax-highlighter-te-bar',
+				'bar_content'            => '#urvanov-syntax-highlighter-te-bar-content',
+				'extensions'             => Urvanov_Syntax_Highlighter_Resources::langs()->extensions_inverted(),
 			);
 		}
 	}
@@ -89,7 +89,10 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 		self::init_settings();
 		if ( URVANOV_SYNTAX_HIGHLIGHTER_MINIFY ) {
 			wp_deregister_script( 'urvanov_syntax_highlighter_js' );
-			wp_enqueue_script( 'urvanov_syntax_highlighter_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_TE_MIN, dirname( dirname( __FILE__ ) ) ), array(
+			wp_enqueue_script(
+				'urvanov_syntax_highlighter_js',
+				plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_TE_MIN, dirname( dirname( __FILE__ ) ) ),
+				array(
 					'jquery',
 					'quicktags',
 					'wp-rich-text',
@@ -98,13 +101,18 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					'wp-blocks',
 					'wp-components',
 					'wp-html-entities',
-			), $urvanov_syntax_highlighter_version );
+				),
+				$urvanov_syntax_highlighter_version
+			);
 			Urvanov_Syntax_Highlighter_Settings_WP::init_js_settings();
 			wp_localize_script( 'urvanov_syntax_highlighter_js', 'UrvanovSyntaxHighlighterTagEditorSettings', self::$settings );
 		} else {
 			wp_enqueue_script( 'urvanov_syntax_highlighter_colorbox_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_COLORBOX_JS, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version );
 			wp_enqueue_style( 'urvanov_syntax_highlighter_colorbox_css', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_COLORBOX_CSS, __FILE__ ), array(), $urvanov_syntax_highlighter_version );
-			wp_enqueue_script( 'urvanov_syntax_highlighter_te_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_TAG_EDITOR_JS, __FILE__ ), array(
+			wp_enqueue_script(
+				'urvanov_syntax_highlighter_te_js',
+				plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_TAG_EDITOR_JS, __FILE__ ),
+				array(
 					'urvanov_syntax_highlighter_util_js',
 					'urvanov_syntax_highlighter_colorbox_js',
 					'wpdialogs',
@@ -114,11 +122,19 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					'wp-blocks',
 					'wp-components',
 					'wp-html-entities',
-			), $urvanov_syntax_highlighter_version );
-			wp_enqueue_script( 'urvanov_syntax_highlighter_qt_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_QUICKTAGS_JS, __FILE__ ), array(
+				),
+				$urvanov_syntax_highlighter_version
+			);
+			wp_enqueue_script(
+				'urvanov_syntax_highlighter_qt_js',
+				plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_QUICKTAGS_JS, __FILE__ ),
+				array(
 					'quicktags',
 					'urvanov_syntax_highlighter_te_js',
-			), $urvanov_syntax_highlighter_version, true );
+				),
+				$urvanov_syntax_highlighter_version,
+				true
+			);
 			wp_localize_script( 'urvanov_syntax_highlighter_te_js', 'UrvanovSyntaxHighlighterTagEditorSettings', self::$settings );
 			Urvanov_Syntax_Highlighter_Settings_WP::other_scripts();
 		}
@@ -193,8 +209,8 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 	public static function submit() {
 		?>
 		<input type="button"
-			   class="button-primary <?php echo UrvanovSyntaxHighlighterTagEditorWP::$settings['submit_css']; ?>"
-			   value="<?php echo UrvanovSyntaxHighlighterTagEditorWP::$settings['submit_add']; ?>"
+			   class="button-primary <?php echo self::$settings['submit_css']; ?>"
+			   value="<?php echo self::$settings['submit_add']; ?>"
 			   name="submit"/>
 		<?php
 	}
@@ -207,7 +223,7 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 		$curr_theme = Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::THEME );
 		$fonts      = Urvanov_Syntax_Highlighter_Resources::fonts()->get();
 		$curr_font  = Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::FONT );
-		UrvanovSyntaxHighlighterTagEditorWP::init_settings();
+		self::init_settings();
 
 		?>
 
@@ -229,9 +245,9 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					</th>
 					<td class="urvanov-syntax-highlighter-nowrap"><?php self::textbox( 'title', array( 'placeholder' => esc_html__( 'A short description', 'urvanov-syntax-highlighter' ) ) ); ?>
 						<span id="urvanov-syntax-highlighter-te-sub-section"> <?php self::checkbox( 'inline' ); ?>
-                            <span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Inline', 'urvanov-syntax-highlighter' ); ?> </span>
+							<span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Inline', 'urvanov-syntax-highlighter' ); ?> </span>
 			</span> <span id="urvanov-syntax-highlighter-te-sub-section"> <?php self::checkbox( 'highlight' ); ?>
-                            <span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( "Don't Highlight", 'urvanov-syntax-highlighter' ); ?>
+							<span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( "Don't Highlight", 'urvanov-syntax-highlighter' ); ?>
 				</span>
 			</span></td>
 				</tr>
@@ -264,9 +280,9 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					<td><?php self::textbox( 'url', array( 'placeholder' => esc_html__( 'Relative local path or absolute URL', 'urvanov-syntax-highlighter' ) ) ); ?>
 						<div id="urvanov-syntax-highlighter-te-url-info" class="urvanov-syntax-highlighter-te-info">
 							<?php
-							esc_html_e( "If the URL fails to load, the code above will be shown instead. If no code exists, an error is shown.", 'urvanov-syntax-highlighter' );
+							esc_html_e( 'If the URL fails to load, the code above will be shown instead. If no code exists, an error is shown.', 'urvanov-syntax-highlighter' );
 							echo ' ';
-							printf( esc_html__( 'If a relative local path is given it will be appended to %s - which is defined in %sUrvanovSyntaxHighlighter &gt; Settings &gt; Files%s.', 'urvanov-syntax-highlighter' ), '<span class="urvanov-syntax-highlighter-te-quote">' . get_home_url() . '/' . Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::LOCAL_PATH ) . '</span>', '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
+							printf( esc_html__( 'If a relative local path is given it will be appended to %1$s - which is defined in %2$sUrvanovSyntaxHighlighter &gt; Settings &gt; Files%3$s.', 'urvanov-syntax-highlighter' ), '<span class="urvanov-syntax-highlighter-te-quote">' . get_home_url() . '/' . Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::LOCAL_PATH ) . '</span>', '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
 							?>
 						</div>
 					</td>
@@ -279,12 +295,13 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 				<!--			<td colspan="2"><div id="urvanov-syntax-highlighter-te-warning" class="updated urvanov-syntax-highlighter-te-info"></div></td>-->
 				<!--		</tr>-->
 				<tr>
-					<td colspan="2"><?php
+					<td colspan="2">
+					<?php
 						$admin = isset( $_GET['is_admin'] ) ? intval( $_GET['is_admin'] ) : is_admin();
-						if ( ! $admin && ! Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_SETTINGS ) ) {
-							exit();
-						}
-						?>
+					if ( ! $admin && ! Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_SETTINGS ) ) {
+						exit();
+					}
+					?>
 						<hr/>
 						<div>
 							<h2 class="urvanov-syntax-highlighter-te-heading">
@@ -297,7 +314,7 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 							echo ' <span class="', Urvanov_Syntax_Highlighter_Settings::SETTING_CHANGED, '">';
 							esc_html_e( 'Only changes (shown yellow) are applied.', 'urvanov-syntax-highlighter' );
 							echo '</span><br/>';
-							echo sprintf( esc_html__( 'Future changes to the global settings under %sUrvanovSyntaxHighlighter &gt; Settings%s won\'t affect overridden settings.', 'urvanov-syntax-highlighter' ), '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
+							echo sprintf( esc_html__( 'Future changes to the global settings under %1$sUrvanovSyntaxHighlighter &gt; Settings%2$s won\'t affect overridden settings.', 'urvanov-syntax-highlighter' ), '<a href="options-general.php?page=urvanov_syntax_highlighter_settings" target="_blank">', '</a>' );
 							?>
 						</div>
 					</td>

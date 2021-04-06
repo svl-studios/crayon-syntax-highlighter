@@ -37,6 +37,7 @@ class Urvanov_Syntax_Highlighter_Langs_Resource_Type {
  * Manages languages once they are loaded. The parser directly loads them, saves them here.
  */
 class Urvanov_Syntax_Highlighter_Langs extends Urvanov_Syntax_Highlighter_User_Resource_Collection { // phpcs:ignore
+ // phpcs:ignore
 
 	/**
 	 * CSS classes for known elements.
@@ -152,7 +153,7 @@ class Urvanov_Syntax_Highlighter_Langs extends Urvanov_Syntax_Highlighter_User_R
 	 *
 	 * @return Urvanov_Syntax_Highlighter_Lang
 	 */
-	public function create_user_resource_instance( $id, $name = null ): Urvanov_Syntax_Highlighter_Lang {
+	public function create_user_resource_instance( $id, $name = null ) {
 		return new Urvanov_Syntax_Highlighter_Lang( $id, $name );
 	}
 
@@ -481,12 +482,12 @@ class Urvanov_Syntax_Highlighter_Langs extends Urvanov_Syntax_Highlighter_User_R
 	/**
 	 * Compare two languages by name.
 	 *
-	 * @param string $a A.
-	 * @param string $b B.
+	 * @param mixed $a A.
+	 * @param mixed $b B.
 	 *
 	 * @return int
 	 */
-	public static function langcmp( string $a, string $b ): int {
+	public static function langcmp( $a, $b ): int {
 		$a = strtolower( $a->name() );
 		$b = strtolower( $b->name() );
 
@@ -567,6 +568,7 @@ class Urvanov_Syntax_Highlighter_Langs extends Urvanov_Syntax_Highlighter_User_R
  * Class Urvanov_Syntax_Highlighter_Lang
  */
 class Urvanov_Syntax_Highlighter_Lang extends Urvanov_Syntax_Highlighter_Version_Resource { // phpcs:ignore
+ // phpcs:ignore
 
 	/**
 	 * Ext.
@@ -669,6 +671,8 @@ class Urvanov_Syntax_Highlighter_Lang extends Urvanov_Syntax_Highlighter_Version
 			$ext         = str_replace( '.', '', $ext );
 			$this->ext[] = $ext;
 		}
+
+		return array();
 	}
 
 	/**
@@ -700,6 +704,8 @@ class Urvanov_Syntax_Highlighter_Lang extends Urvanov_Syntax_Highlighter_Version
 			$alias           = strtolower( $alias );
 			$this->aliases[] = $alias;
 		}
+
+		return array();
 	}
 
 	/**
@@ -734,6 +740,8 @@ class Urvanov_Syntax_Highlighter_Lang extends Urvanov_Syntax_Highlighter_Version
 
 			$this->delimiters = '(?:' . implode( ')|(?:', $delim ) . ')';
 		}
+
+		return '';
 	}
 
 	/**
@@ -831,6 +839,8 @@ class Urvanov_Syntax_Highlighter_Lang extends Urvanov_Syntax_Highlighter_Version
 				$this->state = self::UNPARSED;
 			}
 		}
+
+		return 0;
 	}
 
 	/**
@@ -951,6 +961,8 @@ class Urvanov_Syntax_Highlighter_Element { // phpcs:ignore
 			}
 			$this->name = $name;
 		}
+
+		return '';
 	}
 
 	/**
@@ -987,6 +999,8 @@ class Urvanov_Syntax_Highlighter_Element { // phpcs:ignore
 		} elseif ( is_string( $css ) ) {
 			$this->css = Urvanov_Syntax_Highlighter_Parser::validate_css( $css );
 		}
+
+		return '';
 	}
 
 	/**
@@ -1002,6 +1016,8 @@ class Urvanov_Syntax_Highlighter_Element { // phpcs:ignore
 		} elseif ( is_string( $fallback ) && Urvanov_Syntax_Highlighter_Langs::is_known_element( $fallback ) ) {
 			$this->fallback = $fallback;
 		}
+
+		return '';
 	}
 
 	/**
@@ -1017,5 +1033,7 @@ class Urvanov_Syntax_Highlighter_Element { // phpcs:ignore
 		} elseif ( is_string( $path ) && file_exists( $path ) ) {
 			$this->path = $path;
 		}
+
+		return '';
 	}
 }

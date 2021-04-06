@@ -1,5 +1,5 @@
 === Urvanov Syntax Highlighter ===
-Contributors: urvanov
+Contributors: urvanov, kprovance
 Donate link: https://money.yandex.ru/to/41001288941320
 License: GPLv3 or later
 Tags: syntax highlighter, syntax, highlighter, highlighting, crayon, code highlighter, bbpress

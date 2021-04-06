@@ -210,7 +210,7 @@ class Urvanov_Syntax_Highlighter_Parser {
 				continue;
 			}
 			// Create a new Urvanov_Syntax_Highlighter_Element.
-			$element = new Urvanov_Syntax_Highlighter_Element( $name, $path );
+			$element = new Urvanov_Syntax_Highlighter_Element( $name, $path, '' );
 			$element->fallback( $fallback );
 			if ( ! empty( $class ) ) {
 				// Avoid setting known css to blank.

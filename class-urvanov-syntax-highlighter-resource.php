@@ -15,21 +15,28 @@ require_once URVANOV_SYNTAX_HIGHLIGHTER_LANGS_PHP;
 require_once URVANOV_SYNTAX_HIGHLIGHTER_THEMES_PHP;
 require_once URVANOV_SYNTAX_HIGHLIGHTER_FONTS_PHP;
 
-// Old name: CrayonResources
-
 /**
  * Class Urvanov_Syntax_Highlighter_Resources
  */
 class Urvanov_Syntax_Highlighter_Resources {
+
 	/**
+	 * Languages.
+	 *
 	 * @var null
 	 */
 	private static $langs = null;
+
 	/**
+	 * Themes.
+	 *
 	 * @var null
 	 */
 	private static $themes = null;
+
 	/**
+	 * Fonts.
+	 *
 	 * @var null
 	 */
 	private static $fonts = null;
@@ -37,14 +44,15 @@ class Urvanov_Syntax_Highlighter_Resources {
 	/**
 	 * Urvanov_Syntax_Highlighter_Resources constructor.
 	 */
-	private function __construct() {
-	}
+	private function __construct() {}
 
 	/**
+	 * Langs.
+	 *
 	 * @return Urvanov_Syntax_Highlighter_Langs|null
 	 */
-	public static function langs() {
-		if ( self::$langs == null ) {
+	public static function langs(): ?Urvanov_Syntax_Highlighter_Langs {
+		if ( null === self::$langs ) {
 			self::$langs = new Urvanov_Syntax_Highlighter_Langs();
 		}
 
@@ -52,10 +60,12 @@ class Urvanov_Syntax_Highlighter_Resources {
 	}
 
 	/**
+	 * Themes.
+	 *
 	 * @return Urvanov_Syntax_Highlighter_Themes|null
 	 */
-	public static function themes() {
-		if ( self::$themes == null ) {
+	public static function themes(): ?Urvanov_Syntax_Highlighter_Themes {
+		if ( null === self::$themes ) {
 			self::$themes = new Urvanov_Syntax_Highlighter_Themes();
 		}
 
@@ -63,10 +73,12 @@ class Urvanov_Syntax_Highlighter_Resources {
 	}
 
 	/**
+	 * Fonts.
+	 *
 	 * @return Urvanov_Syntax_Highlighter_Fonts|null
 	 */
-	public static function fonts() {
-		if ( self::$fonts == null ) {
+	public static function fonts(): ?Urvanov_Syntax_Highlighter_Fonts {
+		if ( null === self::$fonts ) {
 			self::$fonts = new Urvanov_Syntax_Highlighter_Fonts();
 		}
 
@@ -74,120 +86,135 @@ class Urvanov_Syntax_Highlighter_Resources {
 	}
 }
 
-// Old name: CrayonResourceCollection
-
 /**
  * Class Urvanov_Syntax_Highlighter_Resource_Collection
  */
-class Urvanov_Syntax_Highlighter_Resource_Collection {
-	// Properties and Constants ===============================================
-
-	// Loaded resources
+class Urvanov_Syntax_Highlighter_Resource_Collection { // phpcs:ignore
 
 	/**
+	 * Collection.
+	 *
 	 * @var array
 	 */
 	private $collection = array();
-	// Loading state
 
 	/**
+	 * Loading state.
+	 *
 	 * @var int
 	 */
 	private $state = self::UNLOADED;
-	// Directory containing resources
 
 	/**
+	 * Directory containing resources.
+	 *
 	 * @var string
 	 */
 	private $dir = '';
+
 	/**
+	 * Default ID.
+	 *
 	 * @var string
 	 */
 	private $default_id = '';
+
 	/**
+	 * Default name.
+	 *
 	 * @var string
 	 */
 	private $default_name = '';
+
 	/**
-	 *
+	 * Unloaded.
 	 */
 	const UNLOADED = - 1;
+
 	/**
-	 *
+	 * Loading.
 	 */
 	const LOADING = 0;
+
 	/**
-	 *
+	 * Loaded.
 	 */
 	const LOADED = 1;
 
-	// Methods ================================================================
-
-	/* Override in subclasses. Returns the absolute path for a given resource. Does not check for its existence. */
 	/**
-	 * @param $id
+	 * Override in subclasses. Returns the absolute path for a given resource. Does not check for its existence.
+	 *
+	 * @param mixed $id Unused.
 	 *
 	 * @return string
 	 */
-	public function path( $id ) {
+	public function path( $id ): string {
 		return '';
 	}
 
-	/* Verifies a resource exists. */
 	/**
-	 * @param $id
+	 * Verifies a resource exists.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return bool
 	 */
-	public function exists( $id ) {
+	public function exists( $id ): bool {
 		return file_exists( $this->path( $id ) );
 	}
 
-	/* Load all the available languages. Doesn't parse them for their names and regex. */
 	/**
-	 *
+	 * Load all the available languages. Doesn't parse them for their names and regex.
 	 */
 	public function load() {
-		// Load only once
 
+		// Load only once.
 		if ( ! $this->is_state_unloaded() ) {
 			return;
 		}
+
 		$this->state = self::LOADING;
 		$this->load_process();
 		$this->state = self::LOADED;
 	}
 
 	/**
-	 * @param null $dir
+	 * Load resources.
+	 *
+	 * @param mixed $dir Dir.
 	 */
 	public function load_resources( $dir = null ) {
-		if ( $dir === null ) {
+		if ( null === $dir ) {
 			$dir = $this->dir;
 		}
 
 		if ( ! $this->is_state_loading() ) {
-			// Load only once
+
+			// Load only once.
 			return;
 		}
+
 		try {
-			// Look in directory for resources
+			// Look in directory for resources.
 			if ( ! is_dir( $dir ) ) {
 				UrvanovSyntaxHighlighterLog::syslog( 'The resource directory is missing, should be at \'' . $dir . '\'.' );
-			} elseif ( ( $handle = @opendir( $dir ) ) != false ) {
-				// Loop over directory contents
-				while ( ( $file = readdir( $handle ) ) !== false ) {
-					if ( $file != "." && $file != ".." ) {
-						// Check if $file is directory, remove extension when checking for existence.
+			} elseif ( false !== ( $handle = opendir( $dir ) ) ) {
 
+				// Loop over directory contents.
+				while ( false !== ( $file = readdir( $handle ) ) ) {
+					if ( '.' !== $file && '..' !== $file ) {
+
+						// Check if $file is directory, remove extension when checking for existence.
 						if ( ! is_dir( $dir . $file ) ) {
 							$file = UrvanovSyntaxHighlighterUtil::path_rem_ext( $file );
 						}
+
 						if ( $this->exists( $file ) ) {
 							$this->add_resource( $this->resource_instance( $file ) );
 						}
 					}
 				}
+
 				closedir( $handle );
 			}
 		} catch ( Exception $e ) {
@@ -195,9 +222,8 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 		}
 	}
 
-	/* Override in subclasses. */
 	/**
-	 *
+	 * Override in subclasses.
 	 */
 	public function load_process() {
 		if ( ! $this->is_state_loading() ) {
@@ -207,8 +233,9 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 		$this->add_default();
 	}
 
-	/* Override in subclasses */
 	/**
+	 * Override in subclasses.
+	 *
 	 * @return bool
 	 */
 	public function add_default() {
@@ -216,8 +243,8 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 			return false;
 		} elseif ( ! $this->is_loaded( $this->default_id ) ) {
 			UrvanovSyntaxHighlighterLog::syslog( 'The default resource could not be loaded from \'' . $this->dir . '\'.' );
-			// Add the default, but it will not be functionable
 
+			// Add the default, but it will not be functionable.
 			$default = $this->resource_instance( $this->default_id, $this->default_name );
 			$this->add( $this->default_id, $default );
 
@@ -227,38 +254,43 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 		return false;
 	}
 
-	/* Returns the default resource */
 	/**
-	 * @param $id
-	 * @param $name
+	 * Returns the default resource.
+	 *
+	 * @param mixed  $id   ID.
+	 * @param string $name Name.
 	 */
-	public function set_default( $id, $name ) {
+	public function set_default( $id, string $name ) {
 		$this->default_id   = $id;
 		$this->default_name = $name;
 	}
 
-	/* Returns the default resource */
 	/**
+	 * Returns the default resource.
+	 *
 	 * @return array|mixed|null
 	 */
 	public function get_default() {
 		return $this->get( $this->default_id );
 	}
 
-	/* Override in subclasses to create subclass object if needed */
 	/**
-	 * @param      $id
-	 * @param null $name
+	 * Override in subclasses to create subclass object if needed.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $name Name.
 	 *
 	 * @return Urvanov_Syntax_Highlighter_Resource
 	 */
-	public function resource_instance( $id, $name = null ) {
+	public function resource_instance( $id = '', $name = null ) {
 		return new Urvanov_Syntax_Highlighter_Resource( $id, $name );
 	}
 
 	/**
-	 * @param $id
-	 * @param $resource
+	 * Add resource.
+	 *
+	 * @param mixed $id ID.
+	 * @param mixed $resource Resource.
 	 */
 	public function add( $id, $resource ) {
 		if ( is_string( $id ) && ! empty( $id ) ) {
@@ -271,37 +303,43 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 	}
 
 	/**
-	 * @param $resource
+	 * Add resource.
+	 *
+	 * @param object $resource Resource.
 	 */
-	public function add_resource( $resource ) {
+	public function add_resource( $resource = null ) {
 		$this->add( $resource->id(), $resource );
 	}
 
 	/**
-	 * @param $name
+	 * Remove.
+	 *
+	 * @param string $name Name.
 	 */
-	public function remove( $name ) {
+	public function remove( $name = '' ) {
 		if ( is_string( $name ) && ! empty( $name ) && array_key_exists( $name, $this->collection ) ) {
 			unset( $this->collection[ $name ] );
 		}
 	}
 
 	/**
-	 *
+	 * Remove all.
 	 */
 	public function remove_all() {
 		$this->collection = array();
 	}
 
-	/* Returns the resource for the given id or NULL if it can't be found */
 	/**
-	 * @param null $id
+	 * Returns the resource for the given id or NULL if it can't be found.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return array|mixed|null
 	 */
 	public function get( $id = null ) {
 		$this->load();
-		if ( $id === null ) {
+
+		if ( null === $id ) {
 			return $this->collection;
 		} elseif ( is_string( $id ) && $this->is_loaded( $id ) ) {
 			return $this->collection[ $id ];
@@ -311,10 +349,13 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 	}
 
 	/**
+	 * Get array.
+	 *
 	 * @return array
 	 */
-	public function get_array() {
+	public function get_array(): array {
 		$array = array();
+
 		foreach ( $this->get() as $resource ) {
 			$array[ $resource->id() ] = $resource->name();
 		}
@@ -323,11 +364,13 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 	}
 
 	/**
-	 * @param $id
+	 * Is loaded.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return bool
 	 */
-	public function is_loaded( $id ) {
+	public function is_loaded( $id ): bool {
 		if ( is_string( $id ) ) {
 			return array_key_exists( $id, $this->collection );
 		}
@@ -336,83 +379,99 @@ class Urvanov_Syntax_Highlighter_Resource_Collection {
 	}
 
 	/**
+	 * Get state.
+	 *
 	 * @return int
 	 */
-	public function get_state() {
+	public function get_state(): int {
 		return $this->state;
 	}
 
 	/**
+	 * Is state loaded.
+	 *
 	 * @return bool
 	 */
-	public function is_state_loaded() {
-		return $this->state == self::LOADED;
+	public function is_state_loaded(): bool {
+		return self::LOADED === $this->state;
 	}
 
 	/**
+	 * Is state loading.
+	 *
 	 * @return bool
 	 */
-	public function is_state_loading() {
-		return $this->state == self::LOADING;
+	public function is_state_loading(): bool {
+		return self::LOADING === $this->state;
 	}
 
 	/**
+	 * Is state Unloaded.
+	 *
 	 * @return bool
 	 */
-	public function is_state_unloaded() {
-		return $this->state == self::UNLOADED;
+	public function is_state_unloaded(): bool {
+		return self::UNLOADED === $this->state;
 	}
 
 	/**
-	 * @param null $dir
+	 * Directory.
+	 *
+	 * @param string $dir Dir.
 	 *
 	 * @return string
 	 */
-	public function directory( $dir = null ) {
-		if ( $dir === null ) {
+	public function directory( $dir = null ): string {
+		if ( null === $dir ) {
 			return $this->dir;
 		} else {
 			$this->dir = UrvanovSyntaxHighlighterUtil::path_slash( $dir );
 		}
-	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return string
-	 */
-	public function url( $id ) {
 		return '';
 	}
 
 	/**
-	 * @param      $id
-	 * @param null $ver
+	 * URL.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return string
 	 */
-	public function get_css( $id, $ver = null ) {
+	public function url( $id ): string {
+		return '';
+	}
+
+	/**
+	 * Get CSS.
+	 *
+	 * @param mixed $id ID.
+	 * @param null  $ver Version.
+	 *
+	 * @return string
+	 */
+	public function get_css( $id, $ver = null ): string {
 		$resource = $this->get( $id );
 
-		return '<link rel="stylesheet" type="text/css" href="' . $this->url( $resource->id() ) . ( $ver ? "?ver=$ver" : '' ) . '" />' . URVANOV_SYNTAX_HIGHLIGHTER_NL;
+		// phpcs:ignore
+		return '<link rel="stylesheet" type="text/css" href="' . esc_url( $this->url( $resource->id() ) ) . ( $ver ? "?ver=$ver" : '' ) . '" />' . URVANOV_SYNTAX_HIGHLIGHTER_NL;
 	}
 }
-
-// Old name: CrayonUsedResourceCollection
 
 /**
  * Class Urvanov_Syntax_Highlighter_Used_Resource_Collection
  */
-class Urvanov_Syntax_Highlighter_Used_Resource_Collection extends Urvanov_Syntax_Highlighter_Resource_Collection {
+class Urvanov_Syntax_Highlighter_Used_Resource_Collection extends Urvanov_Syntax_Highlighter_Resource_Collection { // phpcs:ignore
 
-	// Checks if any resoruces are being used
 	/**
-	 * @param null $id
+	 * Checks if any resoruces are being used.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return bool
 	 */
-	public function is_used( $id = null ) {
-		if ( $id === null ) {
+	public function is_used( $id = null ): bool {
+		if ( null === $id ) {
 			foreach ( $this->get() as $resource ) {
 				if ( $resource->used() ) {
 					return true;
@@ -431,15 +490,17 @@ class Urvanov_Syntax_Highlighter_Used_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
-	 * @param      $id
-	 * @param bool $value
+	 * Set used.
+	 *
+	 * @param mixed $id ID.
+	 * @param bool  $value Value.
 	 *
 	 * @return bool
 	 */
-	public function set_used( $id, $value = true ) {
+	public function set_used( $id, $value = true ): bool {
 		$resource = $this->get( $id );
-		if ( $resource !== null && ! $resource->used() ) {
-			$resource->used( $value == true );
+		if ( null !== $resource && ! $resource->used() ) {
+			$resource->used( true === $value );
 
 			return true;
 		}
@@ -448,10 +509,13 @@ class Urvanov_Syntax_Highlighter_Used_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
+	 * Get used.
+	 *
 	 * @return array
 	 */
-	public function get_used() {
+	public function get_used(): array {
 		$used = array();
+
 		foreach ( $this->get() as $resource ) {
 			if ( $resource->used() ) {
 				$used[] = $resource;
@@ -461,22 +525,24 @@ class Urvanov_Syntax_Highlighter_Used_Resource_Collection extends Urvanov_Syntax
 		return $used;
 	}
 
-	// XXX Override
-
 	/**
-	 * @param      $id
-	 * @param null $name
+	 * Override.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $name Name.
 	 *
 	 * @return Urvanov_Syntax_Highlighter_Used_Resource
 	 */
-	public function resource_instance( $id, $name = null ) {
+	public function resource_instance( $id = '', $name = null ) {
 		return new Urvanov_Syntax_Highlighter_Used_Resource( $id, $name );
 	}
 
 	/**
+	 * Get used CSS.
+	 *
 	 * @return array
 	 */
-	public function get_used_css() {
+	public function get_used_css(): array {
 		$used = $this->get_used();
 		$css  = array();
 		foreach ( $used as $resource ) {
@@ -488,49 +554,59 @@ class Urvanov_Syntax_Highlighter_Used_Resource_Collection extends Urvanov_Syntax
 	}
 }
 
-// Old name: CrayonUserResourceCollection
-
 /**
  * Class Urvanov_Syntax_Highlighter_User_Resource_Collection
  */
-class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax_Highlighter_Used_Resource_Collection {
+class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax_Highlighter_Used_Resource_Collection { // phpcs:ignore
+
 	/**
+	 * User dir.
+	 *
 	 * @var string
 	 */
 	private $user_dir = '';
+
 	/**
+	 * Current dir.
+	 *
 	 * @var null
 	 */
 	private $curr_dir = null;
-	// TODO better to use a base dir and relative
+
 	/**
+	 * TODO better to use a base dir and relative.
+	 *
 	 * @var null
 	 */
 	private $relative_directory = null;
-	// TODO move this higher up inheritance
+
 	/**
+	 * TODO move this higher up inheritance.
+	 *
 	 * @var string
 	 */
 	private $extension = '';
 
-	// XXX Override
-
 	/**
-	 * @param      $id
-	 * @param null $name
+	 * Resource instance override.
+	 *
+	 * @param mixed $id ID.
+	 * @param null  $name Name.
 	 *
 	 * @return Urvanov_Syntax_Highlighter_Used_Resource|Urvanov_Syntax_Highlighter_User_Resource
 	 */
-	public function resource_instance( $id, $name = null ) {
+	public function resource_instance( $id = '', $name = null ) {
 		$resource = $this->create_user_resource_instance( $id, $name );
-		$resource->user( $this->curr_dir == $this->user_directory() );
+		$resource->user( $this->curr_dir === $this->user_directory() );
 
 		return $resource;
 	}
 
 	/**
-	 * @param      $id
-	 * @param null $name
+	 * Create user resource instance.
+	 *
+	 * @param mixed $id ID.
+	 * @param null  $name Name.
 	 *
 	 * @return Urvanov_Syntax_Highlighter_User_Resource
 	 */
@@ -539,44 +615,57 @@ class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
-	 * @param null $dir
+	 * User dir.
+	 *
+	 * @param string $dir Dir.
 	 *
 	 * @return string
 	 */
-	public function user_directory( $dir = null ) {
-		if ( $dir === null ) {
+	public function user_directory( $dir = null ): string {
+		if ( null === $dir ) {
 			return $this->user_dir;
 		} else {
 			$this->user_dir = UrvanovSyntaxHighlighterUtil::path_slash( $dir );
 		}
+
+		return '';
 	}
 
 	/**
-	 * @param null $relative_directory
+	 * Relative dir.
+	 *
+	 * @param string $relative_directory Relative dir.
 	 *
 	 * @return null
 	 */
 	public function relative_directory( $relative_directory = null ) {
-		if ( $relative_directory == null ) {
+		if ( null === $relative_directory ) {
 			return $this->relative_directory;
 		}
 		$this->relative_directory = $relative_directory;
 	}
 
 	/**
-	 * @param null $extension
+	 * Exyension.
+	 *
+	 * @param string $extension Ext.
 	 *
 	 * @return string
 	 */
-	public function extension( $extension = null ) {
-		if ( $extension == null ) {
+	public function extension( $extension = null ): string {
+		if ( null === $extension ) {
 			return $this->extension;
 		}
+
 		$this->extension = $extension;
+
+		return '';
 	}
 
 	/**
-	 * @param null $dir
+	 * Load resources.
+	 *
+	 * @param string $dir Dir.
 	 */
 	public function load_resources( $dir = null ) {
 		$this->curr_dir = $this->directory();
@@ -587,6 +676,8 @@ class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
+	 * Current dir.
+	 *
 	 * @return null
 	 */
 	public function current_directory() {
@@ -594,16 +685,19 @@ class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
-	 * @param      $id
-	 * @param null $user
+	 * Dir is user.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $user User.
 	 *
 	 * @return bool|mixed|null
 	 */
 	public function dir_is_user( $id, $user = null ) {
-		if ( $user === null ) {
+		if ( null === $user ) {
 			if ( $this->is_state_loading() ) {
-				// We seem to be loading resources - use current directory
-				$user = $this->current_directory() == $this->user_directory();
+
+				// We seem to be loading resources - use current directory.
+				$user = $this->current_directory() === $this->user_directory();
 			} else {
 				$theme = $this->get( $id );
 				if ( $theme ) {
@@ -618,7 +712,9 @@ class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
-	 * @param null $user
+	 * Dirpath.
+	 *
+	 * @param string $user User.
 	 *
 	 * @return array|string|string[]
 	 */
@@ -629,19 +725,23 @@ class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax
 	}
 
 	/**
-	 * @param      $id
-	 * @param null $user
+	 * Dirpath for ID.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $user User.
 	 *
 	 * @return string
 	 */
-	public function dirpath_for_id( $id, $user = null ) {
+	public function dirpath_for_id( $id, $user = null ): string {
 		$user = $this->dir_is_user( $id, $user );
 
 		return $this->dirpath( $user ) . $id;
 	}
 
 	/**
-	 * @param null $user
+	 * Dir URL.
+	 *
+	 * @param string $user User.
 	 *
 	 * @return array|string|string[]
 	 */
@@ -651,111 +751,130 @@ class Urvanov_Syntax_Highlighter_User_Resource_Collection extends Urvanov_Syntax
 		return UrvanovSyntaxHighlighterUtil::path_slash( $path . $this->relative_directory() );
 	}
 
-	// XXX Override
-
 	/**
-	 * @param      $id
-	 * @param null $user
+	 * Path override.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $user User.
 	 *
 	 * @return string
 	 */
-	public function path( $id, $user = null ) {
+	public function path( $id, $user = null ): string {
 		$user = $this->dir_is_user( $id, $user );
 
 		return $this->dirpath( $user ) . $this->filename( $id, $user );
 	}
 
-	// XXX Override
-
 	/**
-	 * @param      $id
-	 * @param null $user
+	 * URL override.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $user User.
 	 *
 	 * @return string
 	 */
-	public function url( $id, $user = null ) {
+	public function url( $id, $user = null ): string {
 		$user = $this->dir_is_user( $id, $user );
 
 		return $this->dirurl( $user ) . $this->filename( $id, $user );
 	}
 
 	/**
-	 * @param      $id
-	 * @param null $user
+	 * Filename override.
+	 *
+	 * @param mixed  $id ID.
+	 * @param string $user User.
 	 *
 	 * @return string
 	 */
-	public function filename( $id, $user = null ) {
+	public function filename( $id, $user = null ): string {
 		return "$id.$this->extension";
 	}
-
 }
-
-// Old name: CrayonResource
 
 /**
  * Class Urvanov_Syntax_Highlighter_Resource
  */
-class Urvanov_Syntax_Highlighter_Resource {
+class Urvanov_Syntax_Highlighter_Resource { // phpcs:ignore
+
 	/**
+	 * ID.
+	 *
 	 * @var string
 	 */
 	private $id = '';
+
 	/**
+	 * Name.
+	 *
 	 * @var string
 	 */
 	private $name = '';
 
+
 	/**
 	 * Urvanov_Syntax_Highlighter_Resource constructor.
 	 *
-	 * @param      $id
-	 * @param null $name
+	 * @param mixed  $id ID.
+	 * @param string $name Name.
 	 */
-	function __construct( $id, $name = null ) {
+	public function __construct( $id, $name = null ) {
 		$id = $this->clean_id( $id );
 		UrvanovSyntaxHighlighterUtil::str( $this->id, $id );
+
 		( empty( $name ) ) ? $this->name( self::clean_name( $this->id ) ) : $this->name( $name );
 	}
 
 	/**
+	 * __toString.
+	 *
 	 * @return string
 	 */
-	function __tostring() {
+	public function __tostring() {
 		return $this->name;
 	}
 
 	/**
+	 * ID.
+	 *
 	 * @return string
 	 */
-	function id() {
+	public function id(): string {
 		return $this->id;
 	}
 
 	/**
-	 * @param null $name
+	 * Name.
+	 *
+	 * @param string $name Name.
 	 *
 	 * @return string
 	 */
-	function name( $name = null ) {
-		if ( $name === null ) {
+	public function name( $name = null ): string {
+		if ( null === $name ) {
 			return $this->name;
 		} else {
 			$this->name = $name;
 		}
+
+		return '';
 	}
 
 	/**
-	 * @param $id
+	 * Clean ID.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	function clean_id( $id ) {
-		return Urvanov_Syntax_Highlighter_Resource::clean_id_static( $id );
+	public function clean_id( $id ) {
+		return self::clean_id_static( $id );
 	}
 
 	/**
-	 * @param $id
+	 * Clean ID static.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return array|string|string[]|null
 	 */
@@ -766,78 +885,87 @@ class Urvanov_Syntax_Highlighter_Resource {
 	}
 
 	/**
-	 * @param $id
+	 * Clean name.
+	 *
+	 * @param mixed $id ID.
 	 *
 	 * @return string
 	 */
-	public static function clean_name( $id ) {
+	public static function clean_name( $id ): string {
 		$id = UrvanovSyntaxHighlighterUtil::hyphen_to_space( strtolower( trim( $id ) ) );
 
 		return UrvanovSyntaxHighlighterUtil::ucwords( $id );
 	}
-
 }
-
-// Old name: CrayonUsedResource
 
 /**
  * Class Urvanov_Syntax_Highlighter_Used_Resource
  */
-class Urvanov_Syntax_Highlighter_Used_Resource extends Urvanov_Syntax_Highlighter_Resource {
-	// Keeps track of usage
+class Urvanov_Syntax_Highlighter_Used_Resource extends Urvanov_Syntax_Highlighter_Resource { // phpcs:ignore
+
 	/**
+	 * Keeps track of usage.
+	 *
 	 * @var bool
 	 */
 	private $used = false;
 
 	/**
-	 * @param null $used
+	 * Used.
+	 *
+	 * @param bool $used Used.
 	 *
 	 * @return bool
 	 */
-	function used( $used = null ) {
-		if ( $used === null ) {
+	public function used( $used = null ): bool {
+		if ( null === $used ) {
 			return $this->used;
 		} else {
-			$this->used = ( $used ? true : false );
+			$this->used = (bool) $used;
 		}
+
+		return false;
 	}
 }
-
-// Old name: CrayonUserResource
 
 /**
  * Class Urvanov_Syntax_Highlighter_User_Resource
  */
-class Urvanov_Syntax_Highlighter_User_Resource extends Urvanov_Syntax_Highlighter_Used_Resource {
-	// Keeps track of user modifications
+class Urvanov_Syntax_Highlighter_User_Resource extends Urvanov_Syntax_Highlighter_Used_Resource { // phpcs:ignore
+
 	/**
+	 * Keeps track of user modifications.
+	 *
 	 * @var bool
 	 */
 	private $user = false;
 
 	/**
-	 * @param null $user
+	 * USer.
+	 *
+	 * @param string $user User.
 	 *
 	 * @return bool
 	 */
-	function user( $user = null ) {
-		if ( $user === null ) {
+	public function user( $user = null ): bool {
+		if ( null === $user ) {
 			return $this->user;
 		} else {
-			$this->user = ( $user ? true : false );
+			$this->user = (bool) $user;
 		}
+
+		return false;
 	}
 }
-
-// Old name: CrayonVersionResource
 
 /**
  * Class Urvanov_Syntax_Highlighter_Version_Resource
  */
-class Urvanov_Syntax_Highlighter_Version_Resource extends Urvanov_Syntax_Highlighter_User_Resource {
-	// Adds version
+class Urvanov_Syntax_Highlighter_Version_Resource extends Urvanov_Syntax_Highlighter_User_Resource { // phpcs:ignore
+
 	/**
+	 * Adds version.
+	 *
 	 * @var string
 	 */
 	private $version = '';
@@ -845,27 +973,29 @@ class Urvanov_Syntax_Highlighter_Version_Resource extends Urvanov_Syntax_Highlig
 	/**
 	 * Urvanov_Syntax_Highlighter_Version_Resource constructor.
 	 *
-	 * @param      $id
-	 * @param null $name
-	 * @param null $version
+	 * @param mixed $id ID.
+	 * @param null  $name Name.
+	 * @param null  $version Version.
 	 */
-	function __construct( $id, $name = null, $version = null ) {
+	public function __construct( $id, $name = null, $version = null ) {
 		parent::__construct( $id, $name );
 		$this->version( $version );
 	}
 
 	/**
-	 * @param null $version
+	 * Version.
+	 *
+	 * @param mixed $version Version.
 	 *
 	 * @return string
 	 */
-	function version( $version = null ) {
-		if ( $version === null ) {
+	public function version( $version = null ): string {
+		if ( null === $version ) {
 			return $this->version;
 		} elseif ( is_string( $version ) ) {
 			$this->version = $version;
 		}
+
+		return '';
 	}
 }
-
-?>
