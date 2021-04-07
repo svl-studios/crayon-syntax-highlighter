@@ -1,41 +1,92 @@
 <?php
+/**
+ * Theme Editor
+ *
+ * @package   Crayon Syntax Highlighter
+ * @author    Fedor Urvanov, Aram Kocharyan
+ * @copyright Copyright 2013, Aram Kocharyan
+ * @link      https://urvanov.ru
+ */
 
-// Old name : CrayonHTMLElement
+defined( 'ABSPATH' ) || exit;
+
+
+/**
+ * Class Urvanov_Syntax_Highlighter_HTML_Element
+ */
 class Urvanov_Syntax_Highlighter_HTML_Element {
+	/**
+	 * @var
+	 */
 	public $id;
-	public $class          = '';
-	public $tag            = 'div';
-	public $closed         = false;
-	public $contents       = '';
-	public $attributes     = array();
+	/**
+	 * @var string
+	 */
+	public $class = '';
+	/**
+	 * @var string
+	 */
+	public $tag = 'div';
+	/**
+	 * @var bool
+	 */
+	public $closed = false;
+	/**
+	 * @var string
+	 */
+	public $contents = '';
+	/**
+	 * @var array
+	 */
+	public $attributes = array();
+	/**
+	 *
+	 */
 	const CSS_INPUT_PREFIX = 'crayon-theme-input-';
 
+	/**
+	 * @var string[]
+	 */
 	public static $borderStyles = array(
-		'none',
-		'hidden',
-		'dotted',
-		'dashed',
-		'solid',
-		'double',
-		'groove',
-		'ridge',
-		'inset',
-		'outset',
-		'inherit',
+			'none',
+			'hidden',
+			'dotted',
+			'dashed',
+			'solid',
+			'double',
+			'groove',
+			'ridge',
+			'inset',
+			'outset',
+			'inherit',
 	);
 
+	/**
+	 * Urvanov_Syntax_Highlighter_HTML_Element constructor.
+	 *
+	 * @param $id
+	 */
 	public function __construct( $id ) {
 		$this->id = $id;
 	}
 
+	/**
+	 * @param $class
+	 */
 	public function addClass( $class ) {
 		$this->class .= ' ' . self::CSS_INPUT_PREFIX . $class;
 	}
 
+	/**
+	 * @param $atts
+	 */
 	public function addAttributes( $atts ) {
 		$this->attributes = array_merge( $this->attributes, $atts );
 	}
 
+	/**
+	 * @return string
+	 */
 	public function attributeString() {
 		$str = '';
 		foreach ( $this->attributes as $k => $v ) {
@@ -45,15 +96,35 @@ class Urvanov_Syntax_Highlighter_HTML_Element {
 		return $str;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function __toString() {
 		return '<' . $this->tag . ' id="' . self::CSS_INPUT_PREFIX . $this->id . '" class="' . self::CSS_INPUT_PREFIX . $this->class . '" ' . $this->attributeString() . ( $this->closed ? ' />' : ' >' . $this->contents . "</$this->tag>" );
 	}
 }
 
+/**
+ * Class Urvanov_Syntax_Highlighter_HTML_Input
+ */
 class Urvanov_Syntax_Highlighter_HTML_Input extends Urvanov_Syntax_Highlighter_HTML_Element {
+	/**
+	 * @var mixed|string|null
+	 */
 	public $name;
+	/**
+	 * @var
+	 */
 	public $type;
 
+	/**
+	 * Urvanov_Syntax_Highlighter_HTML_Input constructor.
+	 *
+	 * @param        $id
+	 * @param null   $name
+	 * @param string $value
+	 * @param string $type
+	 */
 	public function __construct( $id, $name = null, $value = '', $type = 'text' ) {
 		parent::__construct( $id );
 		$this->tag    = 'input';
@@ -61,21 +132,38 @@ class Urvanov_Syntax_Highlighter_HTML_Input extends Urvanov_Syntax_Highlighter_H
 		if ( $name === null ) {
 			$name = Urvanov_Syntax_Highlighter_User_Resource::clean_name( $id );
 		}
-		$this->name   = $name;
+		$this->name  = $name;
 		$this->class .= $type;
 		$this->addAttributes(
-			array(
-				'type'  => $type,
-				'value' => $value,
-			)
+				array(
+						'type'  => $type,
+						'value' => $value,
+				)
 		);
 	}
 }
 
+/**
+ * Class Urvanov_Syntax_Highlighter_HTML_Select
+ */
 class Urvanov_Syntax_Highlighter_HTML_Select extends Urvanov_Syntax_Highlighter_HTML_Input {
+	/**
+	 * @var
+	 */
 	public $options;
+	/**
+	 * @var null
+	 */
 	public $selected = null;
 
+	/**
+	 * Urvanov_Syntax_Highlighter_HTML_Select constructor.
+	 *
+	 * @param        $id
+	 * @param null   $name
+	 * @param string $value
+	 * @param array  $options
+	 */
 	public function __construct( $id, $name = null, $value = '', $options = array() ) {
 		parent::__construct( $id, $name, 'select' );
 		$this->tag    = 'select';
@@ -83,6 +171,10 @@ class Urvanov_Syntax_Highlighter_HTML_Select extends Urvanov_Syntax_Highlighter_
 		$this->addOptions( $options );
 	}
 
+	/**
+	 * @param      $options
+	 * @param null $default
+	 */
 	public function addOptions( $options, $default = null ) {
 		for ( $i = 0; $i < count( $options ); $i ++ ) {
 			$key                   = $options[ $i ];
@@ -96,16 +188,22 @@ class Urvanov_Syntax_Highlighter_HTML_Select extends Urvanov_Syntax_Highlighter_
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getOptionsString() {
 		$str = '';
 		foreach ( $this->options as $k => $v ) {
 			$selected = $this->selected == $k ? 'selected="selected"' : '';
-			$str     .= "<option value=\"$k\" $selected>$v</option>";
+			$str      .= "<option value=\"$k\" $selected>$v</option>";
 		}
 
 		return $str;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function __toString() {
 		$this->contents = $this->getOptionsString();
 
@@ -113,29 +211,73 @@ class Urvanov_Syntax_Highlighter_HTML_Select extends Urvanov_Syntax_Highlighter_
 	}
 }
 
+/**
+ * Class Urvanov_Syntax_Highlighter_HTML_Separator
+ */
 class Urvanov_Syntax_Highlighter_HTML_Separator extends Urvanov_Syntax_Highlighter_HTML_Element {
+	/**
+	 * @var string
+	 */
 	public $name = '';
 
+	/**
+	 * Urvanov_Syntax_Highlighter_HTML_Separator constructor.
+	 *
+	 * @param $name
+	 */
 	public function __construct( $name ) {
 		parent::__construct( $name );
 		$this->name = $name;
 	}
 }
 
+/**
+ * Class Urvanov_Syntax_Highlighter_HTML_Title
+ */
 class Urvanov_Syntax_Highlighter_HTML_Title extends Urvanov_Syntax_Highlighter_HTML_Separator {
 
 }
 
+/**
+ * Class Urvanov_Syntax_Highlighter_Theme_Editor_Save
+ */
 class Urvanov_Syntax_Highlighter_Theme_Editor_Save {
+	/**
+	 * @var
+	 */
 	public $id;
+	/**
+	 * @var
+	 */
 	public $oldId;
+	/**
+	 * @var
+	 */
 	public $name;
+	/**
+	 * @var
+	 */
 	public $css;
+	/**
+	 * @var
+	 */
 	public $change_settings;
+	/**
+	 * @var
+	 */
 	public $allow_edit;
+	/**
+	 * @var
+	 */
 	public $allow_edit_stock_theme;
+	/**
+	 * @var
+	 */
 	public $delete;
 
+	/**
+	 *
+	 */
 	public function initialize_from_post() {
 		Urvanov_Syntax_Highlighter_Settings_WP::load_settings();
 		$this->oldId = stripslashes( sanitize_text_field( $_POST['id'] ) );
@@ -157,22 +299,61 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_Save {
 	}
 }
 
+/**
+ * Class Urvanov_Syntax_Highlighter_Theme_Editor_WP
+ */
 class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 
-	public static $attributes             = null;
-	public static $attributeGroups        = null;
+	/**
+	 * @var null
+	 */
+	public static $attributes = null;
+	/**
+	 * @var null
+	 */
+	public static $attributeGroups = null;
+	/**
+	 * @var null
+	 */
 	public static $attributeGroupsInverse = null;
-	public static $attributeTypes         = null;
-	public static $attributeTypesInverse  = null;
-	public static $infoFields             = null;
-	public static $infoFieldsInverse      = null;
-	public static $settings               = null;
-	public static $strings                = null;
+	/**
+	 * @var null
+	 */
+	public static $attributeTypes = null;
+	/**
+	 * @var null
+	 */
+	public static $attributeTypesInverse = null;
+	/**
+	 * @var null
+	 */
+	public static $infoFields = null;
+	/**
+	 * @var null
+	 */
+	public static $infoFieldsInverse = null;
+	/**
+	 * @var null
+	 */
+	public static $settings = null;
+	/**
+	 * @var null
+	 */
+	public static $strings = null;
 
+	/**
+	 *
+	 */
 	const ATTRIBUTE = 'attribute';
 
+	/**
+	 *
+	 */
 	const RE_COMMENT = '#^\s*\/\*[\s\S]*?\*\/#msi';
 
+	/**
+	 *
+	 */
 	public static function initFields() {
 		if ( self::$infoFields === null ) {
 			self::$infoFields        = array(
@@ -192,28 +373,31 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 			self::$attributes = array();
 			// A map of CSS attribute to input type
 			self::$attributeGroups        = array(
-				'color'        => array(
-					'background',
-					'background-color',
-					'border-color',
-					'color',
-					'border-top-color',
-					'border-bottom-color',
-					'border-left-color',
-					'border-right-color',
-				),
-				'size'         => array( 'border-width' ),
-				'border-style' => array( 'border-style', 'border-bottom-style', 'border-top-style', 'border-left-style', 'border-right-style' ),
+					'color'        => array(
+							'background',
+							'background-color',
+							'border-color',
+							'color',
+							'border-top-color',
+							'border-bottom-color',
+							'border-left-color',
+							'border-right-color',
+					),
+					'size'         => array( 'border-width' ),
+					'border-style' => array( 'border-style', 'border-bottom-style', 'border-top-style', 'border-left-style', 'border-right-style' ),
 			);
 			self::$attributeGroupsInverse = UrvanovSyntaxHighlighterUtil::array_flip( self::$attributeGroups );
 			// Mapping of input type to attribute group
 			self::$attributeTypes        = array(
-				'select' => array( 'border-style', 'font-style', 'font-weight', 'text-decoration' ),
+					'select' => array( 'border-style', 'font-style', 'font-weight', 'text-decoration' ),
 			);
 			self::$attributeTypesInverse = UrvanovSyntaxHighlighterUtil::array_flip( self::$attributeTypes );
 		}
 	}
 
+	/**
+	 *
+	 */
 	public static function initSettings() {
 		Urvanov_Syntax_Highlighter_Settings_WP::load_settings();
 		self::initFields();
@@ -231,6 +415,9 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public static function initStrings() {
 		if ( self::$strings === null ) {
 			self::$strings = array(
@@ -260,6 +447,9 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public static function admin_resources() {
 		global $urvanov_syntax_highlighter_version;
 		self::initSettings();
@@ -267,53 +457,53 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 
 		wp_enqueue_script( 'cssjson_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_CSSJSON_JS, $path ), $urvanov_syntax_highlighter_version );
 		wp_enqueue_script(
-			'jquery_colorpicker_js',
-			plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_JQUERY_COLORPICKER, $path ),
-			array(
-				'jquery',
-				'jquery-ui-core',
-				'jquery-ui-widget',
-				'jquery-ui-tabs',
-				'jquery-ui-draggable',
-				'jquery-ui-dialog',
-				'jquery-ui-position',
-				'jquery-ui-mouse',
-				'jquery-ui-slider',
-				'jquery-ui-droppable',
-				'jquery-ui-selectable',
-				'jquery-ui-resizable',
-			),
-			$urvanov_syntax_highlighter_version
+				'jquery_colorpicker_js',
+				plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_JQUERY_COLORPICKER, $path ),
+				array(
+						'jquery',
+						'jquery-ui-core',
+						'jquery-ui-widget',
+						'jquery-ui-tabs',
+						'jquery-ui-draggable',
+						'jquery-ui-dialog',
+						'jquery-ui-position',
+						'jquery-ui-mouse',
+						'jquery-ui-slider',
+						'jquery-ui-droppable',
+						'jquery-ui-selectable',
+						'jquery-ui-resizable',
+				),
+				$urvanov_syntax_highlighter_version
 		);
 		wp_enqueue_script( 'jquery_tinycolor_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_TINYCOLOR, $path ), array(), $urvanov_syntax_highlighter_version );
 		UrvanovSyntaxHighlighterLog::debug( self::$settings, 'Theme editor settings' );
 		if ( URVANOV_SYNTAX_HIGHLIGHTER_MINIFY ) {
 			wp_enqueue_script(
-				'urvanov_syntax_highlighter_theme_editor',
-				plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR_JS, $path ),
-				array(
-					'jquery',
-					'urvanov_syntax_highlighter_js',
-					'urvanov_syntax_highlighter_admin_js',
-					'cssjson_js',
-					'jquery_colorpicker_js',
-					'jquery_tinycolor_js',
-				),
-				$urvanov_syntax_highlighter_version
+					'urvanov_syntax_highlighter_theme_editor',
+					plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR_JS, $path ),
+					array(
+							'jquery',
+							'urvanov_syntax_highlighter_js',
+							'urvanov_syntax_highlighter_admin_js',
+							'cssjson_js',
+							'jquery_colorpicker_js',
+							'jquery_tinycolor_js',
+					),
+					$urvanov_syntax_highlighter_version
 			);
 		} else {
 			wp_enqueue_script(
-				'urvanov_syntax_highlighter_theme_editor',
-				plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR_JS, $path ),
-				array(
-					'jquery',
-					'urvanov_syntax_highlighter_util_js',
-					'urvanov_syntax_highlighter_admin_js',
-					'cssjson_js',
-					'jquery_colorpicker_js',
-					'jquery_tinycolor_js',
-				),
-				$urvanov_syntax_highlighter_version
+					'urvanov_syntax_highlighter_theme_editor',
+					plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR_JS, $path ),
+					array(
+							'jquery',
+							'urvanov_syntax_highlighter_util_js',
+							'urvanov_syntax_highlighter_admin_js',
+							'cssjson_js',
+							'jquery_colorpicker_js',
+							'jquery_tinycolor_js',
+					),
+					$urvanov_syntax_highlighter_version
 			);
 		}
 
@@ -324,6 +514,11 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		wp_enqueue_style( 'jquery_colorpicker', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_CSS_JQUERY_COLORPICKER, $path ), array(), $urvanov_syntax_highlighter_version );
 	}
 
+	/**
+	 * @param $inputs
+	 *
+	 * @return string
+	 */
 	public static function form( $inputs ) {
 		$str      = '<form class="' . self::$settings['prefix'] . '-form"><table>';
 		$sepCount = 0;
@@ -345,7 +540,7 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 				$fields  = '<table class="split-field"><tr>';
 				$percent = 100 / count( $input );
 				for ( $i = 1; $i < count( $input ); $i ++ ) {
-					$class   = $i == count( $input ) - 1 ? 'class="last"' : '';
+					$class  = $i == count( $input ) - 1 ? 'class="last"' : '';
 					$fields .= '<td ' . $class . ' style="width: ' . $percent . '%">' . $input[ $i ] . '</td>';
 				}
 				$fields .= '</tr></table>';
@@ -357,10 +552,20 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		return $str;
 	}
 
+	/**
+	 * @param        $name
+	 * @param        $field
+	 * @param string $class
+	 *
+	 * @return string
+	 */
 	public static function formField( $name, $field, $class = '' ) {
 		return '<tr><td class="field ' . $class . '">' . $name . '</td><td class="value ' . $class . '">' . $field . '</td></tr>';
 	}
 
+	/**
+	 *
+	 */
 	public static function content() {
 		self::initSettings();
 		$theme   = Urvanov_Syntax_Highlighter_Resources::themes()->get_default();
@@ -464,9 +669,9 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 						<div id="tabs-1">
 							<?php
 							self::createAttributesForm(
-								array(
-									new Urvanov_Syntax_Highlighter_HTML_Title( $tInformation ),
-								)
+									array(
+											new Urvanov_Syntax_Highlighter_HTML_Title( $tInformation ),
+									)
 							);
 							?>
 							<div id="tabs-1-contents"></div>
@@ -477,35 +682,35 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 
 							$highlight = ' .crayon-pre';
 							$elems     = array(
-								'c'  => esc_html__( 'Comment', 'urvanov-syntax-highlighter' ),
-								's'  => esc_html__( 'String', 'urvanov-syntax-highlighter' ),
-								'p'  => esc_html__( 'Preprocessor', 'urvanov-syntax-highlighter' ),
-								'ta' => esc_html__( 'Tag', 'urvanov-syntax-highlighter' ),
-								'k'  => esc_html__( 'Keyword', 'urvanov-syntax-highlighter' ),
-								'st' => esc_html__( 'Statement', 'urvanov-syntax-highlighter' ),
-								'r'  => esc_html__( 'Reserved', 'urvanov-syntax-highlighter' ),
-								't'  => esc_html__( 'Type', 'urvanov-syntax-highlighter' ),
-								'm'  => esc_html__( 'Modifier', 'urvanov-syntax-highlighter' ),
-								'i'  => esc_html__( 'Identifier', 'urvanov-syntax-highlighter' ),
-								'e'  => esc_html__( 'Entity', 'urvanov-syntax-highlighter' ),
-								'v'  => esc_html__( 'Variable', 'urvanov-syntax-highlighter' ),
-								'cn' => esc_html__( 'Constant', 'urvanov-syntax-highlighter' ),
-								'o'  => esc_html__( 'Operator', 'urvanov-syntax-highlighter' ),
-								'sy' => esc_html__( 'Symbol', 'urvanov-syntax-highlighter' ),
-								'n'  => esc_html__( 'Notation', 'urvanov-syntax-highlighter' ),
-								'f'  => esc_html__( 'Faded', 'urvanov-syntax-highlighter' ),
-								'h'  => esc_html__( 'HTML', 'urvanov-syntax-highlighter' ),
-								''   => esc_html__( 'Unhighlighted', 'urvanov-syntax-highlighter' ),
+									'c'  => esc_html__( 'Comment', 'urvanov-syntax-highlighter' ),
+									's'  => esc_html__( 'String', 'urvanov-syntax-highlighter' ),
+									'p'  => esc_html__( 'Preprocessor', 'urvanov-syntax-highlighter' ),
+									'ta' => esc_html__( 'Tag', 'urvanov-syntax-highlighter' ),
+									'k'  => esc_html__( 'Keyword', 'urvanov-syntax-highlighter' ),
+									'st' => esc_html__( 'Statement', 'urvanov-syntax-highlighter' ),
+									'r'  => esc_html__( 'Reserved', 'urvanov-syntax-highlighter' ),
+									't'  => esc_html__( 'Type', 'urvanov-syntax-highlighter' ),
+									'm'  => esc_html__( 'Modifier', 'urvanov-syntax-highlighter' ),
+									'i'  => esc_html__( 'Identifier', 'urvanov-syntax-highlighter' ),
+									'e'  => esc_html__( 'Entity', 'urvanov-syntax-highlighter' ),
+									'v'  => esc_html__( 'Variable', 'urvanov-syntax-highlighter' ),
+									'cn' => esc_html__( 'Constant', 'urvanov-syntax-highlighter' ),
+									'o'  => esc_html__( 'Operator', 'urvanov-syntax-highlighter' ),
+									'sy' => esc_html__( 'Symbol', 'urvanov-syntax-highlighter' ),
+									'n'  => esc_html__( 'Notation', 'urvanov-syntax-highlighter' ),
+									'f'  => esc_html__( 'Faded', 'urvanov-syntax-highlighter' ),
+									'h'  => esc_html__( 'HTML', 'urvanov-syntax-highlighter' ),
+									''   => esc_html__( 'Unhighlighted', 'urvanov-syntax-highlighter' ),
 							);
 							$atts      = array( new Urvanov_Syntax_Highlighter_HTML_Title( $tHighlighting ) );
 							foreach ( $elems as $class => $name ) {
 								$fullClass = $class != '' ? $highlight . ' .crayon-' . $class : $highlight;
 								$atts[]    = array(
-									$name,
-									self::createAttribute( $fullClass, 'color' ),
-									self::createAttribute( $fullClass, 'font-weight' ),
-									self::createAttribute( $fullClass, 'font-style' ),
-									self::createAttribute( $fullClass, 'text-decoration' ),
+										$name,
+										self::createAttribute( $fullClass, 'color' ),
+										self::createAttribute( $fullClass, 'font-weight' ),
+										self::createAttribute( $fullClass, 'font-style' ),
+										self::createAttribute( $fullClass, 'text-decoration' ),
 								);
 							}
 							self::createAttributesForm( $atts );
@@ -515,25 +720,25 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 							<?php
 							$inline = '-inline';
 							self::createAttributesForm(
-								array(
-									new Urvanov_Syntax_Highlighter_HTML_Title( $tFrame ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tNormal ),
-									// self::createAttribute('', 'background', $tBackground),
 									array(
-										$tBorder,
-										self::createAttribute( '', 'border-width' ),
-										self::createAttribute( '', 'border-color' ),
-										self::createAttribute( '', 'border-style' ),
-									),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tInline ),
-									self::createAttribute( $inline, 'background', $tBackground ),
-									array(
-										$tBorder,
-										self::createAttribute( $inline, 'border-width' ),
-										self::createAttribute( $inline, 'border-color' ),
-										self::createAttribute( $inline, 'border-style' ),
-									),
-								)
+											new Urvanov_Syntax_Highlighter_HTML_Title( $tFrame ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tNormal ),
+											// self::createAttribute('', 'background', $tBackground),
+											array(
+													$tBorder,
+													self::createAttribute( '', 'border-width' ),
+													self::createAttribute( '', 'border-color' ),
+													self::createAttribute( '', 'border-style' ),
+											),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tInline ),
+											self::createAttribute( $inline, 'background', $tBackground ),
+											array(
+													$tBorder,
+													self::createAttribute( $inline, 'border-width' ),
+													self::createAttribute( $inline, 'border-color' ),
+													self::createAttribute( $inline, 'border-style' ),
+											),
+									)
 							);
 							?>
 						</div>
@@ -543,25 +748,25 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 							$markedLine        = ' .crayon-marked-line';
 							$stripedMarkedLine = ' .crayon-marked-line.crayon-striped-line';
 							self::createAttributesForm(
-								array(
-									new Urvanov_Syntax_Highlighter_HTML_Title( $tLines ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tNormal ),
-									self::createAttribute( '', 'background', $tBackground ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tStriped ),
-									self::createAttribute( $stripedLine, 'background', $tBackground ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tMarked ),
-									self::createAttribute( $markedLine, 'background', $tBackground ),
 									array(
-										$tBorder,
-										self::createAttribute( $markedLine, 'border-width' ),
-										self::createAttribute( $markedLine, 'border-color' ),
-										self::createAttribute( $markedLine, 'border-style' ),
-									),
-									self::createAttribute( $markedLine . $top, 'border-top-style', $tTopBorder ),
-									self::createAttribute( $markedLine . $bottom, 'border-bottom-style', $tBottomBorder ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tStripedMarked ),
-									self::createAttribute( $stripedMarkedLine, 'background', $tBackground ),
-								)
+											new Urvanov_Syntax_Highlighter_HTML_Title( $tLines ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tNormal ),
+											self::createAttribute( '', 'background', $tBackground ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tStriped ),
+											self::createAttribute( $stripedLine, 'background', $tBackground ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tMarked ),
+											self::createAttribute( $markedLine, 'background', $tBackground ),
+											array(
+													$tBorder,
+													self::createAttribute( $markedLine, 'border-width' ),
+													self::createAttribute( $markedLine, 'border-color' ),
+													self::createAttribute( $markedLine, 'border-style' ),
+											),
+											self::createAttribute( $markedLine . $top, 'border-top-style', $tTopBorder ),
+											self::createAttribute( $markedLine . $bottom, 'border-bottom-style', $tBottomBorder ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tStripedMarked ),
+											self::createAttribute( $stripedMarkedLine, 'background', $tBackground ),
+									)
 							);
 							?>
 						</div>
@@ -572,35 +777,35 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 							$markedNum        = ' .crayon-marked-num';
 							$stripedMarkedNum = ' .crayon-marked-num.crayon-striped-num';
 							self::createAttributesForm(
-								array(
-									new Urvanov_Syntax_Highlighter_HTML_Title( $tNumbers ),
 									array(
-										$tBorderRight,
-										self::createAttribute( $nums, 'border-right-width' ),
-										self::createAttribute( $nums, 'border-right-color' ),
-										self::createAttribute( $nums, 'border-right-style' ),
-									),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tNormal ),
-									self::createAttribute( $nums, 'background', $tBackground ),
-									self::createAttribute( $nums, 'color', $tText ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tStriped ),
-									self::createAttribute( $stripedNum, 'background', $tBackground ),
-									self::createAttribute( $stripedNum, 'color', $tText ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tMarked ),
-									self::createAttribute( $markedNum, 'background', $tBackground ),
-									self::createAttribute( $markedNum, 'color', $tText ),
-									array(
-										$tBorder,
-										self::createAttribute( $markedNum, 'border-width' ),
-										self::createAttribute( $markedNum, 'border-color' ),
-										self::createAttribute( $markedNum, 'border-style' ),
-									),
-									self::createAttribute( $markedNum . $top, 'border-top-style', $tTopBorder ),
-									self::createAttribute( $markedNum . $bottom, 'border-bottom-style', $tBottomBorder ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tStripedMarked ),
-									self::createAttribute( $stripedMarkedNum, 'background', $tBackground ),
-									self::createAttribute( $stripedMarkedNum, 'color', $tText ),
-								)
+											new Urvanov_Syntax_Highlighter_HTML_Title( $tNumbers ),
+											array(
+													$tBorderRight,
+													self::createAttribute( $nums, 'border-right-width' ),
+													self::createAttribute( $nums, 'border-right-color' ),
+													self::createAttribute( $nums, 'border-right-style' ),
+											),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tNormal ),
+											self::createAttribute( $nums, 'background', $tBackground ),
+											self::createAttribute( $nums, 'color', $tText ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tStriped ),
+											self::createAttribute( $stripedNum, 'background', $tBackground ),
+											self::createAttribute( $stripedNum, 'color', $tText ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tMarked ),
+											self::createAttribute( $markedNum, 'background', $tBackground ),
+											self::createAttribute( $markedNum, 'color', $tText ),
+											array(
+													$tBorder,
+													self::createAttribute( $markedNum, 'border-width' ),
+													self::createAttribute( $markedNum, 'border-color' ),
+													self::createAttribute( $markedNum, 'border-style' ),
+											),
+											self::createAttribute( $markedNum . $top, 'border-top-style', $tTopBorder ),
+											self::createAttribute( $markedNum . $bottom, 'border-bottom-style', $tBottomBorder ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tStripedMarked ),
+											self::createAttribute( $stripedMarkedNum, 'background', $tBackground ),
+											self::createAttribute( $stripedMarkedNum, 'color', $tText ),
+									)
 							);
 							?>
 						</div>
@@ -612,55 +817,55 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 							$info     = ' .crayon-info';
 							$language = ' .crayon-language';
 							self::createAttributesForm(
-								array(
-									new Urvanov_Syntax_Highlighter_HTML_Title( $tToolbar ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tFrame ),
-									self::createAttribute( $toolbar, 'background', $tBackground ),
 									array(
-										$tBottomBorder,
-										self::createAttribute( $toolbar, 'border-bottom-width' ),
-										self::createAttribute( $toolbar, 'border-bottom-color' ),
-										self::createAttribute( $toolbar, 'border-bottom-style' ),
-									),
-									array(
-										$tTitle,
-										self::createAttribute( $title, 'color' ),
-										self::createAttribute( $title, 'font-weight' ),
-										self::createAttribute( $title, 'font-style' ),
-										self::createAttribute( $title, 'text-decoration' ),
-									),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tButtons ),
-									self::createAttribute( $button, 'background-color', $tBackground ),
-									self::createAttribute( $button . $hover, 'background-color', $tHover ),
-									self::createAttribute( $button . $active, 'background-color', $tActive ),
-									self::createAttribute( $button . $pressed, 'background-color', $tPressed ),
-									self::createAttribute( $button . $pressed . $hover, 'background-color', $tHoverPressed ),
-									self::createAttribute( $button . $pressed . $active, 'background-color', $tActivePressed ),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tInformation . ' ' . esc_html__( '(Used for Copy/Paste)', 'urvanov-syntax-highlighter' ) ),
-									self::createAttribute( $info, 'background', $tBackground ),
-									array(
-										$tText,
-										self::createAttribute( $info, 'color' ),
-										self::createAttribute( $info, 'font-weight' ),
-										self::createAttribute( $info, 'font-style' ),
-										self::createAttribute( $info, 'text-decoration' ),
-									),
-									array(
-										$tBottomBorder,
-										self::createAttribute( $info, 'border-bottom-width' ),
-										self::createAttribute( $info, 'border-bottom-color' ),
-										self::createAttribute( $info, 'border-bottom-style' ),
-									),
-									new Urvanov_Syntax_Highlighter_HTML_Separator( $tLanguage ),
-									array(
-										$tText,
-										self::createAttribute( $language, 'color' ),
-										self::createAttribute( $language, 'font-weight' ),
-										self::createAttribute( $language, 'font-style' ),
-										self::createAttribute( $language, 'text-decoration' ),
-									),
-									self::createAttribute( $language, 'background-color', $tBackground ),
-								)
+											new Urvanov_Syntax_Highlighter_HTML_Title( $tToolbar ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tFrame ),
+											self::createAttribute( $toolbar, 'background', $tBackground ),
+											array(
+													$tBottomBorder,
+													self::createAttribute( $toolbar, 'border-bottom-width' ),
+													self::createAttribute( $toolbar, 'border-bottom-color' ),
+													self::createAttribute( $toolbar, 'border-bottom-style' ),
+											),
+											array(
+													$tTitle,
+													self::createAttribute( $title, 'color' ),
+													self::createAttribute( $title, 'font-weight' ),
+													self::createAttribute( $title, 'font-style' ),
+													self::createAttribute( $title, 'text-decoration' ),
+											),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tButtons ),
+											self::createAttribute( $button, 'background-color', $tBackground ),
+											self::createAttribute( $button . $hover, 'background-color', $tHover ),
+											self::createAttribute( $button . $active, 'background-color', $tActive ),
+											self::createAttribute( $button . $pressed, 'background-color', $tPressed ),
+											self::createAttribute( $button . $pressed . $hover, 'background-color', $tHoverPressed ),
+											self::createAttribute( $button . $pressed . $active, 'background-color', $tActivePressed ),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tInformation . ' ' . esc_html__( '(Used for Copy/Paste)', 'urvanov-syntax-highlighter' ) ),
+											self::createAttribute( $info, 'background', $tBackground ),
+											array(
+													$tText,
+													self::createAttribute( $info, 'color' ),
+													self::createAttribute( $info, 'font-weight' ),
+													self::createAttribute( $info, 'font-style' ),
+													self::createAttribute( $info, 'text-decoration' ),
+											),
+											array(
+													$tBottomBorder,
+													self::createAttribute( $info, 'border-bottom-width' ),
+													self::createAttribute( $info, 'border-bottom-color' ),
+													self::createAttribute( $info, 'border-bottom-style' ),
+											),
+											new Urvanov_Syntax_Highlighter_HTML_Separator( $tLanguage ),
+											array(
+													$tText,
+													self::createAttribute( $language, 'color' ),
+													self::createAttribute( $language, 'font-weight' ),
+													self::createAttribute( $language, 'font-style' ),
+													self::createAttribute( $language, 'text-decoration' ),
+											),
+											self::createAttribute( $language, 'background-color', $tBackground ),
+									)
 							);
 							?>
 						</div>
@@ -674,6 +879,13 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		exit();
 	}
 
+	/**
+	 * @param      $element
+	 * @param      $attribute
+	 * @param null $name
+	 *
+	 * @return Urvanov_Syntax_Highlighter_HTML_Input|Urvanov_Syntax_Highlighter_HTML_Select
+	 */
 	public static function createAttribute( $element, $attribute, $name = null ) {
 		$group = self::getAttributeGroup( $attribute );
 		$type  = self::getAttributeType( $group );
@@ -683,52 +895,52 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 				$input->addOptions( Urvanov_Syntax_Highlighter_HTML_Element::$borderStyles );
 			} elseif ( $group == 'float' ) {
 				$input->addOptions(
-					array(
-						'left',
-						'right',
-						'both',
-						'none',
-						'inherit',
-					)
+						array(
+								'left',
+								'right',
+								'both',
+								'none',
+								'inherit',
+						)
 				);
 			} elseif ( $group == 'font-style' ) {
 				$input->addOptions(
-					array(
-						'normal',
-						'italic',
-						'oblique',
-						'inherit',
-					)
+						array(
+								'normal',
+								'italic',
+								'oblique',
+								'inherit',
+						)
 				);
 			} elseif ( $group == 'font-weight' ) {
 				$input->addOptions(
-					array(
-						'normal',
-						'bold',
-						'bolder',
-						'lighter',
-						'100',
-						'200',
-						'300',
-						'400',
-						'500',
-						'600',
-						'700',
-						'800',
-						'900',
-						'inherit',
-					)
+						array(
+								'normal',
+								'bold',
+								'bolder',
+								'lighter',
+								'100',
+								'200',
+								'300',
+								'400',
+								'500',
+								'600',
+								'700',
+								'800',
+								'900',
+								'inherit',
+						)
 				);
 			} elseif ( $group == 'text-decoration' ) {
 				$input->addOptions(
-					array(
-						'none',
-						'underline',
-						'overline',
-						'line-through',
-						'blink',
-						'inherit',
-					)
+						array(
+								'none',
+								'underline',
+								'overline',
+								'line-through',
+								'blink',
+								'inherit',
+						)
 				);
 			}
 		} else {
@@ -736,20 +948,26 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		}
 		$input->addClass( self::ATTRIBUTE );
 		$input->addAttributes(
-			array(
-				'data-element'   => $element,
-				'data-attribute' => $attribute,
-				'data-group'     => $group,
-			)
+				array(
+						'data-element'   => $element,
+						'data-attribute' => $attribute,
+						'data-group'     => $group,
+				)
 		);
 
 		return $input;
 	}
 
+	/**
+	 * @param $atts
+	 */
 	public static function createAttributesForm( $atts ) {
 		echo self::form( $atts );
 	}
 
+	/**
+	 *
+	 */
 	public static function save() {
 		$save_args = new Urvanov_Syntax_Highlighter_Theme_Editor_Save();
 		$save_args->initialize_from_post();
@@ -825,29 +1043,29 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 			}
 			// XXX This is case sensitive to avoid modifying text, but it means that CSS must be in lowercase
 			UrvanovSyntaxHighlighterLog::debug(
-				"before caseSensitivePregReplace replaceId=$replaceID newID=$newID css=" . str_replace(
-					array(
-						"\r\n",
-						"\r",
-						"\n",
+					"before caseSensitivePregReplace replaceId=$replaceID newID=$newID css=" . str_replace(
+							array(
+									"\r\n",
+									"\r",
+									"\n",
+							),
+							'q',
+							$save_args->css
 					),
-					'q',
-					$save_args->css
-				),
-				'caseSensitivePregReplace'
+					'caseSensitivePregReplace'
 			);
 			$save_args->css = preg_replace( '#(?<=' . Urvanov_Syntax_Highlighter_Themes::CSS_PREFIX . ')' . $replaceID . '\b#ms', $newID, $save_args->css );
 			UrvanovSyntaxHighlighterLog::debug(
-				"after caseSensitivePregReplace replaceId=$replaceID newID=$newID css=" . str_replace(
-					array(
-						"\r\n",
-						"\r",
-						"\n",
+					"after caseSensitivePregReplace replaceId=$replaceID newID=$newID css=" . str_replace(
+							array(
+									"\r\n",
+									"\r",
+									"\n",
+							),
+							'q',
+							$save_args->css
 					),
-					'q',
-					$save_args->css
-				),
-				'caseSensitivePregReplace'
+					'caseSensitivePregReplace'
 			);
 
 			// Replace the name with the new one
@@ -894,6 +1112,9 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		exit();
 	}
 
+	/**
+	 *
+	 */
 	public static function duplicate() {
 		Urvanov_Syntax_Highlighter_Settings_WP::load_settings();
 		$save_args                         = new Urvanov_Syntax_Highlighter_Theme_Editor_Save();
@@ -907,6 +1128,9 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		self::saveFromArgs( $save_args );
 	}
 
+	/**
+	 *
+	 */
 	public static function delete() {
 		Urvanov_Syntax_Highlighter_Settings_WP::load_settings();
 		$id  = sanitize_text_field( $_POST['id'] );
@@ -927,6 +1151,9 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		exit();
 	}
 
+	/**
+	 *
+	 */
 	public static function submit() {
 		global $urvanov_syntax_highlighter_email;
 		Urvanov_Syntax_Highlighter_Settings_WP::load_settings();
@@ -940,13 +1167,13 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 			try {
 				$zipFile = UrvanovSyntaxHighlighterUtil::createZip( $dir, $dest, true );
 				$result  = UrvanovSyntaxHighlighterUtil::emailFile(
-					array(
-						'to'      => $urvanov_syntax_highlighter_email,
-						'from'    => get_bloginfo( 'admin_email' ),
-						'subject' => 'Theme Editor Submission',
-						'message' => $message,
-						'file'    => $zipFile,
-					)
+						array(
+								'to'      => $urvanov_syntax_highlighter_email,
+								'from'    => get_bloginfo( 'admin_email' ),
+								'subject' => 'Theme Editor Submission',
+								'message' => $message,
+								'file'    => $zipFile,
+						)
 				);
 				UrvanovSyntaxHighlighterUtil::deleteDir( $dest );
 				if ( $result ) {
@@ -964,6 +1191,11 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		exit();
 	}
 
+	/**
+	 * @param $css
+	 *
+	 * @return array
+	 */
 	public static function getCSSInfo( $css ) {
 		UrvanovSyntaxHighlighterLog::debug( "css=$css", 'getCSSInfo' );
 		$info = array();
@@ -984,6 +1216,11 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		return $info;
 	}
 
+	/**
+	 * @param $info
+	 *
+	 * @return string
+	 */
 	public static function cssInfoToString( $info ) {
 		UrvanovSyntaxHighlighterLog::log( $info, 'cssInfoToString' );
 		$str = "/*\n";
@@ -997,10 +1234,21 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		return $str;
 	}
 
+	/**
+	 * @param $css
+	 * @param $info
+	 *
+	 * @return array|string|string[]|null
+	 */
 	public static function setCSSInfo( $css, $info ) {
 		return preg_replace( self::RE_COMMENT, self::cssInfoToString( $info ), $css );
 	}
 
+	/**
+	 * @param $name
+	 *
+	 * @return array|mixed|string|string[]|null
+	 */
 	public static function getFieldID( $name ) {
 		if ( isset( self::$infoFieldsInverse[ $name ] ) ) {
 			return self::$infoFieldsInverse[ $name ];
@@ -1009,6 +1257,11 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		}
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return mixed|string
+	 */
 	public static function getFieldName( $id ) {
 		self::initFields();
 		if ( isset( self::$infoFields[ $id ] ) ) {
@@ -1018,6 +1271,11 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		}
 	}
 
+	/**
+	 * @param $attribute
+	 *
+	 * @return mixed
+	 */
 	public static function getAttributeGroup( $attribute ) {
 		if ( isset( self::$attributeGroupsInverse[ $attribute ] ) ) {
 			return self::$attributeGroupsInverse[ $attribute ];
@@ -1026,6 +1284,11 @@ class Urvanov_Syntax_Highlighter_Theme_Editor_WP {
 		}
 	}
 
+	/**
+	 * @param $group
+	 *
+	 * @return mixed|string
+	 */
 	public static function getAttributeType( $group ) {
 		if ( isset( self::$attributeTypesInverse[ $group ] ) ) {
 			return self::$attributeTypesInverse[ $group ];

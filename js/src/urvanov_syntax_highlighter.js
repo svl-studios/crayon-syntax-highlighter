@@ -1,100 +1,156 @@
-// Urvanov Syntax Highlighter JavaScript
+/* global jQueryUrvanovSyntaxHighlighter, UrvanovSyntaxHighlighterUtil, UrvanovSyntaxHighlighterSyntaxStrings, popupWindow */
+
+// Urvanov Syntax Highlighter JavaScript.
 
 ( function( $ ) {
-	// BEGIN AUXILIARY FUNCTIONS
+	var PRESSED   = 'crayon-pressed';
+	var UNPRESSED = '';
 
+	var URVANOV_SYNTAX_HIGHLIGHTER_SYNTAX        = 'div.urvanov-syntax-highlighter-syntax';
+	var URVANOV_SYNTAX_HIGHLIGHTER_TOOLBAR       = '.crayon-toolbar';
+	var URVANOV_SYNTAX_HIGHLIGHTER_INFO          = '.crayon-info';
+	var URVANOV_SYNTAX_HIGHLIGHTER_PLAIN         = '.urvanov-syntax-highlighter-plain';
+	var URVANOV_SYNTAX_HIGHLIGHTER_MAIN          = '.urvanov-syntax-highlighter-main';
+	var URVANOV_SYNTAX_HIGHLIGHTER_TABLE         = '.crayon-table';
+	var URVANOV_SYNTAX_HIGHLIGHTER_CODE          = '.urvanov-syntax-highlighter-code';
+	var URVANOV_SYNTAX_HIGHLIGHTER_TITLE         = '.crayon-title';
+	var URVANOV_SYNTAX_HIGHLIGHTER_TOOLS         = '.crayon-tools';
+	var URVANOV_SYNTAX_HIGHLIGHTER_NUMS          = '.crayon-nums';
+	var URVANOV_SYNTAX_HIGHLIGHTER_NUM           = '.crayon-num';
+	var URVANOV_SYNTAX_HIGHLIGHTER_WRAPPED       = 'urvanov-syntax-highlighter-wrapped';
+	var URVANOV_SYNTAX_HIGHLIGHTER_NUMS_CONTENT  = '.urvanov-syntax-highlighter-nums-content';
+	var URVANOV_SYNTAX_HIGHLIGHTER_NUMS_BUTTON   = '.urvanov-syntax-highlighter-nums-button';
+	var URVANOV_SYNTAX_HIGHLIGHTER_WRAP_BUTTON   = '.urvanov-syntax-highlighter-wrap-button';
+	var URVANOV_SYNTAX_HIGHLIGHTER_EXPAND_BUTTON = '.urvanov-syntax-highlighter-expand-button';
+	var URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED      = 'urvanov-syntax-highlighter-expanded urvanov-syntax-highlighter-toolbar-visible';
+	var URVANOV_SYNTAX_HIGHLIGHTER_PLACEHOLDER   = 'urvanov-syntax-highlighter-placeholder';
+	var URVANOV_SYNTAX_HIGHLIGHTER_POPUP_BUTTON  = '.urvanov-syntax-highlighter-popup-button';
+	var URVANOV_SYNTAX_HIGHLIGHTER_COPY_BUTTON   = '.urvanov-syntax-highlighter-copy-button';
+	var URVANOV_SYNTAX_HIGHLIGHTER_PLAIN_BUTTON  = '.urvanov-syntax-highlighter-plain-button';
+
+	var makeUID;
+	var urvanovSyntaxHighlighterInfo;
+	var updateWrap;
+	var updateNumsButton;
+	var updateWrapButton;
+	var updateExpandButton;
+	var updatePlainButton;
+	var toggleToolbar;
+	var addSize;
+	var minusSize;
+	var initSize;
+	var toggleExpand;
+	var placeholderResize;
+	var expandFinish;
+	var toggleScroll;
+	var fixScrollBlank;
+	var restoreDimensions;
+	var reconsileDimensions;
+	var reconsileLines;
+	var animt;
+	var isNumber;
+	var getUID;
+	var codePopup;
+	var retina;
+	var isSlideHidden;
+	var urvanovSyntaxHighlighterSlide;
+	var UrvanovSyntaxHighlighterSyntax;
+
+	// BEGIN AUXILIARY FUNCTIONS.
 	$.fn.exists = function() {
 		return this.length !== 0;
 	};
 
 	$.fn.style = function( styleName, value, priority ) {
-		// DOM node
+		var style;
+
+		// DOM node.
 		var node = this.get( 0 );
-		// Ensure we have a DOM node
+
+		// Ensure we have a DOM node.
 		if ( typeof node === 'undefined' ) {
 			return;
 		}
-		// CSSStyleDeclaration
-		var style = node.style;
-		// Getter/Setter
+
+		// CSSStyleDeclaration.
+		style = node.style;
+
+		// Getter/Setter.
 		if ( typeof styleName !== 'undefined' ) {
 			if ( typeof value !== 'undefined' ) {
-				// Set style property
+				// Set style property.
 				priority = typeof priority !== 'undefined' ? priority : '';
 				if ( typeof style.setProperty !== 'undefined' ) {
 					style.setProperty( styleName, value, priority );
 				} else {
-					// XXX Using priority breaks on IE 7 & 8
-					//                    if (priority) {
-					//                        value = value + ' !' + priority;
-					//                    }
 					style[styleName] = value;
 				}
 			} else {
-				// Get style property
+				// Get style property.
 				return style[styleName];
 			}
 		} else {
-			// Get CSSStyleDeclaration
+			// Get CSSStyleDeclaration.
 			return style;
 		}
 	};
+	// END AUXILIARY FUNCTIONS.
 
-	// END AUXILIARY FUNCTIONS
-
-	var PRESSED = 'crayon-pressed';
-	var UNPRESSED = '';
-
-	var URVANOV_SYNTAX_HIGHLIGHTER_SYNTAX = 'div.urvanov-syntax-highlighter-syntax';
-	var URVANOV_SYNTAX_HIGHLIGHTER_TOOLBAR = '.crayon-toolbar';
-	var URVANOV_SYNTAX_HIGHLIGHTER_INFO = '.crayon-info';
-	var URVANOV_SYNTAX_HIGHLIGHTER_PLAIN = '.urvanov-syntax-highlighter-plain';
-	var URVANOV_SYNTAX_HIGHLIGHTER_MAIN = '.urvanov-syntax-highlighter-main';
-	var URVANOV_SYNTAX_HIGHLIGHTER_TABLE = '.crayon-table';
-	var URVANOV_SYNTAX_HIGHLIGHTER_LOADING = '.urvanov-syntax-highlighter-loading';
-	var URVANOV_SYNTAX_HIGHLIGHTER_CODE = '.urvanov-syntax-highlighter-code';
-	var URVANOV_SYNTAX_HIGHLIGHTER_TITLE = '.crayon-title';
-	var URVANOV_SYNTAX_HIGHLIGHTER_TOOLS = '.crayon-tools';
-	var URVANOV_SYNTAX_HIGHLIGHTER_NUMS = '.crayon-nums';
-	var URVANOV_SYNTAX_HIGHLIGHTER_NUM = '.crayon-num';
-	var URVANOV_SYNTAX_HIGHLIGHTER_LINE = '.crayon-line';
-	var URVANOV_SYNTAX_HIGHLIGHTER_WRAPPED = 'urvanov-syntax-highlighter-wrapped';
-	var URVANOV_SYNTAX_HIGHLIGHTER_NUMS_CONTENT = '.urvanov-syntax-highlighter-nums-content';
-	var URVANOV_SYNTAX_HIGHLIGHTER_NUMS_BUTTON = '.urvanov-syntax-highlighter-nums-button';
-	var URVANOV_SYNTAX_HIGHLIGHTER_WRAP_BUTTON = '.urvanov-syntax-highlighter-wrap-button';
-	var URVANOV_SYNTAX_HIGHLIGHTER_EXPAND_BUTTON = '.urvanov-syntax-highlighter-expand-button';
-	var URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED = 'urvanov-syntax-highlighter-expanded urvanov-syntax-highlighter-toolbar-visible';
-	var URVANOV_SYNTAX_HIGHLIGHTER_PLACEHOLDER = 'urvanov-syntax-highlighter-placeholder';
-	var URVANOV_SYNTAX_HIGHLIGHTER_POPUP_BUTTON = '.urvanov-syntax-highlighter-popup-button';
-	var URVANOV_SYNTAX_HIGHLIGHTER_COPY_BUTTON = '.urvanov-syntax-highlighter-copy-button';
-	var URVANOV_SYNTAX_HIGHLIGHTER_PLAIN_BUTTON = '.urvanov-syntax-highlighter-plain-button';
-
-	UrvanovSyntaxHighlighterSyntax = new function() {
+	UrvanovSyntaxHighlighterSyntax = function() {
 		var base = this;
-		var urvanov_syntax_highlighters = new Object();
+		var urvanovSyntaxHighlighters;
 		var settings;
 		var strings;
 		var currUID = 0;
 		var touchscreen;
+		var pxToInt;
 
 		base.init = function() {
-			if ( typeof urvanov_syntax_highlighters === 'undefined' ) {
-				urvanov_syntax_highlighters = new Object();
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters ) {
+				urvanovSyntaxHighlighters = {};
 			}
-			settings = UrvanovSyntaxHighlighterSyntaxSettings;
+
 			strings = UrvanovSyntaxHighlighterSyntaxStrings;
-			$( URVANOV_SYNTAX_HIGHLIGHTER_SYNTAX ).each( function() {
-				base.process( this );
-			} );
+
+			$( URVANOV_SYNTAX_HIGHLIGHTER_SYNTAX ).each(
+				function() {
+					base.process( this );
+				}
+			);
 		};
 
 		base.process = function( c, replace ) {
-			c = $( c );
-			var uid = c.attr( 'id' );
-			if ( uid == 'urvanov-syntax-highlighter-' ) {
-				// No ID, generate one
+			var uid;
+			var toolbar;
+			var info;
+			var plain;
+			var main;
+			var table;
+			var code;
+			var title;
+			var tools;
+			var nums;
+			var numsContent;
+			var numsButton;
+			var wrapButton;
+			var expandButton;
+			var popupButton;
+			var copyButton;
+			var plainButton;
+			var mainStyle;
+			var loadTimer;
+			var i = 0;
+			var loadFunc;
+			var expand;
+
+			c   = $( c );
+			uid = c.attr( 'id' );
+
+			if ( 'urvanov-syntax-highlighter-' === uid ) {
+				// No ID, generate one.
 				uid += getUID();
 			}
+
 			c.attr( 'id', uid );
 			UrvanovSyntaxHighlighterUtil.log( uid );
 
@@ -103,291 +159,370 @@
 			}
 
 			if ( ! replace && ! makeUID( uid ) ) {
-				// Already a UrvanovSyntaxHighlighter
+				// Already a UrvanovSyntaxHighlighter.
 				return;
 			}
 
-			var toolbar = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TOOLBAR );
-			var info = c.find( URVANOV_SYNTAX_HIGHLIGHTER_INFO );
-			var plain = c.find( URVANOV_SYNTAX_HIGHLIGHTER_PLAIN );
-			var main = c.find( URVANOV_SYNTAX_HIGHLIGHTER_MAIN );
-			var table = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TABLE );
-			var code = c.find( URVANOV_SYNTAX_HIGHLIGHTER_CODE );
-			var title = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TITLE );
-			var tools = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TOOLS );
-			var nums = c.find( URVANOV_SYNTAX_HIGHLIGHTER_NUMS );
-			var numsContent = c.find( URVANOV_SYNTAX_HIGHLIGHTER_NUMS_CONTENT );
-			var numsButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_NUMS_BUTTON );
-			var wrapButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_WRAP_BUTTON );
-			var expandButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_EXPAND_BUTTON );
-			var popupButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_POPUP_BUTTON );
-			var copyButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_COPY_BUTTON );
-			var plainButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_PLAIN_BUTTON );
+			toolbar      = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TOOLBAR );
+			info         = c.find( URVANOV_SYNTAX_HIGHLIGHTER_INFO );
+			plain        = c.find( URVANOV_SYNTAX_HIGHLIGHTER_PLAIN );
+			main         = c.find( URVANOV_SYNTAX_HIGHLIGHTER_MAIN );
+			table        = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TABLE );
+			code         = c.find( URVANOV_SYNTAX_HIGHLIGHTER_CODE );
+			title        = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TITLE );
+			tools        = c.find( URVANOV_SYNTAX_HIGHLIGHTER_TOOLS );
+			nums         = c.find( URVANOV_SYNTAX_HIGHLIGHTER_NUMS );
+			numsContent  = c.find( URVANOV_SYNTAX_HIGHLIGHTER_NUMS_CONTENT );
+			numsButton   = c.find( URVANOV_SYNTAX_HIGHLIGHTER_NUMS_BUTTON );
+			wrapButton   = c.find( URVANOV_SYNTAX_HIGHLIGHTER_WRAP_BUTTON );
+			expandButton = c.find( URVANOV_SYNTAX_HIGHLIGHTER_EXPAND_BUTTON );
+			popupButton  = c.find( URVANOV_SYNTAX_HIGHLIGHTER_POPUP_BUTTON );
+			copyButton   = c.find( URVANOV_SYNTAX_HIGHLIGHTER_COPY_BUTTON );
+			plainButton  = c.find( URVANOV_SYNTAX_HIGHLIGHTER_PLAIN_BUTTON );
 
-			urvanov_syntax_highlighters[uid] = c;
-			urvanov_syntax_highlighters[uid].toolbar = toolbar;
-			urvanov_syntax_highlighters[uid].plain = plain;
-			urvanov_syntax_highlighters[uid].info = info;
-			urvanov_syntax_highlighters[uid].main = main;
-			urvanov_syntax_highlighters[uid].table = table;
-			urvanov_syntax_highlighters[uid].code = code;
-			urvanov_syntax_highlighters[uid].title = title;
-			urvanov_syntax_highlighters[uid].tools = tools;
-			urvanov_syntax_highlighters[uid].nums = nums;
-			urvanov_syntax_highlighters[uid].nums_content = numsContent;
-			urvanov_syntax_highlighters[uid].numsButton = numsButton;
-			urvanov_syntax_highlighters[uid].wrapButton = wrapButton;
-			urvanov_syntax_highlighters[uid].expandButton = expandButton;
-			urvanov_syntax_highlighters[uid].popup_button = popupButton;
-			urvanov_syntax_highlighters[uid].copy_button = copyButton;
-			urvanov_syntax_highlighters[uid].plainButton = plainButton;
-			urvanov_syntax_highlighters[uid].numsVisible = true;
-			urvanov_syntax_highlighters[uid].wrapped = false;
-			urvanov_syntax_highlighters[uid].plainVisible = false;
+			urvanovSyntaxHighlighters[uid]               = c;
+			urvanovSyntaxHighlighters[uid].toolbar       = toolbar;
+			urvanovSyntaxHighlighters[uid].plain         = plain;
+			urvanovSyntaxHighlighters[uid].info          = info;
+			urvanovSyntaxHighlighters[uid].main          = main;
+			urvanovSyntaxHighlighters[uid].table         = table;
+			urvanovSyntaxHighlighters[uid].code          = code;
+			urvanovSyntaxHighlighters[uid].title         = title;
+			urvanovSyntaxHighlighters[uid].tools         = tools;
+			urvanovSyntaxHighlighters[uid].nums          = nums;
+			urvanovSyntaxHighlighters[uid].nums_content  = numsContent;
+			urvanovSyntaxHighlighters[uid].numsButton    = numsButton;
+			urvanovSyntaxHighlighters[uid].wrapButton    = wrapButton;
+			urvanovSyntaxHighlighters[uid].expandButton  = expandButton;
+			urvanovSyntaxHighlighters[uid].popup_button  = popupButton;
+			urvanovSyntaxHighlighters[uid].copy_button   = copyButton;
+			urvanovSyntaxHighlighters[uid].plainButton   = plainButton;
+			urvanovSyntaxHighlighters[uid].numsVisible   = true;
+			urvanovSyntaxHighlighters[uid].wrapped       = false;
+			urvanovSyntaxHighlighters[uid].plainVisible  = false;
+			urvanovSyntaxHighlighters[uid].toolbar_delay = 0;
+			urvanovSyntaxHighlighters[uid].time          = 1;
 
-			urvanov_syntax_highlighters[uid].toolbar_delay = 0;
-			urvanov_syntax_highlighters[uid].time = 1;
-
-			// Set plain
+			// Set plain.
 			$( URVANOV_SYNTAX_HIGHLIGHTER_PLAIN ).css( 'z-index', 0 );
 
-			// XXX Remember CSS dimensions
-			var mainStyle = main.style();
-			urvanov_syntax_highlighters[uid].mainStyle = {
-				height: mainStyle && mainStyle.height || '',
-				'max-height': mainStyle && mainStyle.maxHeight || '',
-				'min-height': mainStyle && mainStyle.minHeight || '',
-				width: mainStyle && mainStyle.width || '',
-				'max-width': mainStyle && mainStyle.maxWidth || '',
-				'min-width': mainStyle && mainStyle.minWidth || '',
+			// XXX Remember CSS dimensions.
+			mainStyle = main.style();
+
+			urvanovSyntaxHighlighters[uid].mainStyle = {
+				height: ( mainStyle && mainStyle.height ) || '',
+				'max-height': ( mainStyle && mainStyle.maxHeight ) || '',
+				'min-height': ( mainStyle && mainStyle.minHeight ) || '',
+				width: ( mainStyle && mainStyle.width ) || '',
+				'max-width': ( mainStyle && mainStyle.maxWidth ) || '',
+				'min-width': ( mainStyle && mainStyle.minWidth ) || '',
 			};
-			urvanov_syntax_highlighters[uid].mainHeightAuto = urvanov_syntax_highlighters[uid].mainStyle.height == '' && urvanov_syntax_highlighters[uid].mainStyle['max-height'] == '';
 
-			var load_timer;
-			var i = 0;
-			urvanov_syntax_highlighters[uid].loading = true;
-			urvanov_syntax_highlighters[uid].scrollBlockFix = false;
+			urvanovSyntaxHighlighters[uid].mainHeightAuto = '' === urvanovSyntaxHighlighters[uid].mainStyle.height && '' === urvanovSyntaxHighlighters[uid].mainStyle['max-height'];
 
-			// Register click events
-			numsButton.on( 'click', function() {
-				UrvanovSyntaxHighlighterSyntax.toggleNums( uid );
-			} );
-			wrapButton.on( 'click', function() {
-				UrvanovSyntaxHighlighterSyntax.toggleWrap( uid );
-			} );
-			expandButton.on( 'click', function() {
-				UrvanovSyntaxHighlighterSyntax.toggleExpand( uid );
-			} );
-			plainButton.on( 'click', function() {
-				UrvanovSyntaxHighlighterSyntax.togglePlain( uid );
-			} );
-			copyButton.on( 'click', function() {
-				UrvanovSyntaxHighlighterSyntax.copyPlain( uid );
-			} );
+			urvanovSyntaxHighlighters[uid].loading        = true;
+			urvanovSyntaxHighlighters[uid].scrollBlockFix = false;
 
-			// Enable retina if supported
+			// Register click events.
+			numsButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterSyntax.toggleNums( uid );
+				}
+			);
+
+			wrapButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterSyntax.toggleWrap( uid );
+				}
+			);
+
+			expandButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterSyntax.toggleExpand( uid );
+				}
+			);
+
+			plainButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterSyntax.togglePlain( uid );
+				}
+			);
+
+			copyButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterSyntax.copyPlain( uid );
+				}
+			);
+
+			// Enable retina if supported.
 			retina( uid );
 
-			var load_func = function() {
-				// If nums hidden by default
-				if ( nums.filter( '[data-settings~="hide"]' ).length != 0 ) {
-					numsContent.ready( function() {
-						UrvanovSyntaxHighlighterUtil.log( 'function' + uid );
-						UrvanovSyntaxHighlighterSyntax.toggleNums( uid, true, true );
-					} );
+			loadFunc = function() {
+				// If nums hidden by default.
+				if ( 0 !== nums.filter( '[data-settings~="hide"]' ).length ) {
+					numsContent.ready(
+						function() {
+							UrvanovSyntaxHighlighterUtil.log( 'function' + uid );
+							UrvanovSyntaxHighlighterSyntax.toggleNums( uid, true, true );
+						}
+					);
 				} else {
 					updateNumsButton( uid );
 				}
 
-				if ( typeof urvanov_syntax_highlighters[uid].expanded === 'undefined' ) {
-					// Determine if we should enable code expanding toggling
-					if ( Math.abs( urvanov_syntax_highlighters[uid].main.outerWidth() - urvanov_syntax_highlighters[uid].table.outerWidth() ) < 10 ) {
-						urvanov_syntax_highlighters[uid].expandButton.hide();
+				if ( typeof urvanovSyntaxHighlighters[uid].expanded === 'undefined' ) {
+					// Determine if we should enable code expanding toggling.
+					if ( Math.abs( urvanovSyntaxHighlighters[uid].main.outerWidth() - urvanovSyntaxHighlighters[uid].table.outerWidth() ) < 10 ) {
+						urvanovSyntaxHighlighters[uid].expandButton.hide();
 					} else {
-						urvanov_syntax_highlighters[uid].expandButton.show();
+						urvanovSyntaxHighlighters[uid].expandButton.show();
 					}
 				}
 
-				// TODO If width has changed or timeout, stop timer
-				if ( /*last_num_width != nums.outerWidth() ||*/ i == 5 ) {
-					clearInterval( load_timer );
-					//urvanov_syntax_highlighters[uid].removeClass(URVANOV_SYNTAX_HIGHLIGHTER_LOADING);
-					urvanov_syntax_highlighters[uid].loading = false;
+				// TODO If width has changed or timeout, stop timer.
+				if ( 5 === i ) {
+					clearInterval( loadTimer );
+
+					urvanovSyntaxHighlighters[uid].loading = false;
 				}
 				i++;
 			};
-			load_timer = setInterval( load_func, 300 );
+
+			loadTimer = setInterval( loadFunc, 300 );
+
 			fixScrollBlank( uid );
 
-			// Add ref to num for each line
-			$( URVANOV_SYNTAX_HIGHLIGHTER_NUM, urvanov_syntax_highlighters[uid] ).each( function() {
-				var lineID = $( this ).attr( 'data-line' );
-				var line = $( '#' + lineID );
-				var height = line.style( 'height' );
-				if ( height ) {
-					line.attr( 'data-height', height );
-				}
-			} );
+			// Add ref to num for each line.
+			$( URVANOV_SYNTAX_HIGHLIGHTER_NUM, urvanovSyntaxHighlighters[uid] ).each(
+				function() {
+					var lineID = $( this ).attr( 'data-line' );
+					var line   = $( '#' + lineID );
+					var height = line.style( 'height' );
 
-			// Used for toggling
+					if ( height ) {
+						line.attr( 'data-height', height );
+					}
+				}
+			);
+
+			// Used for toggling.
 			main.css( 'position', 'relative' );
 			main.css( 'z-index', 1 );
 
-			// Disable certain features for touchscreen devices
-			touchscreen = ( c.filter( '[data-settings~="touchscreen"]' ).length != 0 );
+			// Disable certain features for touchscreen devices.
+			touchscreen = ( 0 !== c.filter( '[data-settings~="touchscreen"]' ).length );
 
-			// Used to hide info
+			// Used to hide info.
 			if ( ! touchscreen ) {
-				main.on( 'click', function() {
-					urvanovSyntaxHighlighterInfo( uid, '', false );
-				} );
-				plain.on( 'click', function() {
-					urvanovSyntaxHighlighterInfo( uid, '', false );
-				} );
-				info.on( 'click', function() {
-					urvanovSyntaxHighlighterInfo( uid, '', false );
-				} );
+				main.on(
+					'click',
+					function() {
+						urvanovSyntaxHighlighterInfo( uid, '', false );
+					}
+				);
+
+				plain.on(
+					'click',
+					function() {
+						urvanovSyntaxHighlighterInfo( uid, '', false );
+					}
+				);
+
+				info.on(
+					'click',
+					function() {
+						urvanovSyntaxHighlighterInfo( uid, '', false );
+					}
+				);
 			}
 
-			// Used for code popup
-			if ( c.filter( '[data-settings~="no-popup"]' ).length == 0 ) {
-				urvanov_syntax_highlighters[uid].popup_settings = popupWindow( popupButton, {
-					height: screen.height - 200,
-					width: screen.width - 100,
-					top: 75,
-					left: 50,
-					scrollbars: 1,
-					windowURL: '',
-					data: '', // Data overrides URL
-				}, function() {
-					codePopup( uid );
-				}, function() {
-					//UrvanovSyntaxHighlighterUtil.log('after');
-				} );
+			// Used for code popup.
+			if ( 0 === c.filter( '[data-settings~="no-popup"]' ).length ) {
+				urvanovSyntaxHighlighters[uid].popup_settings = popupWindow(
+					popupButton,
+					{
+						height: screen.height - 200,
+						width: screen.width - 100,
+						top: 75,
+						left: 50,
+						scrollbars: 1,
+						windowURL: '',
+						data: '', // Data overrides URL.
+					},
+					function() {
+						codePopup( uid );
+					},
+					function() {}
+				);
 			}
 
 			plain.css( 'opacity', 0 );
 
-			urvanov_syntax_highlighters[uid].toolbarVisible = true;
-			urvanov_syntax_highlighters[uid].hasOneLine = table.outerHeight() < toolbar.outerHeight() * 2;
-			urvanov_syntax_highlighters[uid].toolbarMouseover = false;
-			// If a toolbar with mouseover was found
-			if ( toolbar.filter( '[data-settings~="mouseover"]' ).length != 0 && ! touchscreen ) {
-				urvanov_syntax_highlighters[uid].toolbarMouseover = true;
-				urvanov_syntax_highlighters[uid].toolbarVisible = false;
+			urvanovSyntaxHighlighters[uid].toolbarVisible   = true;
+			urvanovSyntaxHighlighters[uid].hasOneLine       = table.outerHeight() < toolbar.outerHeight() * 2;
+			urvanovSyntaxHighlighters[uid].toolbarMouseover = false;
+
+			// If a toolbar with mouseover was found.
+			if ( 0 !== toolbar.filter( '[data-settings~="mouseover"]' ).length && ! touchscreen ) {
+				urvanovSyntaxHighlighters[uid].toolbarMouseover = true;
+				urvanovSyntaxHighlighters[uid].toolbarVisible   = false;
 
 				toolbar.css( 'margin-top', '-' + toolbar.outerHeight() + 'px' );
 				toolbar.hide();
+
 				// Overlay the toolbar if needed, only if doing so will not hide the
 				// whole code!
-				if ( toolbar.filter( '[data-settings~="overlay"]' ).length != 0 &&
-					! urvanov_syntax_highlighters[uid].hasOneLine ) {
+				if ( 0 !== toolbar.filter( '[data-settings~="overlay"]' ).length &&
+					! urvanovSyntaxHighlighters[uid].hasOneLine ) {
 					toolbar.css( 'position', 'absolute' );
 					toolbar.css( 'z-index', 2 );
-					// Hide on single click when overlayed
-					if ( toolbar.filter( '[data-settings~="hide"]' ).length != 0 ) {
-						main.on( 'click', function() {
-							toggleToolbar( uid, undefined, undefined, 0 );
-						} );
-						plain.on( 'click', function() {
-							toggleToolbar( uid, false, undefined, 0 );
-						} );
+
+					// Hide on single click when overlayed.
+					if ( 0 !== toolbar.filter( '[data-settings~="hide"]' ).length ) {
+						main.on(
+							'click',
+							function() {
+								toggleToolbar( uid, undefined, undefined, 0 );
+							}
+						);
+						plain.on(
+							'click',
+							function() {
+								toggleToolbar( uid, false, undefined, 0 );
+							}
+						);
 					}
 				} else {
 					toolbar.css( 'z-index', 4 );
 				}
-				// Enable delay on mouseout
-				if ( toolbar.filter( '[data-settings~="delay"]' ).length != 0 ) {
-					urvanov_syntax_highlighters[uid].toolbar_delay = 500;
+
+				// Enable delay on mouseout.
+				if ( 0 !== toolbar.filter( '[data-settings~="delay"]' ).length ) {
+					urvanovSyntaxHighlighters[uid].toolbar_delay = 500;
 				}
-				// Use .hover() for chrome, but in firefox mouseover/mouseout worked best
-				c.on( 'mouseenter', function() {
-					toggleToolbar( uid, true );
-				} )
-					.on( 'mouseleave', function() {
+
+				// Use .hover() for chrome, but in firefox mouseover/mouseout worked best.
+				c.on(
+					'mouseenter',
+					function() {
+						toggleToolbar( uid, true );
+					}
+				).on(
+					'mouseleave',
+					function() {
 						toggleToolbar( uid, false );
-					} );
+					}
+				);
 			} else if ( touchscreen ) {
 				toolbar.show();
 			}
 
-			// Minimize
-			if ( c.filter( '[data-settings~="minimize"]' ).length == 0 ) {
+			// Minimize.
+			if ( 0 === c.filter( '[data-settings~="minimize"]' ).length ) {
 				base.minimize( uid );
 			}
 
-			// Plain show events
-			if ( plain.length != 0 && ! touchscreen ) {
-				if ( plain.filter( '[data-settings~="dblclick"]' ).length != 0 ) {
-					main.on( 'dblclick', function() {
-						UrvanovSyntaxHighlighterSyntax.togglePlain( uid );
-					} );
-				} else if ( plain.filter( '[data-settings~="click"]' ).length != 0 ) {
-					main.on( 'click', function() {
-						UrvanovSyntaxHighlighterSyntax.togglePlain( uid );
-					} );
-				} else if ( plain.filter( '[data-settings~="mouseover"]' ).length != 0 ) {
-					c.on( 'mouseenter', function() {
-						UrvanovSyntaxHighlighterSyntax.togglePlain( uid, true );
-					} )
-						.on( 'mouseleave', function() {
+			// Plain show events.
+			if ( 0 !== plain.length && ! touchscreen ) {
+				if ( 0 !== plain.filter( '[data-settings~="dblclick"]' ).length ) {
+					main.on(
+						'dblclick',
+						function() {
+							UrvanovSyntaxHighlighterSyntax.togglePlain( uid );
+						}
+					);
+				} else if ( 0 !== plain.filter( '[data-settings~="click"]' ).length ) {
+					main.on(
+						'click',
+						function() {
+							UrvanovSyntaxHighlighterSyntax.togglePlain( uid );
+						}
+					);
+				} else if ( 0 !== plain.filter( '[data-settings~="mouseover"]' ).length ) {
+					c.on(
+						'mouseenter',
+						function() {
+							UrvanovSyntaxHighlighterSyntax.togglePlain( uid, true );
+						}
+					).on(
+						'mouseleave',
+						function() {
 							UrvanovSyntaxHighlighterSyntax.togglePlain( uid, false );
-						} );
+						}
+					);
+
 					numsButton.hide();
 				}
-				if ( plain.filter( '[data-settings~="show-plain-default"]' ).length != 0 ) {
-					// XXX
+
+				if ( 0 !== plain.filter( '[data-settings~="show-plain-default"]' ).length ) {
 					UrvanovSyntaxHighlighterSyntax.togglePlain( uid, true );
 				}
 			}
 
-			// Scrollbar show events
-			var expand = c.filter( '[data-settings~="expand"]' ).length != 0;
-			//            urvanov_syntax_highlighters[uid].mouse_expand = expand;
-			if ( ! touchscreen && c.filter( '[data-settings~="scroll-mouseover"]' ).length != 0 ) {
-				// Disable on touchscreen devices and when set to mouseover
+			// Scrollbar show events.
+			expand = 0 !== c.filter( '[data-settings~="expand"]' ).length;
+
+			if ( ! touchscreen && 0 !== c.filter( '[data-settings~="scroll-mouseover"]' ).length ) {
+				// Disable on touchscreen devices and when set to mouseover.
 				main.css( 'overflow', 'hidden' );
 				plain.css( 'overflow', 'hidden' );
-				c.on( 'mouseenter', function() {
-					toggle_scroll( uid, true, expand );
-				} )
-					.on( 'mouseleave', function() {
-						toggle_scroll( uid, false, expand );
-					} );
+
+				c.on(
+					'mouseenter',
+					function() {
+						toggleScroll( uid, true, expand );
+					}
+				).on(
+					'mouseleave',
+					function() {
+						toggleScroll( uid, false, expand );
+					}
+				);
 			}
 
 			if ( expand ) {
-				c.on( 'mouseenter', function() {
-					toggleExpand( uid, true );
-				} )
-					.on( 'mouseleave', function() {
+				c.on(
+					'mouseenter',
+					function() {
+						toggleExpand( uid, true );
+					}
+				).on(
+					'mouseleave',
+					function() {
 						toggleExpand( uid, false );
-					} );
+					}
+				);
 			}
 
-			// Disable animations
-			if ( c.filter( '[data-settings~="disable-anim"]' ).length != 0 ) {
-				urvanov_syntax_highlighters[uid].time = 0;
+			// Disable animations.
+			if ( 0 !== c.filter( '[data-settings~="disable-anim"]' ).length ) {
+				urvanovSyntaxHighlighters[uid].time = 0;
 			}
 
-			// Wrap
-			if ( c.filter( '[data-settings~="wrap"]' ).length != 0 ) {
-				urvanov_syntax_highlighters[uid].wrapped = true;
+			// Wrap.
+			if ( 0 !== c.filter( '[data-settings~="wrap"]' ).length ) {
+				urvanovSyntaxHighlighters[uid].wrapped = true;
 			}
 
-			// Determine if Mac
-			urvanov_syntax_highlighters[uid].mac = c.hasClass( 'urvanov-syntax-highlighter-os-mac' );
+			// Determine if Mac.
+			urvanovSyntaxHighlighters[uid].mac = c.hasClass( 'urvanov-syntax-highlighter-os-mac' );
 
-			// Update clickable buttons
+			// Update clickable buttons.
 			updateNumsButton( uid );
 			updatePlainButton( uid );
+
 			updateWrap( uid );
 		};
 
-		var makeUID = function( uid ) {
-			UrvanovSyntaxHighlighterUtil.log( urvanov_syntax_highlighters );
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
-				urvanov_syntax_highlighters[uid] = $( '#' + uid );
+		makeUID = function( uid ) {
+			UrvanovSyntaxHighlighterUtil.log( urvanovSyntaxHighlighters );
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] ) {
+				urvanovSyntaxHighlighters[uid] = $( '#' + uid );
 				UrvanovSyntaxHighlighterUtil.log( 'make ' + uid );
 				return true;
 			}
@@ -396,74 +531,88 @@
 			return false;
 		};
 
-		var getUID = function() {
+		getUID = function() {
 			return currUID++;
 		};
 
-		var codePopup = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+		codePopup = function( uid ) {
+			var code = '';
+			var clone;
+
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] ) {
 				return makeUID( uid );
 			}
-			var settings = urvanov_syntax_highlighters[uid].popup_settings;
+
+			settings = urvanovSyntaxHighlighters[uid].popup_settings;
 			if ( settings && settings.data ) {
-				// Already done
+				// Already done.
 				return;
 			}
 
-			var clone = urvanov_syntax_highlighters[uid].clone( true );
+			clone = urvanovSyntaxHighlighters[uid].clone( true );
 			clone.removeClass( 'urvanov-syntax-highlighter-wrapped' );
 
-			// Unwrap
-			if ( urvanov_syntax_highlighters[uid].wrapped ) {
-				$( URVANOV_SYNTAX_HIGHLIGHTER_NUM, clone ).each( function() {
-					var line_id = $( this ).attr( 'data-line' );
-					var line = $( '#' + line_id );
-					var height = line.attr( 'data-height' );
-					height = height ? height : '';
-					if ( typeof height !== 'undefined' ) {
-						line.css( 'height', height );
-						$( this ).css( 'height', height );
+			// Unwrap.
+			if ( urvanovSyntaxHighlighters[uid].wrapped ) {
+				$( URVANOV_SYNTAX_HIGHLIGHTER_NUM, clone ).each(
+					function() {
+						var lineId = $( this ).attr( 'data-line' );
+						var line   = $( '#' + lineId );
+						var height = line.attr( 'data-height' );
+
+						height = height ? height : '';
+						if ( typeof height !== 'undefined' ) {
+							line.css( 'height', height );
+							$( this ).css( 'height', height );
+						}
 					}
-				} );
+				);
 			}
+
 			clone.find( URVANOV_SYNTAX_HIGHLIGHTER_MAIN ).css( 'height', '' );
 
-			var code = '';
-			if ( urvanov_syntax_highlighters[uid].plainVisible ) {
+			if ( urvanovSyntaxHighlighters[uid].plainVisible ) {
 				code = clone.find( URVANOV_SYNTAX_HIGHLIGHTER_PLAIN );
 			} else {
 				code = clone.find( URVANOV_SYNTAX_HIGHLIGHTER_MAIN );
 			}
 
-			settings.data = base.getAllCSS() + '<body class="urvanov-syntax-highlighter-popup-window" style="padding:0; margin:0;"><div class="' + clone.attr(
-				'class' ) +
+			settings.data = base.getAllCSS() + '<body class="urvanov-syntax-highlighter-popup-window" style="padding:0; margin:0;"><div class="' +
+				clone.attr( 'class' ) +
 				' urvanov-syntax-highlighter-popup">' + base.removeCssInline( base.getHtmlString( code ) ) + '</div></body>';
 		};
 
 		base.minimize = function( uid ) {
 			var button = $( '<div class="urvanov-syntax-highlighter-minimize urvanov-syntax-highlighter-button"><div>' );
-			urvanov_syntax_highlighters[uid].tools.append( button );
-			// TODO translate
-			urvanov_syntax_highlighters[uid].origTitle = urvanov_syntax_highlighters[uid].title.html();
-			if ( ! urvanov_syntax_highlighters[uid].origTitle ) {
-				urvanov_syntax_highlighters[uid].title.html( strings.minimize );
+			var cls    = 'urvanov-syntax-highlighter-minimized';
+			var show;
+
+			urvanovSyntaxHighlighters[uid].tools.append( button );
+
+			// TODO translate.
+			urvanovSyntaxHighlighters[uid].origTitle = urvanovSyntaxHighlighters[uid].title.html();
+			if ( ! urvanovSyntaxHighlighters[uid].origTitle ) {
+				urvanovSyntaxHighlighters[uid].title.html( strings.minimize );
 			}
 
-			var cls = 'urvanov-syntax-highlighter-minimized';
-			var show = function() {
-				urvanov_syntax_highlighters[uid].toolbarPreventHide = false;
+			show = function() {
+				var toolbar;
+
+				urvanovSyntaxHighlighters[uid].toolbarPreventHide = false;
 				button.remove();
-				urvanov_syntax_highlighters[uid].removeClass( cls );
-				urvanov_syntax_highlighters[uid].title.html( urvanov_syntax_highlighters[uid].origTitle );
-				var toolbar = urvanov_syntax_highlighters[uid].toolbar;
-				if ( toolbar.filter( '[data-settings~="never-show"]' ).length != 0 ) {
+				urvanovSyntaxHighlighters[uid].removeClass( cls );
+				urvanovSyntaxHighlighters[uid].title.html( urvanovSyntaxHighlighters[uid].origTitle );
+				toolbar = urvanovSyntaxHighlighters[uid].toolbar;
+
+				if ( 0 !== toolbar.filter( '[data-settings~="never-show"]' ).length ) {
 					toolbar.remove();
 				}
 			};
-			urvanov_syntax_highlighters[uid].toolbar.on( 'click', show );
+
+			urvanovSyntaxHighlighters[uid].toolbar.on( 'click', show );
 			button.on( 'click', show );
-			urvanov_syntax_highlighters[uid].addClass( cls );
-			urvanov_syntax_highlighters[uid].toolbarPreventHide = true;
+			urvanovSyntaxHighlighters[uid].addClass( cls );
+			urvanovSyntaxHighlighters[uid].toolbarPreventHide = true;
 			toggleToolbar( uid, undefined, undefined, 0 );
 		};
 
@@ -473,58 +622,72 @@
 
 		base.removeCssInline = function( string ) {
 			var reStyle = /style\s*=\s*"([^"]+)"/gmi;
-			var match = null;
-			while ( ( match = reStyle.exec( string ) ) != null ) {
-				var repl = match[1];
-				repl = repl.replace( /\b(?:width|height)\s*:[^;]+;/gmi, '' );
+			var match   = null;
+			var repl;
+
+			while ( null !== ( match = reStyle.exec( string ) ) ) {
+				repl   = match[1];
+				repl   = repl.replace( /\b(?:width|height)\s*:[^;]+;/gmi, '' );
 				string = string.sliceReplace( match.index, match.index + match[0].length, 'style="' + repl + '"' );
 			}
+
 			return string;
 		};
 
-		// Get all CSS on the page as a string
+		// Get all CSS on the page as a string.
 		base.getAllCSS = function() {
-			var css_str = '';
-			var css = $( 'link[rel="stylesheet"]' );
+			var cssStr   = '';
+			var css      = $( 'link[rel="stylesheet"]' );
 			var filtered = [];
-			if ( css.length == 1 ) {
-				// For minified CSS, only allow a single file
+
+			if ( 1 === css.length ) {
+				// For minified CSS, only allow a single file.
 				filtered = css;
 			} else {
-				// Filter all others for UrvanovSyntaxHighlighter CSS
+				// Filter all others for UrvanovSyntaxHighlighter CSS.
 				filtered = css.filter( '[href*="urvanov-syntax-highlighter"], [href*="min/"]' );
 			}
-			filtered.each( function() {
-				var string = base.getHtmlString( $( this ) );
-				css_str += string;
-			} );
-			return css_str;
+
+			filtered.each(
+				function() {
+					var string = base.getHtmlString( $( this ) );
+
+					cssStr += string;
+				}
+			);
+
+			return cssStr;
 		};
 
-		base.copyPlain = function( uid, hover ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+		base.copyPlain = function( uid ) {
+			var key;
+			var text;
+
+			if ( typeof urvanovSyntaxHighlighters[uid] === 'undefined' ) {
 				return makeUID( uid );
 			}
-
-			var plain = urvanov_syntax_highlighters[uid].plain;
 
 			base.togglePlain( uid, true, true );
 			toggleToolbar( uid, true );
 
-			var key = urvanov_syntax_highlighters[uid].mac ? '\u2318' : 'CTRL';
-			var text = strings.copy;
+			key  = urvanovSyntaxHighlighters[uid].mac ? '\u2318' : 'CTRL';
+			text = strings.copy;
 			text = text.replace( /%s/, key + '+C' );
 			text = text.replace( /%s/, key + '+V' );
+
 			urvanovSyntaxHighlighterInfo( uid, text );
+
 			return false;
 		};
 
-		var urvanovSyntaxHighlighterInfo = function( uid, text, show ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+		urvanovSyntaxHighlighterInfo = function( uid, text, show ) {
+			var info;
+
+			if ( typeof urvanovSyntaxHighlighters[uid] === 'undefined' ) {
 				return makeUID( uid );
 			}
 
-			var info = urvanov_syntax_highlighters[uid].info;
+			info = urvanovSyntaxHighlighters[uid].info;
 
 			if ( typeof text === 'undefined' ) {
 				text = '';
@@ -538,9 +701,12 @@
 				info.css( 'margin-top', -info.outerHeight() );
 				info.show();
 				urvanovSyntaxHighlighterSlide( uid, info, true );
-				setTimeout( function() {
-					urvanovSyntaxHighlighterSlide( uid, info, false );
-				}, 5000 );
+				setTimeout(
+					function() {
+						urvanovSyntaxHighlighterSlide( uid, info, false );
+					},
+					5000
+				);
 			}
 
 			if ( ! show ) {
@@ -548,32 +714,40 @@
 			}
 		};
 
-		var retina = function( uid ) {
+		retina = function( uid ) {
+			var buttons;
+
 			if ( window.devicePixelRatio > 1 ) {
-				var buttons = $( '.urvanov-syntax-highlighter-button-icon', urvanov_syntax_highlighters[uid].toolbar );
-				buttons.each( function() {
-					var lowres = $( this ).css( 'background-image' );
-					var highres = lowres.replace( /\.(?=[^\.]+$)/g, '@2x.' );
-					$( this ).css( 'background-size', '48px 128px' );
-					$( this ).css( 'background-image', highres );
-				} );
+				buttons = $( '.urvanov-syntax-highlighter-button-icon', urvanovSyntaxHighlighters[uid].toolbar );
+				buttons.each(
+					function() {
+						var lowres  = $( this ).css( 'background-image' );
+						var highres = lowres.replace( /\.(?=[^\.]+$)/g, '@2x.' );
+
+						$( this ).css( 'background-size', '48px 128px' );
+						$( this ).css( 'background-image', highres );
+					}
+				);
 			}
 		};
 
-		var isSlideHidden = function( object ) {
-			var object_neg_height = '-' + object.outerHeight() + 'px';
-			if ( object.css( 'margin-top' ) == object_neg_height || object.css( 'display' ) == 'none' ) {
+		isSlideHidden = function( object ) {
+			var objectNegHeight = '-' + object.outerHeight() + 'px';
+
+			if ( objectNegHeight === object.css( 'margin-top' ) || 'none' === object.css( 'display' ) ) {
 				return true;
 			}
+
 			return false;
 		};
 
-		var urvanovSyntaxHighlighterSlide = function( uid, object, show, animTime, hideDelay, callback ) {
+		urvanovSyntaxHighlighterSlide = function( uid, object, show, animTime, hideDelay, callback ) {
 			var complete = function() {
 				if ( callback ) {
 					callback( uid, object );
 				}
 			};
+
 			var objectNegHeight = '-' + object.outerHeight() + 'px';
 
 			if ( typeof show === 'undefined' ) {
@@ -583,43 +757,56 @@
 					show = false;
 				}
 			}
-			// Instant means no time delay for showing/hiding
+			// Instant means no time delay for showing/hiding.
 			if ( typeof animTime === 'undefined' ) {
 				animTime = 100;
 			}
-			if ( animTime == false ) {
+			if ( false === animTime ) {
 				animTime = false;
 			}
-			if ( typeof hideDelay === 'undefined' ) {
+			if ( 'undefined' === typeof hideDelay ) {
 				hideDelay = 0;
 			}
 			object.stop( true );
-			if ( show == true ) {
+			if ( true === show ) {
 				object.show();
-				object.animate( {
-					marginTop: 0,
-				}, animt( animTime, uid ), complete );
-			} else if ( show == false ) {
-				// Delay if fully visible
-				if ( /*instant == false && */object.css( 'margin-top' ) == '0px' && hideDelay ) {
+				object.animate(
+					{
+						marginTop: 0,
+					},
+					animt( animTime, uid ),
+					complete
+				);
+			} else if ( false === show ) {
+				// Delay if fully visible.
+				if ( /*instant == false && */'0px' === object.css( 'margin-top' ) && hideDelay ) {
 					object.delay( hideDelay );
 				}
-				object.animate( {
-					marginTop: objectNegHeight,
-				}, animt( animTime, uid ), function() {
-					object.hide();
-					complete();
-				} );
+				object.animate(
+					{
+						marginTop: objectNegHeight,
+					},
+					animt( animTime, uid ),
+					function() {
+						object.hide();
+						complete();
+					}
+				);
 			}
 		};
 
 		base.togglePlain = function( uid, hover, select ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+			var main;
+			var plain;
+			var visible;
+			var hidden;
+
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] ) {
 				return makeUID( uid );
 			}
 
-			var main = urvanov_syntax_highlighters[uid].main;
-			var plain = urvanov_syntax_highlighters[uid].plain;
+			main  = urvanovSyntaxHighlighters[uid].main;
+			plain = urvanovSyntaxHighlighters[uid].plain;
 
 			if ( ( main.is( ':animated' ) || plain.is( ':animated' ) ) && typeof hover === 'undefined' ) {
 				return;
@@ -627,527 +814,615 @@
 
 			reconsileDimensions( uid );
 
-			var visible, hidden;
 			if ( typeof hover !== 'undefined' ) {
 				if ( hover ) {
 					visible = main;
-					hidden = plain;
+					hidden  = plain;
 				} else {
 					visible = plain;
-					hidden = main;
+					hidden  = main;
 				}
-			} else if ( main.css( 'z-index' ) == 1 ) {
+			} else if ( 1 === main.css( 'z-index' ) ) {
 				visible = main;
-				hidden = plain;
+				hidden  = plain;
 			} else {
 				visible = plain;
-				hidden = main;
+				hidden  = main;
 			}
 
-			urvanov_syntax_highlighters[uid].plainVisible = ( hidden == plain );
+			urvanovSyntaxHighlighters[uid].plainVisible = ( hidden === plain );
 
-			// Remember scroll positions of visible
-			urvanov_syntax_highlighters[uid].top = visible.scrollTop();
-			urvanov_syntax_highlighters[uid].left = visible.scrollLeft();
+			// Remember scroll positions of visible.
+			urvanovSyntaxHighlighters[uid].top  = visible.scrollTop();
+			urvanovSyntaxHighlighters[uid].left = visible.scrollLeft();
 
 			/* Used to detect a change in overflow when the mouse moves out
 			 * of the UrvanovSyntaxHighlighter. If it does, then overflow has already been changed,
 			 * no need to revert it after toggling plain. */
-			urvanov_syntax_highlighters[uid].scrollChanged = false;
-
-			// Hide scrollbars during toggle to avoid Chrome weird draw error
-			// visible.css('overflow', 'hidden');
-			// hidden.css('overflow', 'hidden');
+			urvanovSyntaxHighlighters[uid].scrollChanged = false;
 
 			fixScrollBlank( uid );
 
-			// Show hidden, hide visible
+			// Show hidden, hide visible.
 			visible.stop( true );
-			visible.fadeTo( animt( 500, uid ), 0,
+			visible.fadeTo(
+				animt( 500, uid ),
+				0,
 				function() {
 					visible.css( 'z-index', 0 );
 				}
 			);
+
 			hidden.stop( true );
-			hidden.fadeTo( animt( 500, uid ), 1,
+			hidden.fadeTo(
+				animt( 500, uid ),
+				1,
 				function() {
 					hidden.css( 'z-index', 1 );
-					// Give focus to plain code
-					if ( hidden == plain ) {
+
+					// Give focus to plain code.
+					if ( hidden === plain ) {
 						if ( select ) {
 							plain.select();
-						} else {
-							// XXX not needed
-							// plain.focus();
 						}
 					}
 
-					// Refresh scrollbar draw
-					hidden.scrollTop( urvanov_syntax_highlighters[uid].top + 1 );
-					hidden.scrollTop( urvanov_syntax_highlighters[uid].top );
-					hidden.scrollLeft( urvanov_syntax_highlighters[uid].left + 1 );
-					hidden.scrollLeft( urvanov_syntax_highlighters[uid].left );
+					// Refresh scrollbar draw.
+					hidden.scrollTop( urvanovSyntaxHighlighters[uid].top + 1 );
+					hidden.scrollTop( urvanovSyntaxHighlighters[uid].top );
+					hidden.scrollLeft( urvanovSyntaxHighlighters[uid].left + 1 );
+					hidden.scrollLeft( urvanovSyntaxHighlighters[uid].left );
 				}
 			);
 
-			// Restore scroll positions to hidden
-			hidden.scrollTop( urvanov_syntax_highlighters[uid].top );
-			hidden.scrollLeft( urvanov_syntax_highlighters[uid].left );
+			// Restore scroll positions to hidden.
+			hidden.scrollTop( urvanovSyntaxHighlighters[uid].top );
+			hidden.scrollLeft( urvanovSyntaxHighlighters[uid].left );
 
 			updatePlainButton( uid );
 
-			// Hide toolbar if possible
+			// Hide toolbar if possible.
 			toggleToolbar( uid, false );
 			return false;
 		};
 
 		base.toggleNums = function( uid, hide, instant ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+			var numsWidth;
+			var negWidth;
+			var numHidden;
+			var numMargin;
+			var hScrollVisible;
+			var vScrollVisible;
+
+			if ( typeof urvanovSyntaxHighlighters[uid] === 'undefined' ) {
 				makeUID( uid );
 				return false;
 			}
 
-			if ( urvanov_syntax_highlighters[uid].table.is( ':animated' ) ) {
+			if ( urvanovSyntaxHighlighters[uid].table.is( ':animated' ) ) {
 				return false;
 			}
-			var numsWidth = Math.round( urvanov_syntax_highlighters[uid].nums_content.outerWidth() + 1 );
-			var negWidth = '-' + numsWidth + 'px';
 
-			// Force hiding
-			var numHidden;
-			if ( typeof hide !== 'undefined' ) {
+			numsWidth = Math.round( urvanovSyntaxHighlighters[uid].nums_content.outerWidth() + 1 );
+			negWidth  = '-' + numsWidth + 'px';
+
+			// Force hiding.
+			if ( 'undefined' !== typeof hide ) {
 				numHidden = false;
 			} else {
-				// Check hiding
-				numHidden = ( urvanov_syntax_highlighters[uid].table.css( 'margin-left' ) == negWidth );
+				// Check hiding.
+				numHidden = ( urvanovSyntaxHighlighters[uid].table.css( 'margin-left' ) === negWidth );
 			}
 
-			var numMargin;
 			if ( numHidden ) {
-				// Show
+				// Show.
 				numMargin = '0px';
-				urvanov_syntax_highlighters[uid].numsVisible = true;
+
+				urvanovSyntaxHighlighters[uid].numsVisible = true;
 			} else {
-				// Hide
-				urvanov_syntax_highlighters[uid].table.css( 'margin-left', '0px' );
-				urvanov_syntax_highlighters[uid].numsVisible = false;
+				// Hide.
+				urvanovSyntaxHighlighters[uid].table.css( 'margin-left', '0px' );
+				urvanovSyntaxHighlighters[uid].numsVisible = false;
+
 				numMargin = negWidth;
 			}
 
-			if ( typeof instant !== 'undefined' ) {
-				urvanov_syntax_highlighters[uid].table.css( 'margin-left', numMargin );
+			if ( 'undefined' !== typeof instant ) {
+				urvanovSyntaxHighlighters[uid].table.css( 'margin-left', numMargin );
 				updateNumsButton( uid );
+
 				return false;
 			}
 
 			// Stop jerking animation from scrollbar appearing for a split second due to
 			// change in width. Prevents scrollbar disappearing if already visible.
-			var h_scroll_visible = ( urvanov_syntax_highlighters[uid].table.outerWidth() + pxToInt(
-				urvanov_syntax_highlighters[uid].table.css( 'margin-left' ) ) > urvanov_syntax_highlighters[uid].main.outerWidth() );
-			var v_scroll_visible = ( urvanov_syntax_highlighters[uid].table.outerHeight() > urvanov_syntax_highlighters[uid].main.outerHeight() );
-			if ( ! h_scroll_visible && ! v_scroll_visible ) {
-				urvanov_syntax_highlighters[uid].main.css( 'overflow', 'hidden' );
+			hScrollVisible = ( urvanovSyntaxHighlighters[uid].table.outerWidth() +
+				pxToInt( urvanovSyntaxHighlighters[uid].table.css( 'margin-left' ) ) > urvanovSyntaxHighlighters[uid].main.outerWidth() );
+
+			vScrollVisible = ( urvanovSyntaxHighlighters[uid].table.outerHeight() > urvanovSyntaxHighlighters[uid].main.outerHeight() );
+
+			if ( ! hScrollVisible && ! vScrollVisible ) {
+				urvanovSyntaxHighlighters[uid].main.css( 'overflow', 'hidden' );
 			}
-			urvanov_syntax_highlighters[uid].table.animate( {
-				marginLeft: numMargin,
-			}, animt( 200, uid ), function() {
-				if ( typeof urvanov_syntax_highlighters[uid] !== 'undefined' ) {
-					updateNumsButton( uid );
-					if ( ! h_scroll_visible && ! v_scroll_visible ) {
-						urvanov_syntax_highlighters[uid].main.css( 'overflow', 'auto' );
+
+			urvanovSyntaxHighlighters[uid].table.animate(
+				{
+					marginLeft: numMargin,
+				},
+				animt( 200, uid ),
+				function() {
+					if ( typeof urvanovSyntaxHighlighters[uid] !== 'undefined' ) {
+						updateNumsButton( uid );
+						if ( ! hScrollVisible && ! vScrollVisible ) {
+							urvanovSyntaxHighlighters[uid].main.css( 'overflow', 'auto' );
+						}
 					}
 				}
-			} );
+			);
+
 			return false;
 		};
 
 		base.toggleWrap = function( uid ) {
-			urvanov_syntax_highlighters[uid].wrapped = ! urvanov_syntax_highlighters[uid].wrapped;
+			urvanovSyntaxHighlighters[uid].wrapped = ! urvanovSyntaxHighlighters[uid].wrapped;
 			updateWrap( uid );
 		};
 
 		base.toggleExpand = function( uid ) {
-			var expand = ! UrvanovSyntaxHighlighterUtil.setDefault( urvanov_syntax_highlighters[uid].expanded, false );
+			var expand;
+
+			expand = ! UrvanovSyntaxHighlighterUtil.setDefault( urvanovSyntaxHighlighters[uid].expanded, false );
 			toggleExpand( uid, expand );
 		};
 
-		var updateWrap = function( uid, restore ) {
+		updateWrap = function( uid, restore ) {
 			restore = UrvanovSyntaxHighlighterUtil.setDefault( restore, true );
-			if ( urvanov_syntax_highlighters[uid].wrapped ) {
-				urvanov_syntax_highlighters[uid].addClass( URVANOV_SYNTAX_HIGHLIGHTER_WRAPPED );
+			if ( urvanovSyntaxHighlighters[uid].wrapped ) {
+				urvanovSyntaxHighlighters[uid].addClass( URVANOV_SYNTAX_HIGHLIGHTER_WRAPPED );
 			} else {
-				urvanov_syntax_highlighters[uid].removeClass( URVANOV_SYNTAX_HIGHLIGHTER_WRAPPED );
+				urvanovSyntaxHighlighters[uid].removeClass( URVANOV_SYNTAX_HIGHLIGHTER_WRAPPED );
 			}
 			updateWrapButton( uid );
-			if ( ! urvanov_syntax_highlighters[uid].expanded && restore ) {
+			if ( ! urvanovSyntaxHighlighters[uid].expanded && restore ) {
 				restoreDimensions( uid );
 			}
-			urvanov_syntax_highlighters[uid].wrapTimes = 0;
-			clearInterval( urvanov_syntax_highlighters[uid].wrapTimer );
-			urvanov_syntax_highlighters[uid].wrapTimer = setInterval( function() {
-				if ( urvanov_syntax_highlighters[uid].is( ':visible' ) ) {
-					// XXX if hidden the height can't be determined
-					reconsileLines( uid );
-					urvanov_syntax_highlighters[uid].wrapTimes++;
-					if ( urvanov_syntax_highlighters[uid].wrapTimes == 5 ) {
-						clearInterval( urvanov_syntax_highlighters[uid].wrapTimer );
+			urvanovSyntaxHighlighters[uid].wrapTimes = 0;
+			clearInterval( urvanovSyntaxHighlighters[uid].wrapTimer );
+			urvanovSyntaxHighlighters[uid].wrapTimer = setInterval(
+				function() {
+					if ( urvanovSyntaxHighlighters[uid].is( ':visible' ) ) {
+						// XXX if hidden the height can't be determined.
+						reconsileLines( uid );
+						urvanovSyntaxHighlighters[uid].wrapTimes++;
+						if ( 5 === urvanovSyntaxHighlighters[uid].wrapTimes ) {
+							clearInterval( urvanovSyntaxHighlighters[uid].wrapTimer );
+						}
 					}
-				}
-			}, 200 );
+				},
+				200
+			);
 		};
 
-		var fixTableWidth = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
-				makeUID( uid );
-				return false;
-			}
-		};
+		// Convert '-10px' to -10.
+		pxToInt = function( pixels ) {
+			var result;
 
-		// Convert '-10px' to -10
-		var pxToInt = function( pixels ) {
 			if ( typeof pixels !== 'string' ) {
 				return 0;
 			}
-			var result = pixels.replace( /[^-0-9]/g, '' );
-			if ( result.length == 0 ) {
+
+			result = pixels.replace( /[^-0-9]/g, '' );
+
+			if ( 0 === result.length ) {
 				return 0;
 			}
+
 			return parseInt( result );
 		};
 
-		var updateNumsButton = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' || typeof urvanov_syntax_highlighters[uid].numsVisible === 'undefined' ) {
-				return;
-			}
-			if ( urvanov_syntax_highlighters[uid].numsVisible ) {
-				urvanov_syntax_highlighters[uid].numsButton.removeClass( UNPRESSED );
-				urvanov_syntax_highlighters[uid].numsButton.addClass( PRESSED );
-			} else {
-				// TODO doesn't work on iPhone
-				urvanov_syntax_highlighters[uid].numsButton.removeClass( PRESSED );
-				urvanov_syntax_highlighters[uid].numsButton.addClass( UNPRESSED );
-			}
-		};
-
-		var updateWrapButton = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' || typeof urvanov_syntax_highlighters[uid].wrapped === 'undefined' ) {
-				return;
-			}
-			if ( urvanov_syntax_highlighters[uid].wrapped ) {
-				urvanov_syntax_highlighters[uid].wrapButton.removeClass( UNPRESSED );
-				urvanov_syntax_highlighters[uid].wrapButton.addClass( PRESSED );
-			} else {
-				// TODO doesn't work on iPhone
-				urvanov_syntax_highlighters[uid].wrapButton.removeClass( PRESSED );
-				urvanov_syntax_highlighters[uid].wrapButton.addClass( UNPRESSED );
-			}
-		};
-
-		var updateExpandButton = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' || typeof urvanov_syntax_highlighters[uid].expanded === 'undefined' ) {
+		updateNumsButton = function( uid ) {
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] || 'undefined' === typeof urvanovSyntaxHighlighters[uid].numsVisible ) {
 				return;
 			}
 
-			if ( urvanov_syntax_highlighters[uid].expanded ) {
-				urvanov_syntax_highlighters[uid].expandButton.removeClass( UNPRESSED );
-				urvanov_syntax_highlighters[uid].expandButton.addClass( PRESSED );
+			if ( urvanovSyntaxHighlighters[uid].numsVisible ) {
+				urvanovSyntaxHighlighters[uid].numsButton.removeClass( UNPRESSED );
+				urvanovSyntaxHighlighters[uid].numsButton.addClass( PRESSED );
 			} else {
-				// TODO doesn't work on iPhone
-				urvanov_syntax_highlighters[uid].expandButton.removeClass( PRESSED );
-				urvanov_syntax_highlighters[uid].expandButton.addClass( UNPRESSED );
+				// TODO doesn't work on iPhone.
+				urvanovSyntaxHighlighters[uid].numsButton.removeClass( PRESSED );
+				urvanovSyntaxHighlighters[uid].numsButton.addClass( UNPRESSED );
 			}
 		};
 
-		var updatePlainButton = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' || typeof urvanov_syntax_highlighters[uid].plainVisible === 'undefined' ) {
+		updateWrapButton = function( uid ) {
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] || 'undefined' === typeof urvanovSyntaxHighlighters[uid].wrapped ) {
 				return;
 			}
 
-			if ( urvanov_syntax_highlighters[uid].plainVisible ) {
-				urvanov_syntax_highlighters[uid].plainButton.removeClass( UNPRESSED );
-				urvanov_syntax_highlighters[uid].plainButton.addClass( PRESSED );
+			if ( urvanovSyntaxHighlighters[uid].wrapped ) {
+				urvanovSyntaxHighlighters[uid].wrapButton.removeClass( UNPRESSED );
+				urvanovSyntaxHighlighters[uid].wrapButton.addClass( PRESSED );
 			} else {
-				// TODO doesn't work on iPhone
-				urvanov_syntax_highlighters[uid].plainButton.removeClass( PRESSED );
-				urvanov_syntax_highlighters[uid].plainButton.addClass( UNPRESSED );
+				// TODO doesn't work on iPhone.
+				urvanovSyntaxHighlighters[uid].wrapButton.removeClass( PRESSED );
+				urvanovSyntaxHighlighters[uid].wrapButton.addClass( UNPRESSED );
 			}
 		};
 
-		var toggleToolbar = function( uid, show, animTime, hideDelay ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+		updateExpandButton = function( uid ) {
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] || 'undefined' === typeof urvanovSyntaxHighlighters[uid].expanded ) {
+				return;
+			}
+
+			if ( urvanovSyntaxHighlighters[uid].expanded ) {
+				urvanovSyntaxHighlighters[uid].expandButton.removeClass( UNPRESSED );
+				urvanovSyntaxHighlighters[uid].expandButton.addClass( PRESSED );
+			} else {
+				// TODO doesn't work on iPhone.
+				urvanovSyntaxHighlighters[uid].expandButton.removeClass( PRESSED );
+				urvanovSyntaxHighlighters[uid].expandButton.addClass( UNPRESSED );
+			}
+		};
+
+		updatePlainButton = function( uid ) {
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] || 'undefined' === typeof urvanovSyntaxHighlighters[uid].plainVisible ) {
+				return;
+			}
+
+			if ( urvanovSyntaxHighlighters[uid].plainVisible ) {
+				urvanovSyntaxHighlighters[uid].plainButton.removeClass( UNPRESSED );
+				urvanovSyntaxHighlighters[uid].plainButton.addClass( PRESSED );
+			} else {
+				// TODO doesn't work on iPhone.
+				urvanovSyntaxHighlighters[uid].plainButton.removeClass( PRESSED );
+				urvanovSyntaxHighlighters[uid].plainButton.addClass( UNPRESSED );
+			}
+		};
+
+		toggleToolbar = function( uid, show, animTime, hideDelay ) {
+			var toolbar;
+
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] ) {
 				return makeUID( uid );
-			} else if ( ! urvanov_syntax_highlighters[uid].toolbarMouseover ) {
+			} else if ( ! urvanovSyntaxHighlighters[uid].toolbarMouseover ) {
 				return;
-			} else if ( show == false && urvanov_syntax_highlighters[uid].toolbarPreventHide ) {
+			} else if ( false === show && urvanovSyntaxHighlighters[uid].toolbarPreventHide ) {
 				return;
 			} else if ( touchscreen ) {
 				return;
 			}
-			var toolbar = urvanov_syntax_highlighters[uid].toolbar;
+
+			toolbar = urvanovSyntaxHighlighters[uid].toolbar;
 
 			if ( typeof hideDelay === 'undefined' ) {
-				hideDelay = urvanov_syntax_highlighters[uid].toolbar_delay;
+				hideDelay = urvanovSyntaxHighlighters[uid].toolbar_delay;
 			}
 
-			urvanovSyntaxHighlighterSlide( uid, toolbar, show, animTime, hideDelay, function() {
-				urvanov_syntax_highlighters[uid].toolbarVisible = show;
-			} );
+			urvanovSyntaxHighlighterSlide(
+				uid,
+				toolbar,
+				show,
+				animTime,
+				hideDelay,
+				function() {
+					urvanovSyntaxHighlighters[uid].toolbarVisible = show;
+				}
+			);
 		};
 
-		var addSize = function( orig, add ) {
-			var copy = $.extend( {}, orig );
-			copy.width += add.width;
+		addSize = function( orig, add ) {
+			var copy     = $.extend( {}, orig );
+			copy.width  += add.width;
 			copy.height += add.height;
+
 			return copy;
 		};
 
-		var minusSize = function( orig, minus ) {
-			var copy = $.extend( {}, orig );
-			copy.width -= minus.width;
+		minusSize = function( orig, minus ) {
+			var copy     = $.extend( {}, orig );
+			copy.width  -= minus.width;
 			copy.height -= minus.height;
+
 			return copy;
 		};
 
-		var initSize = function( uid ) {
-			if ( typeof urvanov_syntax_highlighters[uid].initialSize === 'undefined' ) {
-				// Shared for scrollbars and expanding
-				urvanov_syntax_highlighters[uid].toolbarHeight = urvanov_syntax_highlighters[uid].toolbar.outerHeight();
-				urvanov_syntax_highlighters[uid].innerSize = {
-					width: urvanov_syntax_highlighters[uid].width(),
-					height: urvanov_syntax_highlighters[uid].height(),
+		initSize = function( uid ) {
+			if ( typeof urvanovSyntaxHighlighters[uid].initialSize === 'undefined' ) {
+				// Shared for scrollbars and expanding.
+				urvanovSyntaxHighlighters[uid].toolbarHeight = urvanovSyntaxHighlighters[uid].toolbar.outerHeight();
+				urvanovSyntaxHighlighters[uid].innerSize     = {
+					width: urvanovSyntaxHighlighters[uid].width(),
+					height: urvanovSyntaxHighlighters[uid].height(),
 				};
-				urvanov_syntax_highlighters[uid].outerSize = {
-					width: urvanov_syntax_highlighters[uid].outerWidth(),
-					height: urvanov_syntax_highlighters[uid].outerHeight(),
+
+				urvanovSyntaxHighlighters[uid].outerSize = {
+					width: urvanovSyntaxHighlighters[uid].outerWidth(),
+					height: urvanovSyntaxHighlighters[uid].outerHeight(),
 				};
-				urvanov_syntax_highlighters[uid].borderSize = minusSize(
-					urvanov_syntax_highlighters[uid].outerSize, urvanov_syntax_highlighters[uid].innerSize );
-				urvanov_syntax_highlighters[uid].initialSize = {
-					width: urvanov_syntax_highlighters[uid].main.outerWidth(),
-					height: urvanov_syntax_highlighters[uid].main.outerHeight(),
+
+				urvanovSyntaxHighlighters[uid].borderSize = minusSize( urvanovSyntaxHighlighters[uid].outerSize, urvanovSyntaxHighlighters[uid].innerSize );
+
+				urvanovSyntaxHighlighters[uid].initialSize = {
+					width: urvanovSyntaxHighlighters[uid].main.outerWidth(),
+					height: urvanovSyntaxHighlighters[uid].main.outerHeight(),
 				};
-				urvanov_syntax_highlighters[uid].initialSize.height += urvanov_syntax_highlighters[uid].toolbarHeight;
-				urvanov_syntax_highlighters[uid].initialOuterSize = addSize(
-					urvanov_syntax_highlighters[uid].initialSize, urvanov_syntax_highlighters[uid].borderSize );
-				urvanov_syntax_highlighters[uid].finalSize = {
-					width: urvanov_syntax_highlighters[uid].table.outerWidth(),
-					height: urvanov_syntax_highlighters[uid].table.outerHeight(),
+
+				urvanovSyntaxHighlighters[uid].initialSize.height += urvanovSyntaxHighlighters[uid].toolbarHeight;
+
+				urvanovSyntaxHighlighters[uid].initialOuterSize = addSize( urvanovSyntaxHighlighters[uid].initialSize, urvanovSyntaxHighlighters[uid].borderSize );
+
+				urvanovSyntaxHighlighters[uid].finalSize = {
+					width: urvanovSyntaxHighlighters[uid].table.outerWidth(),
+					height: urvanovSyntaxHighlighters[uid].table.outerHeight(),
 				};
-				urvanov_syntax_highlighters[uid].finalSize.height += urvanov_syntax_highlighters[uid].toolbarHeight;
-				// Ensure we don't shrink
-				urvanov_syntax_highlighters[uid].finalSize.width = UrvanovSyntaxHighlighterUtil.setMin(
-					urvanov_syntax_highlighters[uid].finalSize.width, urvanov_syntax_highlighters[uid].initialSize.width );
-				urvanov_syntax_highlighters[uid].finalSize.height = UrvanovSyntaxHighlighterUtil.setMin(
-					urvanov_syntax_highlighters[uid].finalSize.height, urvanov_syntax_highlighters[uid].initialSize.height );
-				urvanov_syntax_highlighters[uid].diffSize = minusSize(
-					urvanov_syntax_highlighters[uid].finalSize, urvanov_syntax_highlighters[uid].initialSize );
-				urvanov_syntax_highlighters[uid].finalOuterSize = addSize(
-					urvanov_syntax_highlighters[uid].finalSize, urvanov_syntax_highlighters[uid].borderSize );
-				urvanov_syntax_highlighters[uid].initialSize.height += urvanov_syntax_highlighters[uid].toolbar.outerHeight();
+
+				urvanovSyntaxHighlighters[uid].finalSize.height += urvanovSyntaxHighlighters[uid].toolbarHeight;
+
+				// Ensure we don't shrink.
+				urvanovSyntaxHighlighters[uid].finalSize.width     = UrvanovSyntaxHighlighterUtil.setMin( urvanovSyntaxHighlighters[uid].finalSize.width, urvanovSyntaxHighlighters[uid].initialSize.width );
+				urvanovSyntaxHighlighters[uid].finalSize.height    = UrvanovSyntaxHighlighterUtil.setMin( urvanovSyntaxHighlighters[uid].finalSize.height, urvanovSyntaxHighlighters[uid].initialSize.height );
+				urvanovSyntaxHighlighters[uid].diffSize            = minusSize( urvanovSyntaxHighlighters[uid].finalSize, urvanovSyntaxHighlighters[uid].initialSize );
+				urvanovSyntaxHighlighters[uid].finalOuterSize      = addSize( urvanovSyntaxHighlighters[uid].finalSize, urvanovSyntaxHighlighters[uid].borderSize );
+				urvanovSyntaxHighlighters[uid].initialSize.height += urvanovSyntaxHighlighters[uid].toolbar.outerHeight();
 			}
 		};
 
-		var toggleExpand = function( uid, expand ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+		toggleExpand = function( uid, expand ) {
+			var main;
+			var placeHolderSize;
+			var expandHeight;
+			var expandWidth;
+			var newSize;
+			var initialSize;
+			var delay;
+
+			if ( 'undefined' === typeof urvanovSyntaxHighlighters[uid] ) {
 				return makeUID( uid );
 			}
+
 			if ( typeof expand === 'undefined' ) {
 				return;
 			}
 
-			var main = urvanov_syntax_highlighters[uid].main;
-			var plain = urvanov_syntax_highlighters[uid].plain;
+			main = urvanovSyntaxHighlighters[uid].main;
 
 			if ( expand ) {
-				if ( typeof urvanov_syntax_highlighters[uid].expanded === 'undefined' ) {
+				if ( typeof urvanovSyntaxHighlighters[uid].expanded === 'undefined' ) {
 					initSize( uid );
-					urvanov_syntax_highlighters[uid].expandTime = UrvanovSyntaxHighlighterUtil.setRange(
-						urvanov_syntax_highlighters[uid].diffSize.width / 3, 300, 800 );
-					urvanov_syntax_highlighters[uid].expanded = false;
-					var placeHolderSize = urvanov_syntax_highlighters[uid].finalOuterSize;
-					urvanov_syntax_highlighters[uid].placeholder = $( '<div></div>' );
-					urvanov_syntax_highlighters[uid].placeholder.addClass( URVANOV_SYNTAX_HIGHLIGHTER_PLACEHOLDER );
-					urvanov_syntax_highlighters[uid].placeholder.css( placeHolderSize );
-					urvanov_syntax_highlighters[uid].before( urvanov_syntax_highlighters[uid].placeholder );
-					urvanov_syntax_highlighters[uid].placeholder.css( 'margin', urvanov_syntax_highlighters[uid].css( 'margin' ) );
+					urvanovSyntaxHighlighters[uid].expandTime = UrvanovSyntaxHighlighterUtil.setRange( urvanovSyntaxHighlighters[uid].diffSize.width / 3, 300, 800 );
+
+					urvanovSyntaxHighlighters[uid].expanded    = false;
+					placeHolderSize                            = urvanovSyntaxHighlighters[uid].finalOuterSize;
+					urvanovSyntaxHighlighters[uid].placeholder = $( '<div></div>' );
+
+					urvanovSyntaxHighlighters[uid].placeholder.addClass( URVANOV_SYNTAX_HIGHLIGHTER_PLACEHOLDER );
+					urvanovSyntaxHighlighters[uid].placeholder.css( placeHolderSize );
+					urvanovSyntaxHighlighters[uid].before( urvanovSyntaxHighlighters[uid].placeholder );
+					urvanovSyntaxHighlighters[uid].placeholder.css( 'margin', urvanovSyntaxHighlighters[uid].css( 'margin' ) );
+
 					$( window ).on( 'resize', placeholderResize );
 				}
 
-				var expandHeight = {
+				expandHeight = {
 					height: 'auto',
 					'min-height': 'none',
 					'max-height': 'none',
 				};
-				var expandWidth = {
+
+				expandWidth = {
 					width: 'auto',
 					'min-width': 'none',
 					'max-width': 'none',
 				};
 
-				urvanov_syntax_highlighters[uid].outerWidth( urvanov_syntax_highlighters[uid].outerWidth() );
-				urvanov_syntax_highlighters[uid].css( {
-					'min-width': 'none',
-					'max-width': 'none',
-				} );
-				var newSize = {
-					width: urvanov_syntax_highlighters[uid].finalOuterSize.width,
+				urvanovSyntaxHighlighters[uid].outerWidth( urvanovSyntaxHighlighters[uid].outerWidth() );
+				urvanovSyntaxHighlighters[uid].css(
+					{
+						'min-width': 'none',
+						'max-width': 'none',
+					}
+				);
+
+				newSize = {
+					width: urvanovSyntaxHighlighters[uid].finalOuterSize.width,
 				};
-				if ( ! urvanov_syntax_highlighters[uid].mainHeightAuto && ! urvanov_syntax_highlighters[uid].hasOneLine ) {
-					newSize.height = urvanov_syntax_highlighters[uid].finalOuterSize.height;
-					urvanov_syntax_highlighters[uid].outerHeight( urvanov_syntax_highlighters[uid].outerHeight() );
+
+				if ( ! urvanovSyntaxHighlighters[uid].mainHeightAuto && ! urvanovSyntaxHighlighters[uid].hasOneLine ) {
+					newSize.height = urvanovSyntaxHighlighters[uid].finalOuterSize.height;
+					urvanovSyntaxHighlighters[uid].outerHeight( urvanovSyntaxHighlighters[uid].outerHeight() );
 				}
 
 				main.css( expandHeight );
 				main.css( expandWidth );
-				urvanov_syntax_highlighters[uid].stop( true );
+				urvanovSyntaxHighlighters[uid].stop( true );
 
-				urvanov_syntax_highlighters[uid].animate( newSize, animt( urvanov_syntax_highlighters[uid].expandTime, uid ), function() {
-					urvanov_syntax_highlighters[uid].expanded = true;
-					updateExpandButton( uid );
-				} );
+				urvanovSyntaxHighlighters[uid].animate(
+					newSize,
+					animt( urvanovSyntaxHighlighters[uid].expandTime, uid ),
+					function() {
+						urvanovSyntaxHighlighters[uid].expanded = true;
+						updateExpandButton( uid );
+					}
+				);
 
-				urvanov_syntax_highlighters[uid].placeholder.show();
-				$( 'body' ).prepend( urvanov_syntax_highlighters[uid] );
-				urvanov_syntax_highlighters[uid].addClass( URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED );
+				urvanovSyntaxHighlighters[uid].placeholder.show();
+				$( 'body' ).prepend( urvanovSyntaxHighlighters[uid] );
+				urvanovSyntaxHighlighters[uid].addClass( URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED );
 				placeholderResize();
 			} else {
-				var initialSize = urvanov_syntax_highlighters[uid].initialOuterSize;
-				var delay = urvanov_syntax_highlighters[uid].toolbar_delay;
+				initialSize = urvanovSyntaxHighlighters[uid].initialOuterSize;
+				delay       = urvanovSyntaxHighlighters[uid].toolbar_delay;
+
 				if ( initialSize ) {
-					urvanov_syntax_highlighters[uid].stop( true );
-					if ( ! urvanov_syntax_highlighters[uid].expanded ) {
-						urvanov_syntax_highlighters[uid].delay( delay );
+					urvanovSyntaxHighlighters[uid].stop( true );
+					if ( ! urvanovSyntaxHighlighters[uid].expanded ) {
+						urvanovSyntaxHighlighters[uid].delay( delay );
 					}
-					var newSize = {
+
+					newSize = {
 						width: initialSize.width,
 					};
-					if ( ! urvanov_syntax_highlighters[uid].mainHeightAuto && ! urvanov_syntax_highlighters[uid].hasOneLine ) {
+
+					if ( ! urvanovSyntaxHighlighters[uid].mainHeightAuto && ! urvanovSyntaxHighlighters[uid].hasOneLine ) {
 						newSize.height = initialSize.height;
 					}
-					urvanov_syntax_highlighters[uid].animate( newSize, animt( urvanov_syntax_highlighters[uid].expandTime, uid ), function() {
-						expandFinish( uid );
-					} );
+
+					urvanovSyntaxHighlighters[uid].animate(
+						newSize,
+						animt( urvanovSyntaxHighlighters[uid].expandTime, uid ),
+						function() {
+							expandFinish( uid );
+						}
+					);
 				} else {
-					setTimeout( function() {
-						expandFinish( uid );
-					}, delay );
+					setTimeout(
+						function() {
+							expandFinish( uid );
+						},
+						delay
+					);
 				}
-				urvanov_syntax_highlighters[uid].placeholder.hide();
-				urvanov_syntax_highlighters[uid].placeholder.before( urvanov_syntax_highlighters[uid] );
-				urvanov_syntax_highlighters[uid].css( { left: 'auto', top: 'auto' } );
-				urvanov_syntax_highlighters[uid].removeClass( URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED );
+
+				urvanovSyntaxHighlighters[uid].placeholder.hide();
+				urvanovSyntaxHighlighters[uid].placeholder.before( urvanovSyntaxHighlighters[uid] );
+				urvanovSyntaxHighlighters[uid].css( { left: 'auto', top: 'auto' } );
+				urvanovSyntaxHighlighters[uid].removeClass( URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED );
 			}
 
 			reconsileDimensions( uid );
+
 			if ( expand ) {
 				updateWrap( uid, false );
 			}
 		};
 
-		var placeholderResize = function() {
-			for ( uid in urvanov_syntax_highlighters ) {
-				if ( urvanov_syntax_highlighters[uid].hasClass( URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED ) ) {
-					urvanov_syntax_highlighters[uid].css( urvanov_syntax_highlighters[uid].placeholder.offset() );
+		placeholderResize = function() {
+			var uid;
+
+			for ( uid in urvanovSyntaxHighlighters ) {
+				if ( urvanovSyntaxHighlighters[uid].hasClass( URVANOV_SYNTAX_HIGHLIGHTER_EXPANDED ) ) {
+					urvanovSyntaxHighlighters[uid].css( urvanovSyntaxHighlighters[uid].placeholder.offset() );
 				}
 			}
 		};
 
-		var expandFinish = function( uid ) {
-			urvanov_syntax_highlighters[uid].expanded = false;
+		expandFinish = function( uid ) {
+			urvanovSyntaxHighlighters[uid].expanded = false;
 			restoreDimensions( uid );
 			updateExpandButton( uid );
-			if ( urvanov_syntax_highlighters[uid].wrapped ) {
+			if ( urvanovSyntaxHighlighters[uid].wrapped ) {
 				updateWrap( uid );
 			}
 		};
 
-		var toggle_scroll = function( uid, show, expand ) {
-			if ( typeof urvanov_syntax_highlighters[uid] === 'undefined' ) {
+		toggleScroll = function( uid, show, expand ) {
+			var main;
+			var plain;
+			var visible;
+
+			if ( typeof urvanovSyntaxHighlighters[uid] === 'undefined' ) {
 				return makeUID( uid );
 			}
-			if ( typeof show === 'undefined' || expand || urvanov_syntax_highlighters[uid].expanded ) {
+
+			if ( typeof show === 'undefined' || expand || urvanovSyntaxHighlighters[uid].expanded ) {
 				return;
 			}
 
-			var main = urvanov_syntax_highlighters[uid].main;
-			var plain = urvanov_syntax_highlighters[uid].plain;
+			main  = urvanovSyntaxHighlighters[uid].main;
+			plain = urvanovSyntaxHighlighters[uid].plain;
 
 			if ( show ) {
-				// Show scrollbars
+				// Show scrollbars.
 				main.css( 'overflow', 'auto' );
 				plain.css( 'overflow', 'auto' );
-				if ( typeof urvanov_syntax_highlighters[uid].top !== 'undefined' ) {
-					visible = ( main.css( 'z-index' ) == 1 ? main : plain );
-					// Browser will not render until scrollbar moves, move it manually
-					visible.scrollTop( urvanov_syntax_highlighters[uid].top - 1 );
-					visible.scrollTop( urvanov_syntax_highlighters[uid].top );
-					visible.scrollLeft( urvanov_syntax_highlighters[uid].left - 1 );
-					visible.scrollLeft( urvanov_syntax_highlighters[uid].left );
+				if ( typeof urvanovSyntaxHighlighters[uid].top !== 'undefined' ) {
+					visible = ( 1 === main.css( 'z-index' ) ? main : plain );
+
+					// Browser will not render until scrollbar moves, move it manually.
+					visible.scrollTop( urvanovSyntaxHighlighters[uid].top - 1 );
+					visible.scrollTop( urvanovSyntaxHighlighters[uid].top );
+					visible.scrollLeft( urvanovSyntaxHighlighters[uid].left - 1 );
+					visible.scrollLeft( urvanovSyntaxHighlighters[uid].left );
 				}
 			} else {
-				// Hide scrollbars
-				visible = ( main.css( 'z-index' ) == 1 ? main : plain );
-				urvanov_syntax_highlighters[uid].top = visible.scrollTop();
-				urvanov_syntax_highlighters[uid].left = visible.scrollLeft();
+				// Hide scrollbars.
+				visible = ( 1 === main.css( 'z-index' ) ? main : plain );
+
+				urvanovSyntaxHighlighters[uid].top  = visible.scrollTop();
+				urvanovSyntaxHighlighters[uid].left = visible.scrollLeft();
+
 				main.css( 'overflow', 'hidden' );
 				plain.css( 'overflow', 'hidden' );
 			}
-			// Register that overflow has changed
-			urvanov_syntax_highlighters[uid].scrollChanged = true;
+
+			// Register that overflow has changed.
+			urvanovSyntaxHighlighters[uid].scrollChanged = true;
 			fixScrollBlank( uid );
 		};
 
 		/* Fix weird draw error, causes blank area to appear where scrollbar once was. */
-		var fixScrollBlank = function( uid ) {
-			// Scrollbar draw error in Chrome
-			urvanov_syntax_highlighters[uid].table.style( 'width', '100%', 'important' );
-			var redraw = setTimeout( function() {
-				urvanov_syntax_highlighters[uid].table.style( 'width', '' );
-				clearInterval( redraw );
-			}, 10 );
+		fixScrollBlank = function( uid ) {
+			var redraw;
+
+			// Scrollbar draw error in Chrome.
+			urvanovSyntaxHighlighters[uid].table.style( 'width', '100%', 'important' );
+
+			redraw = setTimeout(
+				function() {
+					urvanovSyntaxHighlighters[uid].table.style( 'width', '' );
+					clearInterval( redraw );
+				},
+				10
+			);
 		};
 
-		var restoreDimensions = function( uid ) {
-			// Restore dimensions
-			var main = urvanov_syntax_highlighters[uid].main;
-			var mainStyle = urvanov_syntax_highlighters[uid].mainStyle;
+		restoreDimensions = function( uid ) {
+			// Restore dimensions.
+			var main      = urvanovSyntaxHighlighters[uid].main;
+			var mainStyle = urvanovSyntaxHighlighters[uid].mainStyle;
+
 			main.css( mainStyle );
-			// Width styles also apply to urvanovSyntaxHighlighter
-			urvanov_syntax_highlighters[uid].css( 'height', 'auto' );
-			urvanov_syntax_highlighters[uid].css( 'width', mainStyle.width );
-			urvanov_syntax_highlighters[uid].css( 'max-width', mainStyle['max-width'] );
-			urvanov_syntax_highlighters[uid].css( 'min-width', mainStyle['min-width'] );
+
+			// Width styles also apply to urvanovSyntaxHighlighter.
+			urvanovSyntaxHighlighters[uid].css( 'height', 'auto' );
+			urvanovSyntaxHighlighters[uid].css( 'width', mainStyle.width );
+			urvanovSyntaxHighlighters[uid].css( 'max-width', mainStyle['max-width'] );
+			urvanovSyntaxHighlighters[uid].css( 'min-width', mainStyle['min-width'] );
 		};
 
-		var reconsileDimensions = function( uid ) {
-			// Reconsile dimensions
-			urvanov_syntax_highlighters[uid].plain.outerHeight( urvanov_syntax_highlighters[uid].main.outerHeight() );
+		reconsileDimensions = function( uid ) {
+			// Reconsile dimensions.
+			urvanovSyntaxHighlighters[uid].plain.outerHeight( urvanovSyntaxHighlighters[uid].main.outerHeight() );
 		};
 
-		var reconsileLines = function( uid ) {
-			$( URVANOV_SYNTAX_HIGHLIGHTER_NUM, urvanov_syntax_highlighters[uid] ).each( function() {
-				var lineID = $( this ).attr( 'data-line' );
-				var line = $( '#' + lineID );
-				var height = null;
-				if ( urvanov_syntax_highlighters[uid].wrapped ) {
-					line.css( 'height', '' );
-					height = line.outerHeight();
-					height = height ? height : '';
-					// TODO toolbar should overlay title if needed
-				} else {
-					height = line.attr( 'data-height' );
-					height = height ? height : '';
-					line.css( 'height', height );
-					//line.css('height', line.css('line-height'));
+		reconsileLines = function( uid ) {
+			$( URVANOV_SYNTAX_HIGHLIGHTER_NUM, urvanovSyntaxHighlighters[uid] ).each(
+				function() {
+					var lineID = $( this ).attr( 'data-line' );
+					var line   = $( '#' + lineID );
+					var height = null;
+
+					if ( urvanovSyntaxHighlighters[uid].wrapped ) {
+						line.css( 'height', '' );
+						height = line.outerHeight();
+						height = height ? height : '';
+						// TODO toolbar should overlay title if needed.
+					} else {
+						height = line.attr( 'data-height' );
+						height = height ? height : '';
+						line.css( 'height', height );
+					}
+
+					$( this ).css( 'height', height );
 				}
-				$( this ).css( 'height', height );
-			} );
+			);
 		};
 
-		var animt = function( x, uid ) {
-			if ( x == 'fast' ) {
+		animt = function( x, uid ) {
+			if ( 'fast' === x ) {
 				x = 200;
-			} else if ( x == 'slow' ) {
+			} else if ( 'slow' === x ) {
 				x = 600;
 			} else if ( ! isNumber( x ) ) {
 				x = parseInt( x );
@@ -1155,15 +1430,18 @@
 					return 0;
 				}
 			}
-			return x * urvanov_syntax_highlighters[uid].time;
+
+			return x * urvanovSyntaxHighlighters[uid].time;
 		};
 
-		var isNumber = function( x ) {
+		isNumber = function( x ) {
 			return typeof x === 'number';
 		};
 	};
 
-	$( document ).ready( function() {
-		UrvanovSyntaxHighlighterSyntax.init();
-	} );
+	$( document ).ready(
+		function() {
+			UrvanovSyntaxHighlighterSyntax.init();
+		}
+	);
 } )( jQueryUrvanovSyntaxHighlighter );

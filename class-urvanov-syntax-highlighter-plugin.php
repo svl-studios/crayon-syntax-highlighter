@@ -833,7 +833,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 			} else {
 				wp_enqueue_style( 'urvanov_syntax_highlighter_style', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_STYLE, __FILE__ ), array(), $urvanov_syntax_highlighter_version );
 				wp_enqueue_style( 'urvanov_syntax_highlighter_global_style', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_STYLE_GLOBAL, __FILE__ ), array(), $urvanov_syntax_highlighter_version );
-				wp_enqueue_script( 'urvanov_syntax_highlighter_util_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_UTIL, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version, true );
+				wp_enqueue_script( 'urvanov_syntax_highlighter_util_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_UTIL, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version, false );
 				Urvanov_Syntax_Highlighter_Settings_WP::other_scripts();
 			}
 			UrvanovSyntaxHighlighterLog::debug( 'Initializing js settings...' );

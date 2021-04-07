@@ -224,7 +224,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		if ( URVANOV_SYNTAX_HIGHLIGHTER_MINIFY ) {
 			Urvanov_Syntax_Highlighter_Plugin::enqueue_resources();
 		} else {
-			wp_enqueue_script( 'urvanov_syntax_highlighter_util_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_UTIL, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version, true );
+			wp_enqueue_script( 'urvanov_syntax_highlighter_util_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS_UTIL, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version, false );
 			self::other_scripts();
 		}
 
@@ -240,7 +240,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 					'wpdialogs',
 				),
 				$urvanov_syntax_highlighter_version,
-				true
+				false
 			);
 
 			self::init_admin_js_settings();
@@ -259,11 +259,11 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 
 		if ( Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::POPUP ) || is_admin() ) {
 			// TODO include anyway and minify.
-			wp_enqueue_script( 'urvanov_syntax_highlighter_jquery_popup', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JQUERY_POPUP, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version, true );
+			wp_enqueue_script( 'urvanov_syntax_highlighter_jquery_popup', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JQUERY_POPUP, __FILE__ ), array( 'jquery' ), $urvanov_syntax_highlighter_version, false );
 			$deps[] = 'urvanov_syntax_highlighter_jquery_popup';
 		}
 
-		$result = wp_enqueue_script( 'urvanov_syntax_highlighter_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS, __FILE__ ), $deps, $urvanov_syntax_highlighter_version, true );
+		$result = wp_enqueue_script( 'urvanov_syntax_highlighter_js', plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_JS, __FILE__ ), $deps, $urvanov_syntax_highlighter_version, false );
 		UrvanovSyntaxHighlighterLog::debug( $result, 'wp_enqueue_script=' . $result );
 	}
 
@@ -740,7 +740,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 
 		// General.
 		// Some of these will the $editor arguments, if TRUE it will alter for use in the Tag Editor.
-		self::add_section( self::GENERAL, esc_html__( 'General', 'urvanov-syntax-highlighter' ), '' );
+		self::add_section( self::GENERAL, esc_html__( 'General', 'urvanov-syntax-highlighter' ) );
 		self::add_field( self::GENERAL, esc_html__( 'Theme', 'urvanov-syntax-highlighter' ), 'theme' );
 		self::add_field( self::GENERAL, esc_html__( 'Font', 'urvanov-syntax-highlighter' ), 'font' );
 		self::add_field( self::GENERAL, esc_html__( 'Metrics', 'urvanov-syntax-highlighter' ), 'metrics' );
@@ -755,12 +755,12 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		self::add_field( self::GENERAL, esc_html__( 'Misc', 'urvanov-syntax-highlighter' ), 'misc' );
 
 		// Debug.
-		self::add_section( self::DEBUG, esc_html__( 'Debug', 'urvanov-syntax-highlighter' ), '' );
+		self::add_section( self::DEBUG, esc_html__( 'Debug', 'urvanov-syntax-highlighter' ) );
 		self::add_field( self::DEBUG, esc_html__( 'Errors', 'urvanov-syntax-highlighter' ), 'errors' );
 		self::add_field( self::DEBUG, esc_html__( 'Log', 'urvanov-syntax-highlighter' ), 'log' );
 
 		// ABOUT.
-		self::add_section( self::ABOUT, esc_html__( 'About', 'urvanov-syntax-highlighter' ), '' );
+		self::add_section( self::ABOUT, esc_html__( 'About', 'urvanov-syntax-highlighter' ) );
 		$image = '<div id="urvanov-syntax-highlighter-logo">
 				<img src="' . plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_LOGO, __FILE__ ) . '" /><br/></div>';
 
@@ -774,89 +774,100 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	 * @param string $title    Title.
 	 * @param string $callback Callback.
 	 */
-	private static function add_section( string $name, string $title, string $callback ) {
+	private static function add_section( string $name, string $title, $callback = '' ) {
 		$callback = ( empty( $callback ) ? 'blank' : '' );
 		add_settings_section( $name, $title, 'Urvanov_Syntax_Highlighter_Settings_WP::' . $callback, self::SETTINGS );
 	}
 
 	/**
-	 * @param       $section
-	 * @param       $title
-	 * @param       $callback
-	 * @param array    $args
+	 * Add field.
+	 *
+	 * @param string $section  Section.
+	 * @param string $title    Title.
+	 * @param string $callback Callback.
+	 * @param array  $args     Args.
 	 */
-	private static function add_field( $section, $title, $callback, $args = array() ) {
+	private static function add_field( string $section, string $title, string $callback, $args = array() ) {
 		$unique = preg_replace( '#\\s#', '_', strtolower( $title ) );
 		add_settings_field( $unique, $title, 'Urvanov_Syntax_Highlighter_Settings_WP::' . $callback, self::SETTINGS, $section, $args );
 	}
 
-	// Validates all the settings passed from the form in $inputs
-
 	/**
-	 * @param $inputs
+	 * Validates all the settings passed from the form in $inputs.
 	 *
-	 * @return array|mixed
+	 * @param array $inputs Input array.
+	 *
+	 * @return array
 	 */
-	public static function settings_validate( $inputs ) {
+	public static function settings_validate( array $inputs ): array {
 
-		// Load current settings from db
+		// Load current settings from db.
 		self::load_settings( true );
 
 		global $urvanov_syntax_highlighter_email;
-		// When reset button is pressed, remove settings so default loads next time
+
+		// When reset button is pressed, remove settings so default loads next time.
 		if ( array_key_exists( 'reset', $inputs ) ) {
 			self::clear_cache();
 
 			return array();
 		}
-		// Convert old tags
+
+		// Convert old tags.
 		if ( array_key_exists( 'convert', $inputs ) ) {
 			$encode = array_key_exists( 'convert_encode', $inputs );
 			Urvanov_Syntax_Highlighter_Plugin::convert_tags( $encode );
 		}
-		// Refresh internal tag management
+
+		// Refresh internal tag management.
 		if ( array_key_exists( 'refresh_tags', $inputs ) ) {
 			Urvanov_Syntax_Highlighter_Plugin::refresh_posts();
 		}
-		// Clear the log if needed
-		if ( array_key_exists( self::LOG_CLEAR, $_POST ) ) {
+
+		// Clear the log if needed.
+		if ( array_key_exists( self::LOG_CLEAR, $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			UrvanovSyntaxHighlighterLog::clear();
 		}
-		// Send to admin
-		if ( array_key_exists( self::LOG_EMAIL_ADMIN, $_POST ) ) {
+
+		// Send to admin.
+		if ( array_key_exists( self::LOG_EMAIL_ADMIN, $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			UrvanovSyntaxHighlighterLog::email( get_bloginfo( 'admin_email' ) );
 		}
-		// Send to developer
-		if ( array_key_exists( self::LOG_EMAIL_DEV, $_POST ) ) {
+
+		// Send to developer.
+		if ( array_key_exists( self::LOG_EMAIL_DEV, $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			UrvanovSyntaxHighlighterLog::email( $urvanov_syntax_highlighter_email, get_bloginfo( 'admin_email' ) );
 		}
 
-		// Clear the cache
-		if ( array_key_exists( self::CACHE_CLEAR, $_POST ) ) {
+		// Clear the cache.
+		if ( array_key_exists( self::CACHE_CLEAR, $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			self::clear_cache();
 		}
 
-		// If settings don't exist in input, set them to default
+		// If settings don't exist in input, set them to default.
 		$global_settings = Urvanov_Syntax_Highlighter_Settings::get_defaults();
 
 		$ignored = array( Urvanov_Syntax_Highlighter_Settings::HIDE_HELP );
 
 		foreach ( $global_settings as $setting ) {
-			// XXX Ignore some settings
-			if ( in_array( $setting->name(), $ignored ) ) {
+
+			// XXX Ignore some settings.
+			if ( in_array( $setting->name(), $ignored, true ) ) {
 				$inputs[ $setting->name() ] = Urvanov_Syntax_Highlighter_Global_Settings::val( $setting->name() );
 				continue;
 			}
 
-			// If boolean setting is not in input, then it is set to FALSE in the form
+			// If boolean setting is not in input, then it is set to FALSE in the form.
 			if ( ! array_key_exists( $setting->name(), $inputs ) ) {
-				// For booleans, set to FALSE (unchecked boxes are not sent as POST)
+
+				// For booleans, set to FALSE (unchecked boxes are not sent as POST).
 				if ( is_bool( $setting->def() ) ) {
 					$inputs[ $setting->name() ] = false;
 				} else {
-					/*
-					  For array settings, set the input as the value, which by default is the
-					 default index */
+
+					/**
+					 * For array settings, set the input as the value, which by default is the default index.
+					 */
 					if ( is_array( $setting->def() ) ) {
 						$inputs[ $setting->name() ] = $setting->value();
 					} else {
@@ -867,7 +878,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		}
 
 		$refresh = array(
-			// These should trigger a refresh of which posts contain crayons, since they affect capturing
+			// These should trigger a refresh of which posts contain crayons, since they affect capturing.
 			Urvanov_Syntax_Highlighter_Settings::INLINE_TAG => true,
 			Urvanov_Syntax_Highlighter_Settings::INLINE_TAG_CAPTURE => true,
 			Urvanov_Syntax_Highlighter_Settings::CODE_TAG_CAPTURE => true,
@@ -877,17 +888,19 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 			Urvanov_Syntax_Highlighter_Settings::PLAIN_TAG => true,
 		);
 
-		// Validate inputs
+		// Validate inputs.
 		foreach ( $inputs as $input => $value ) {
-			// Convert all array setting values to ints
-			$inputs[ $input ] = $value = Urvanov_Syntax_Highlighter_Settings::validate( $input, $value );
-			// Clear cache when changed
+			// Convert all array setting values to ints.
+			$inputs[ $input ] = Urvanov_Syntax_Highlighter_Settings::validate( $input, $value );
+			$value            = $inputs[ $input ];
+
+			// Clear cache when changed.
 			if ( Urvanov_Syntax_Highlighter_Global_Settings::has_changed( $input, Urvanov_Syntax_Highlighter_Settings::CACHE, $value ) ) {
 				self::clear_cache();
 			}
 			if ( isset( $refresh[ $input ] ) ) {
 				if ( Urvanov_Syntax_Highlighter_Global_Settings::has_changed( $input, $input, $value ) ) {
-					// Needs to take place, in case it refresh depends on changed value
+					// Needs to take place, in case it refresh depends on changed value.
 					Urvanov_Syntax_Highlighter_Global_Settings::set( $input, $value );
 					Urvanov_Syntax_Highlighter_Plugin::refresh_posts();
 				}
@@ -897,58 +910,60 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		return $inputs;
 	}
 
-	// Section callback functions
+	/**
+	 * Section callback functions.
+	 */
+	public static function blank() {} // Used for required callbacks with blank content.
 
 	/**
+	 * Input.
 	 *
+	 * @param array $args Arguments.
 	 */
-	public static function blank() {
-	} // Used for required callbacks with blank content
-
-	// Input Drawing ==========================================================
-
-	/**
-	 * @param $args
-	 */
-	private static function input( $args ) {
+	private static function input( $args = array() ) {
 		$id      = '';
 		$size    = 40;
 		$margin  = false;
 		$preview = 1;
 		$break   = false;
 		$type    = 'text';
+
+		// phpcs:ignore WordPress.PHP.DontExtract
 		extract( $args );
 
-		echo '<input id="', Urvanov_Syntax_Highlighter_Settings::PREFIX, $id, '" name="', self::OPTIONS, '[', $id, ']" class="' . Urvanov_Syntax_Highlighter_Settings::SETTING . '" size="', $size, '" type="', $type, '" value="',
-		self::$options[ $id ], '" style="margin-left: ', ( $margin ? '20px' : '0px' ), ';" urvanov-syntax-highlighter-preview="', ( $preview ? 1 : 0 ), '" />', ( $break ? URVANOV_SYNTAX_HIGHLIGHTER_BR : '' );
+		echo '<input id="' . esc_attr( Urvanov_Syntax_Highlighter_Settings::PREFIX ) . esc_attr( $id ) . '" name="' . esc_attr( self::OPTIONS ) . '[' . esc_attr( $id ) . ']" class="' . esc_attr( Urvanov_Syntax_Highlighter_Settings::SETTING ) . '" size="' . esc_attr( $size ) . '" type="' . esc_attr( $type ) . '" value="' .
+		esc_attr( self::$options[ $id ] ) . '" style="margin-left: ' . ( $margin ? '20px' : '0px' ) . ';" urvanov-syntax-highlighter-preview="' . ( $preview ? 1 : 0 ), '" />' . ( $break ? URVANOV_SYNTAX_HIGHLIGHTER_BR : '' ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/**
-	 * @param      $args
-	 * @param bool $line_break
-	 * @param bool $preview
+	 * Checkbox.
+	 *
+	 * @param array $args Args.
+	 * @param bool  $line_break Line break.
+	 * @param bool  $preview Preview.
 	 */
-	private static function checkbox( $args, $line_break = true, $preview = true ) {
-		if ( empty( $args ) || ! is_array( $args ) || count( $args ) != 2 ) {
+	private static function checkbox( array $args, $line_break = true, $preview = true ) {
+		if ( empty( $args ) || ! is_array( $args ) || 2 !== count( $args ) ) {
 			return;
 		}
+
 		$id          = $args[0];
 		$text        = $args[1];
-		$checked     = ( ! array_key_exists( $id, self::$options ) ) ? false : self::$options[ $id ] == true;
+		$checked     = ! ( ! array_key_exists( $id, self::$options ) ) && true === self::$options[ $id ];
 		$checked_str = $checked ? ' checked="checked"' : '';
-		echo '<input id="', Urvanov_Syntax_Highlighter_Settings::PREFIX, $id, '" name="', self::OPTIONS, '[', $id, ']" type="checkbox" class="' . Urvanov_Syntax_Highlighter_Settings::SETTING . '" value="1"', $checked_str,
-		' urvanov-syntax-highlighter-preview="', ( $preview ? 1 : 0 ), '" /> ', '<label for="', Urvanov_Syntax_Highlighter_Settings::PREFIX, $id, '">', $text, '</label>', ( $line_break ? URVANOV_SYNTAX_HIGHLIGHTER_BR : '' );
+		echo '<input id="', esc_attr( Urvanov_Syntax_Highlighter_Settings::PREFIX ) , esc_attr( $id ), '" name="', esc_attr( self::OPTIONS ), '[', esc_attr( $id ), ']" type="checkbox" class="' . esc_attr( Urvanov_Syntax_Highlighter_Settings::SETTING ) . '" value="1"', $checked_str, // phpcs:ignore WordPress.Security.EscapeOutput
+		' urvanov-syntax-highlighter-preview="', ( $preview ? 1 : 0 ), '" /> ', '<label for="', esc_attr( Urvanov_Syntax_Highlighter_Settings::PREFIX ), $id, '">', $text, '</label>', ( $line_break ? URVANOV_SYNTAX_HIGHLIGHTER_BR : '' ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
-	// Draws a dropdown by loading the default value (an array) from a setting
-
 	/**
-	 * @param      $id
-	 * @param bool $line_break
-	 * @param bool $preview
-	 * @param bool $echo
-	 * @param null $resources
-	 * @param null $selected
+	 * Draws a dropdown by loading the default value (an array) from a setting.
+	 *
+	 * @param mixed  $id ID.
+	 * @param bool   $line_break Line breack.
+	 * @param bool   $preview Preview.
+	 * @param bool   $echo Echo.
+	 * @param array  $resources Resources.
+	 * @param string $selected Selected.
 	 *
 	 * @return string|void
 	 */
@@ -956,7 +971,8 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		if ( ! array_key_exists( $id, self::$options ) ) {
 			return;
 		}
-		$resources = $resources != null ? $resources : Urvanov_Syntax_Highlighter_Global_Settings::get( $id )->def();
+
+		$resources = null !== $resources ? $resources : Urvanov_Syntax_Highlighter_Global_Settings::get( $id )->def();
 
 		$return = '<select id="' . Urvanov_Syntax_Highlighter_Settings::PREFIX . $id . '" name="' . self::OPTIONS . '[' . $id . ']" class="' . Urvanov_Syntax_Highlighter_Settings::SETTING . '" urvanov-syntax-highlighter-preview="' . ( $preview ? 1 : 0 ) . '">';
 		foreach ( $resources as $k => $v ) {
@@ -966,75 +982,85 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 			} else {
 				$text = $v;
 			}
-			$is_selected = $selected !== null && $selected == $k ? 'selected' : selected( self::$options[ $id ], $k, false );
+
+			$is_selected = null !== $selected && $k === $selected ? 'selected' : selected( self::$options[ $id ], $k, false );
 			$return     .= '<option ' . ( isset( $data ) ? 'data-value="' . $data . '"' : '' ) . ' value="' . $k . '" ' . $is_selected . '>' . $text . '</option>';
 		}
 		$return .= '</select>' . ( $line_break ? URVANOV_SYNTAX_HIGHLIGHTER_BR : '' );
 		if ( $echo ) {
-			echo $return;
+			echo $return; // phpcs:ignore WordPress.Security.EscapeOutput
 		} else {
 			return $return;
 		}
 	}
 
 	/**
-	 * @param array $args
+	 * Button.
+	 *
+	 * @param array $args Args.
 	 *
 	 * @return string
 	 */
-	private static function button( $args = array() ) {
+	private static function button( $args = array() ): string {
+
+		// phpcs:ignore WordPress.PHP.DontExtract
 		extract( $args );
+
 		UrvanovSyntaxHighlighterUtil::set_var( $id, '' );
 		UrvanovSyntaxHighlighterUtil::set_var( $class, '' );
 		UrvanovSyntaxHighlighterUtil::set_var( $onclick, '' );
 		UrvanovSyntaxHighlighterUtil::set_var( $title, '' );
 
-		return '<a id="' . $id . '" class="button-primary ' . $class . '" onclick="' . $onclick . '">' . $title . '</a>';
+		return '<a id="' . esc_attr( $id ) . '" class="button-primary ' . esc_attr( $class ) . '" onclick="' . $onclick . '">' . wp_kses_post( $title ) . '</a>';
 	}
 
 	/**
-	 * @param $name
-	 * @param $text
-	 */
-	private static function info_span( $name, $text ) {
-		echo '<span id="', $name, '-info">', $text, '</span>';
-	}
-
-	/**
-	 * @param $text
-	 */
-	private static function span( $text ) {
-		echo '<span>', $text, '</span>';
-	}
-
-	// General Fields =========================================================
-
-	/**
+	 * Info Span.
 	 *
+	 * @param string $name Name.
+	 * @param string $text Text.
+	 */
+	private static function info_span( string $name, string $text ) {
+		echo '<span id="', esc_attr( $name ), '-info">', wp_kses_post( $text ), '</span>';
+	}
+
+	/**
+	 * Span.
+	 *
+	 * @param string $text Text.
+	 */
+	private static function span( string $text ) {
+		echo '<span>', wp_kses_post( $text ), '</span>';
+	}
+
+	/**
+	 * Help.
 	 */
 	public static function help() {
 		global $urvanov_syntax_highlighter_website, $urvanov_syntax_highlighter_twitter, $urvanov_syntax_highlighter_git, $urvanov_syntax_highlighter_plugin_wp, $urvanov_syntax_highlighter_donate;
+
 		if ( Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::HIDE_HELP ) ) {
 			return;
 		}
+
 		echo '<div id="urvanov-syntax-highlighter-help" class="updated settings-error urvanov-syntax-highlighter-help">
-				<p><strong>Howdy, coder!</strong> Thanks for using Crayon. <strong>Useful Links:</strong> <a href="' . $urvanov_syntax_highlighter_website . '" target="_blank">Documentation</a>, <a href="' . $urvanov_syntax_highlighter_git . '" target="_blank">GitHub</a>, <a href="' . $urvanov_syntax_highlighter_plugin_wp . '" target="_blank">Plugin Page</a>, <a href="' . $urvanov_syntax_highlighter_twitter . '" target="_blank">Twitter</a>. Crayon has always been free. If you value my work please consider a <a href="' . $urvanov_syntax_highlighter_donate . '">small donation</a> to show your appreciation. Thanks! <a class="urvanov-syntax-highlighter-help-close">X</a></p></div>
+				<p><strong>Howdy, coder!</strong> Thanks for using Crayon. <strong>Useful Links:</strong> <a href="' . esc_url( $urvanov_syntax_highlighter_website ) . '" target="_blank">Documentation</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_git ) . '" target="_blank">GitHub</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_plugin_wp ) . '" target="_blank">Plugin Page</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_twitter ) . '" target="_blank">Twitter</a>. Crayon has always been free. If you value my work please consider a <a href="' . esc_url( $urvanov_syntax_highlighter_donate ) . '">small donation</a> to show your appreciation. Thanks! <a class="urvanov-syntax-highlighter-help-close">X</a></p></div>
 						';
 	}
 
 	/**
-	 *
+	 * Help screen.
 	 */
 	public static function help_screen() {
 		$screen = get_current_screen();
 
-		if ( $screen->id != self::$admin_page ) {
-			return;
+		if ( $screen->id !== self::$admin_page ) {
+			exit;
 		}
 	}
 
 	/**
-	 *
+	 * Metrics.
 	 */
 	public static function metrics() {
 		echo '<div id="urvanov-syntax-highlighter-section-metrics" class="urvanov-syntax-highlighter-hide-inline">';
@@ -1093,7 +1119,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		foreach ( $text as $p => $s ) {
 			$set     = $s[0];
 			$margin  = $s[1];
-			$preview = ( $p == esc_html__( 'Left Margin', 'urvanov-syntax-highlighter' ) || $p == esc_html__( 'Right Margin', 'urvanov-syntax-highlighter' ) );
+			$preview = ( esc_html__( 'Left Margin', 'urvanov-syntax-highlighter' ) === $p || esc_html__( 'Right Margin', 'urvanov-syntax-highlighter' ) === $p );
 			self::checkbox( array( $set, '<span class="urvanov-syntax-highlighter-span-110">' . $p . '</span>' ), false, $preview );
 			echo ' ';
 			self::input(
@@ -1103,8 +1129,9 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 					'preview' => false,
 				)
 			);
-			echo '<span class="urvanov-syntax-highlighter-span-margin">', esc_html__( 'Pixels', 'urvanov-syntax-highlighter' ), '</span>', URVANOV_SYNTAX_HIGHLIGHTER_BR;
+			echo '<span class="urvanov-syntax-highlighter-span-margin">', esc_html__( 'Pixels', 'urvanov-syntax-highlighter' ), '</span>', URVANOV_SYNTAX_HIGHLIGHTER_BR; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
+
 		echo '<span class="urvanov-syntax-highlighter-span" style="min-width: 135px;">' . esc_html__( 'Horizontal Alignment', 'urvanov-syntax-highlighter' ) . ' </span>';
 		self::dropdown( Urvanov_Syntax_Highlighter_Settings::H_ALIGN );
 		echo '<div id="urvanov-syntax-highlighter-subsection-float">';
@@ -1129,7 +1156,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Toolbar.
 	 */
 	public static function toolbar() {
 		echo '<div id="urvanov-syntax-highlighter-section-toolbar" class="urvanov-syntax-highlighter-hide-inline">';
@@ -1167,7 +1194,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Lines.
 	 */
 	public static function lines() {
 		echo '<div id="urvanov-syntax-highlighter-section-lines" class="urvanov-syntax-highlighter-hide-inline">';
@@ -1200,30 +1227,39 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Languages.
 	 */
 	public static function langs() {
-		echo '<a name="langs"></a>';
-		// Specialised dropdown for languages
+		echo '<a id="langs"></a>';
+
+		// Specialised dropdown for languages.
 		if ( array_key_exists( Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG, self::$options ) ) {
-			if ( ( $langs = Urvanov_Syntax_Highlighter_Parser::parse_all() ) != false ) {
+			$langs = Urvanov_Syntax_Highlighter_Parser::parse_all();
+			if ( false !== $langs ) {
 				$langs = Urvanov_Syntax_Highlighter_Langs::sort_by_name( $langs );
 				self::span( esc_html__( 'When no language is provided, use the fallback', 'urvanov-syntax-highlighter' ) . ': ' );
 				self::dropdown( Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG, false, true, true, $langs );
-				// Information about parsing
+
+				// Information about parsing.
 				$parsed = Urvanov_Syntax_Highlighter_Resources::langs()->is_parsed();
 				$count  = count( $langs );
-				echo '</select>', URVANOV_SYNTAX_HIGHLIGHTER_BR, ( $parsed ? '' : '<span class="urvanov-syntax-highlighter-error">' ),
-				sprintf( _n( '%d language has been detected.', '%d languages have been detected.', $count, 'urvanov-syntax-highlighter' ), $count ), ' ',
-				$parsed ? esc_html__( 'Parsing was successful', 'urvanov-syntax-highlighter' ) : esc_html__( 'Parsing was unsuccessful', 'urvanov-syntax-highlighter' ),
+				echo '</select>', URVANOV_SYNTAX_HIGHLIGHTER_BR, ( $parsed ? '' : '<span class="urvanov-syntax-highlighter-error">' ), // phpcs:ignore WordPress.Security.EscapeOutput
+
+				// translators: %d = count.
+				sprintf( esc_html( _n( '%d language has been detected.', '%d languages have been detected.', intval( $count ), 'urvanov-syntax-highlighter' ) ), intval( $count ) ), ' ',
+				( $parsed ? esc_html__( 'Parsing was successful', 'urvanov-syntax-highlighter' ) : esc_html__( 'Parsing was unsuccessful', 'urvanov-syntax-highlighter' ) ), // phpcs:ignore
 				( $parsed ? '. ' : '</span>' );
-				// Check if fallback from db is loaded
-				$db_fallback = self::$options[ Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG ]; // Fallback name from db
+
+				// Check if fallback from db is loaded.
+				$db_fallback = self::$options[ Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG ]; // Fallback name from db.
 
 				if ( ! Urvanov_Syntax_Highlighter_Resources::langs()->is_loaded( $db_fallback ) || ! Urvanov_Syntax_Highlighter_Resources::langs()->exists( $db_fallback ) ) {
-					echo '<br/><span class="urvanov-syntax-highlighter-error">', sprintf( esc_html__( 'The selected language with id %s could not be loaded', 'urvanov-syntax-highlighter' ), '<strong>' . $db_fallback . '</strong>' ), '. </span>';
+					// translators: %s = Backup lang.
+					echo '<br/><span class="urvanov-syntax-highlighter-error">', sprintf( esc_html__( 'The selected language with id %s could not be loaded', 'urvanov-syntax-highlighter' ), '<strong>' . esc_html( $db_fallback ) . '</strong>' ), '. </span>';
 				}
-				// Language parsing info
+
+				// Language parsing info.
+				// phpcs:ignore WordPress.Security.EscapeOutput
 				echo URVANOV_SYNTAX_HIGHLIGHTER_BR, '<div id="urvanov-syntax-highlighter-subsection-langs-info"><div>' . self::button(
 					array(
 						'id'    => 'show-langs',
@@ -1237,29 +1273,36 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Show langs.
 	 */
 	public static function show_langs() {
 		self::load_settings();
+
 		require_once URVANOV_SYNTAX_HIGHLIGHTER_PARSER_PHP;
-		if ( ( $langs = Urvanov_Syntax_Highlighter_Parser::parse_all() ) != false ) {
+
+		$langs = Urvanov_Syntax_Highlighter_Parser::parse_all();
+		if ( false !== $langs ) {
 			$langs = Urvanov_Syntax_Highlighter_Langs::sort_by_name( $langs );
-			echo '<table class="urvanov-syntax-highlighter-table" cellspacing="0" cellpadding="0"><tr class="urvanov-syntax-highlighter-table-header">',
+			echo '<table class="urvanov-syntax-highlighter-table" style="padding:0;border-spacing:0;"><tr class="urvanov-syntax-highlighter-table-header">',
 			'<td>', esc_html__( 'ID', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Name', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Version', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'File Extensions', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Aliases', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'State', 'urvanov-syntax-highlighter' ), '</td></tr>';
 			$keys = array_values( $langs );
-			for ( $i = 0; $i < count( $langs ); $i ++ ) {
-				$lang = $keys[ $i ];
-				$tr   = ( $i == count( $langs ) - 1 ) ? 'urvanov-syntax-highlighter-table-last' : '';
-				echo '<tr class="', $tr, '">',
-				'<td>', $lang->id(), '</td>',
-				'<td>', $lang->name(), '</td>',
-				'<td>', $lang->version(), '</td>',
-				'<td>', implode( ', ', $lang->ext() ), '</td>',
-				'<td>', implode( ', ', $lang->alias() ), '</td>',
-				'<td class="', strtolower( UrvanovSyntaxHighlighterUtil::space_to_hyphen( $lang->state_info() ) ), '">',
-				$lang->state_info(), '</td>',
+
+			$count = count( $langs );
+			for ( $i = 0; $i < $count; $i ++ ) {
+				$lang    = $keys[ $i ];
+				$count_2 = count( $langs );
+				$tr      = ( $count_2 - 1 === $i ) ? 'urvanov-syntax-highlighter-table-last' : '';
+				echo '<tr class="', esc_attr( $tr ), '">',
+				'<td>', esc_html( $lang->id() ), '</td>',
+				'<td>', esc_html( $lang->name() ), '</td>',
+				'<td>', esc_html( $lang->version() ), '</td>',
+				'<td>', implode( ', ', $lang->ext() ), '</td>', // phpcs:ignore WordPress.Security.EscapeOutput
+				'<td>', implode( ', ', $lang->alias() ), '</td>', // phpcs:ignore WordPress.Security.EscapeOutput
+				'<td class="', esc_html( strtolower( UrvanovSyntaxHighlighterUtil::space_to_hyphen( $lang->state_info() ) ) ), '">',
+				esc_html( $lang->state_info() ), '</td>',
 				'</tr>';
 			}
+
 			echo '</table><br/>' . esc_html__( "Languages that have the same extension as their name don't need to explicitly map extensions.", 'urvanov-syntax-highlighter' );
 		} else {
 			echo esc_html__( 'No languages could be found.', 'urvanov-syntax-highlighter' );
@@ -1268,10 +1311,12 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Posts.
 	 */
 	public static function posts() {
-		echo '<a name="posts"></a>';
+		echo '<a id="posts"></a>';
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
 		echo self::button(
 			array(
 				'id'    => 'show-posts',
@@ -1281,21 +1326,24 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 				),
 			)
 		);
-		echo ' <input type="submit" name="', self::OPTIONS, '[refresh_tags]" id="refresh_tags" class="button-primary" value="', esc_html__( 'Refresh', 'urvanov-syntax-highlighter' ), '" />';
-		echo self::help_button( 'http://aramk.com/blog/2012/09/26/internal-post-management-crayon/' );
+
+		echo ' <input type="submit" name="', esc_attr( self::OPTIONS ), '[refresh_tags]" id="refresh_tags" class="button-primary" value="', esc_html__( 'Refresh', 'urvanov-syntax-highlighter' ), '" />';
+		echo wp_kses_post( self::help_button( 'http://aramk.com/blog/2012/09/26/internal-post-management-crayon/' ) );
 		echo '<div id="urvanov-syntax-highlighter-subsection-posts-info"></div>';
 	}
 
 	/**
-	 * @param $a
-	 * @param $b
+	 * Post Compare.
+	 *
+	 * @param object $a Who.
+	 * @param object $b Knows.
 	 *
 	 * @return int
 	 */
-	public static function post_cmp( $a, $b ) {
+	public static function post_cmp( $a = null, $b = null ): int {
 		$a = $a->post_modified;
 		$b = $b->post_modified;
-		if ( $a == $b ) {
+		if ( $a === $b ) {
 			return 0;
 		} else {
 			return $a < $b ? 1 : - 1;
@@ -1303,40 +1351,46 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Show posts.
 	 */
 	public static function show_posts() {
 		self::load_settings();
-		$postIDs      = self::load_posts();
+
+		$post_ids     = self::load_posts();
 		$legacy_posts = self::load_legacy_posts();
-		// Avoids O(n^2) by using a hash map, tradeoff in using strval
+
+		// Avoids O(n^2) by using a hash map, tradeoff in using strval.
 		$legacy_map = array();
-		foreach ( $legacy_posts as $legacyID ) {
-			$legacy_map[ strval( $legacyID ) ] = true;
+		foreach ( $legacy_posts as $legacy_id ) {
+			$legacy_map[ strval( $legacy_id ) ] = true;
 		}
 
-		echo '<table class="urvanov-syntax-highlighter-table" cellspacing="0" cellpadding="0"><tr class="urvanov-syntax-highlighter-table-header">',
+		echo '<table class="urvanov-syntax-highlighter-table" style="padding:0;border-spacing:0;"><tr class="urvanov-syntax-highlighter-table-header">',
 		'<td>', esc_html__( 'ID', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Title', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Posted', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Modifed', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Contains Legacy Tags?', 'urvanov-syntax-highlighter' ), '</td></tr>';
 
 		$posts = array();
-		for ( $i = 0; $i < count( $postIDs ); $i ++ ) {
-			$posts[ $i ] = get_post( $postIDs[ $i ] );
+
+		$count = count( $post_ids );
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$posts[ $i ] = get_post( $post_ids[ $i ] );
 		}
 
 		usort( $posts, 'Urvanov_Syntax_Highlighter_Settings_WP::post_cmp' );
 
-		for ( $i = 0; $i < count( $posts ); $i ++ ) {
-			$post   = $posts[ $i ];
-			$postID = $post->ID;
-			$title  = $post->post_title;
-			$title  = ! empty( $title ) ? $title : 'N/A';
-			$tr     = ( $i == count( $posts ) - 1 ) ? 'urvanov-syntax-highlighter-table-last' : '';
-			echo '<tr class="', $tr, '">',
-			'<td>', $postID, '</td>',
-			'<td><a href="', $post->guid, '" target="_blank">', $title, '</a></td>',
-			'<td>', $post->post_date, '</td>',
-			'<td>', $post->post_modified, '</td>',
-			'<td>', isset( $legacy_map[ strval( $postID ) ] ) ? '<span style="color: red;">' . esc_html__( 'Yes', 'urvanov-syntax-highlighter' ) . '</a>' : esc_html__( 'No', 'urvanov-syntax-highlighter' ), '</td>',
+		$count = count( $posts );
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$post    = $posts[ $i ];
+			$post_id = $post->ID;
+			$title   = $post->post_title;
+			$title   = ! empty( $title ) ? $title : 'N/A';
+			$tr      = ( count( $posts ) - 1 === $i ) ? 'urvanov-syntax-highlighter-table-last' : '';
+
+			echo '<tr class="', esc_attr( $tr ), '">',
+			'<td>', esc_html( $post_id ), '</td>',
+			'<td><a href="', esc_url( $post->guid ), '" target="_blank">', wp_kses_post( $title ), '</a></td>',
+			'<td>', esc_html( $post->post_date ), '</td>',
+			'<td>', esc_html( $post->post_modified ), '</td>',
+			'<td>', isset( $legacy_map[ strval( $post_id ) ] ) ? '<span style="color: red;">' . esc_html__( 'Yes', 'urvanov-syntax-highlighter' ) . '</a>' : esc_html__( 'No', 'urvanov-syntax-highlighter' ), '</td>',
 			'</tr>';
 		}
 
@@ -1345,29 +1399,29 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	}
 
 	/**
-	 *
+	 * Show preview.
 	 */
 	public static function show_preview() {
 		echo '<div id="content">';
 
-		self::load_settings(); // Run first to ensure global settings loaded
+		self::load_settings(); // Run first to ensure global settings loaded.
 
 		$urvanov_syntax_highlighter = Urvanov_Syntax_Highlighter_Plugin::instance();
 
-		// Settings to prevent from validating
+		// Settings to prevent from validating.
 		$preview_settings = array( self::SAMPLE_CODE );
 
-		// Load settings from GET and validate
-		foreach ( $_POST as $key => $value ) {
-			// echo $key, ' ', $value , '<br/>';
+		// Load settings from GET and validate.
+		foreach ( $_POST as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$value = stripslashes( sanitize_text_field( $value ) );
-			if ( ! in_array( $key, $preview_settings ) ) {
+			if ( ! in_array( $key, $preview_settings, true ) ) {
 				$_POST[ $key ] = Urvanov_Syntax_Highlighter_Settings::validate( $key, $value );
 			} else {
 				$_POST[ $key ] = $value;
 			}
 		}
-		$urvanov_syntax_highlighter->settings( $_POST );
+
+		$urvanov_syntax_highlighter->settings( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification
 		if ( ! isset( $urvanov_syntax_highlighter_preview_dont_override_get ) || ! $urvanov_syntax_highlighter_preview_dont_override_get ) {
 			$settings = array(
 				Urvanov_Syntax_Highlighter_Settings::TOP_SET       => true,
@@ -1378,25 +1432,25 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 			$urvanov_syntax_highlighter->settings( $settings );
 		}
 
-		// Print the theme CSS
+		// Print the theme CSS.
 		$theme_id = $urvanov_syntax_highlighter->setting_val( Urvanov_Syntax_Highlighter_Settings::THEME );
 
-		if ( $theme_id != null ) {
-			echo Urvanov_Syntax_Highlighter_Resources::themes()->get_css( $theme_id, date( 'U' ) );
+		if ( null !== $theme_id ) {
+			echo Urvanov_Syntax_Highlighter_Resources::themes()->get_css( $theme_id, gmdate( 'U' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 
 		$font_id = $urvanov_syntax_highlighter->setting_val( Urvanov_Syntax_Highlighter_Settings::FONT );
-		if ( $font_id != null /*&& $font_id != CrayonFonts::DEFAULT_FONT*/ ) {
-			echo Urvanov_Syntax_Highlighter_Resources::fonts()->get_css( $font_id );
+		if ( null !== $font_id ) {
+			echo Urvanov_Syntax_Highlighter_Resources::fonts()->get_css( $font_id ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 
-		// Load custom code based on language
+		// Load custom code based on language.
 		$lang = $urvanov_syntax_highlighter->setting_val( Urvanov_Syntax_Highlighter_Settings::FALLBACK_LANG );
 		$path = Urvanov_Syntax_Highlighter_Global_Settings::plugin_path() . URVANOV_SYNTAX_HIGHLIGHTER_UTIL_DIR . '/sample/' . $lang . '.txt';
 
-		if ( isset( $_POST[ self::SAMPLE_CODE ] ) ) {
-			$urvanov_syntax_highlighter->code( sanitize_text_field( $_POST[ self::SAMPLE_CODE ] ) );
-		} elseif ( $lang && @file_exists( $path ) ) {
+		if ( isset( $_POST[ self::SAMPLE_CODE ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$urvanov_syntax_highlighter->code( sanitize_text_field( wp_unslash( $_POST[ self::SAMPLE_CODE ] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
+		} elseif ( $lang && file_exists( $path ) ) {
 			$urvanov_syntax_highlighter->url( $path );
 		} else {
 			$code = "
@@ -1413,35 +1467,47 @@ class Human {
 		}
 		$urvanov_syntax_highlighter->title( 'Sample Code' );
 		$urvanov_syntax_highlighter->marked( '5-7' );
-		$urvanov_syntax_highlighter->output( $highlight = true, $nums = true, $print = true );
+		$urvanov_syntax_highlighter->output(
+			$highlight = true, // phpcs:ignore
+			$nums      = true,
+			$print     = true
+		);
 		echo '</div>';
 		Urvanov_Syntax_Highlighter_Global::load_plugin_textdomain();
+
 		exit();
 	}
 
 	/**
-	 * @param false $editor
+	 * Theme.
+	 *
+	 * @param bool $editor Editor.
 	 */
 	public static function theme( $editor = false ) {
-		$db_theme = self::$options[ Urvanov_Syntax_Highlighter_Settings::THEME ]; // Theme name from db
+		$db_theme = self::$options[ Urvanov_Syntax_Highlighter_Settings::THEME ]; // Theme name from db.
 		if ( ! array_key_exists( Urvanov_Syntax_Highlighter_Settings::THEME, self::$options ) ) {
 			$db_theme = '';
 		}
+
 		$themes_array = Urvanov_Syntax_Highlighter_Resources::themes()->get_array();
-		// Mark user themes
+
+		// Mark user themes.
 		foreach ( $themes_array as $id => $name ) {
 			$mark                = Urvanov_Syntax_Highlighter_Resources::themes()->get( $id )->user() ? ' *' : '';
 			$themes_array[ $id ] = array( $name, $name . $mark );
 		}
+
 		$missing_theme = ! Urvanov_Syntax_Highlighter_Resources::themes()->is_loaded( $db_theme ) || ! Urvanov_Syntax_Highlighter_Resources::themes()->exists( $db_theme );
 		self::dropdown( Urvanov_Syntax_Highlighter_Settings::THEME, false, false, true, $themes_array, $missing_theme ? Urvanov_Syntax_Highlighter_Themes::DEFAULT_THEME : null );
+
 		if ( $editor ) {
 			return;
 		}
-		// Theme editor
+
+		// Theme editor.
 		if ( URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR ) {
-			// echo '<a id="urvanov-syntax-highlighter-theme-editor-button" class="button-primary urvanov-syntax-highlighter-admin-button" loading="'. esc_html__('Loading...', 'urvanov-syntax-highlighter' ) .'" loaded="'. esc_html__('Theme Editor', 'urvanov-syntax-highlighter' ) .'" >'. esc_html__('Theme Editor', 'urvanov-syntax-highlighter' ) .'</a></br>';
 			echo '<div id="urvanov-syntax-highlighter-theme-editor-admin-buttons">';
+
 			$buttons = array(
 				'edit'      => esc_html__( 'Edit', 'urvanov-syntax-highlighter' ),
 				'duplicate' => esc_html__( 'Duplicate', 'urvanov-syntax-highlighter' ),
@@ -1449,12 +1515,14 @@ class Human {
 				'delete'    => esc_html__( 'Delete', 'urvanov-syntax-highlighter' ),
 			);
 			foreach ( $buttons as $k => $v ) {
-				echo '<a id="urvanov-syntax-highlighter-theme-editor-', $k, '-button" class="button-secondary urvanov-syntax-highlighter-admin-button" loading="', esc_html__( 'Loading...', 'urvanov-syntax-highlighter' ), '" loaded="', $v, '" >', $v, '</a>';
+				echo '<a id="urvanov-syntax-highlighter-theme-editor-', esc_attr( $k ), '-button" class="button-secondary urvanov-syntax-highlighter-admin-button" loading="', esc_html__( 'Loading...', 'urvanov-syntax-highlighter' ), '" loaded="', esc_attr( $v ), '" >', esc_html( $v ), '</a>';
 			}
-			echo '<span class="urvanov-syntax-highlighter-span-5"></span>', self::help_button( 'http://aramk.com/blog/2012/12/27/urvanov-syntax-highlighter-theme-editor/' ), '<span class="urvanov-syntax-highlighter-span-5"></span>', esc_html__( 'Duplicate a Stock Theme into a User Theme to allow editing.', 'urvanov-syntax-highlighter' );
+
+			echo '<span class="urvanov-syntax-highlighter-span-5"></span>', wp_kses_post( self::help_button( 'http://aramk.com/blog/2012/12/27/urvanov-syntax-highlighter-theme-editor/' ) ), '<span class="urvanov-syntax-highlighter-span-5"></span>', esc_html__( 'Duplicate a Stock Theme into a User Theme to allow editing.', 'urvanov-syntax-highlighter' );
 			echo '</br></div>';
 		}
-		// Preview Box
+
+		// Preview Box.
 		?>
 		<div id="urvanov-syntax-highlighter-theme-panel">
 			<div id="urvanov-syntax-highlighter-theme-info"></div>
@@ -1462,13 +1530,15 @@ class Human {
 				<div id="urvanov-syntax-highlighter-live-preview-inner">
 					<div id="urvanov-syntax-highlighter-live-preview"></div>
 					<div id="urvanov-syntax-highlighter-preview-info">
+						<?php // translators: %s = HTML. ?>
 						<?php printf( esc_html__( 'Change the %1$sfallback language%2$s to change the sample code or %3$schange it manually%4$s. Lines 5-7 are marked.', 'urvanov-syntax-highlighter' ), '<a href="#langs">', '</a>', '<a id="urvanov-syntax-highlighter-change-code" href="#">', '</a>' ); ?>
 					</div>
 				</div>
 			</div>
 		</div>
 		<?php
-		// Preview checkbox
+
+		// Preview checkbox.
 		self::checkbox(
 			array(
 				Urvanov_Syntax_Highlighter_Settings::PREVIEW,
@@ -1484,25 +1554,27 @@ class Human {
 				esc_html__( 'Enqueue themes in the header (more efficient).', 'urvanov-syntax-highlighter' ) . self::help_button( 'http://aramk.com/blog/2012/01/07/enqueuing-themes-and-fonts-in-crayon/' ),
 			)
 		);
-		// Check if theme from db is loaded
+
+		// Check if theme from db is loaded.
 		if ( $missing_theme ) {
-			echo '<span class="urvanov-syntax-highlighter-error">', sprintf( esc_html__( 'The selected theme with id %s could not be loaded', 'urvanov-syntax-highlighter' ), '<strong>' . $db_theme . '</strong>' ), '. </span>';
+			// translators: %s = Theme.
+			echo '<span class="urvanov-syntax-highlighter-error">', sprintf( esc_html__( 'The selected theme with id %s could not be loaded', 'urvanov-syntax-highlighter' ), '<strong>' . esc_html( $db_theme ) . '</strong>' ), '. </span>';
 		}
 	}
 
 	/**
-	 * @param false $editor
+	 * Font.
+	 *
+	 * @param bool $editor Editor.
 	 */
 	public static function font( $editor = false ) {
-		$db_font = self::$options[ Urvanov_Syntax_Highlighter_Settings::FONT ]; // Theme name from db
+		$db_font = self::$options[ Urvanov_Syntax_Highlighter_Settings::FONT ]; // Theme name from db.
 		if ( ! array_key_exists( Urvanov_Syntax_Highlighter_Settings::FONT, self::$options ) ) {
 			$db_font = '';
 		}
 		$fonts_array = Urvanov_Syntax_Highlighter_Resources::fonts()->get_array();
 		self::dropdown( Urvanov_Syntax_Highlighter_Settings::FONT, false, true, true, $fonts_array );
 		echo '<span class="urvanov-syntax-highlighter-span-5"></span>';
-		// TODO(aramk) Add this blog article back.
-		// echo '<a href="http://bit.ly/Yr2Xv6" target="_blank">', esc_html__('Add More', 'urvanov-syntax-highlighter' ), '</a>';
 		echo '<span class="urvanov-syntax-highlighter-span-10"></span>';
 		self::checkbox(
 			array(
@@ -1526,12 +1598,16 @@ class Human {
 		);
 		echo '<span class="urvanov-syntax-highlighter-span-margin">', esc_html__( 'Pixels', 'urvanov-syntax-highlighter' ), '</span></br>';
 		if ( ( ! Urvanov_Syntax_Highlighter_Resources::fonts()->is_loaded( $db_font ) || ! Urvanov_Syntax_Highlighter_Resources::fonts()->exists( $db_font ) ) ) {
-			// Default font doesn't actually exist as a file, it means do not override default theme font
-			echo '<span class="urvanov-syntax-highlighter-error">', sprintf( esc_html__( 'The selected font with id %s could not be loaded', 'urvanov-syntax-highlighter' ), '<strong>' . $db_font . '</strong>' ), '. </span><br/>';
+
+			// Default font doesn't actually exist as a file, it means do not override default theme font.
+			// translators: %s = Theme.
+			echo '<span class="urvanov-syntax-highlighter-error">', sprintf( esc_html__( 'The selected font with id %s could not be loaded', 'urvanov-syntax-highlighter' ), '<strong>' . esc_html( $db_font ) . '</strong>' ), '. </span><br/>';
 		}
+
 		if ( $editor ) {
 			return;
 		}
+
 		echo '<div style="height:10px;"></div>';
 		self::checkbox(
 			array(
@@ -1542,7 +1618,9 @@ class Human {
 	}
 
 	/**
-	 * @param false $editor
+	 * Code.
+	 *
+	 * @param bool $editor Editor.
 	 */
 	public static function code( $editor = false ) {
 		echo '<div id="urvanov-syntax-highlighter-section-code-interaction" class="urvanov-syntax-highlighter-hide-inline-only">';
@@ -1650,7 +1728,7 @@ class Human {
 	}
 
 	/**
-	 *
+	 * Tags.
 	 */
 	public static function tags() {
 		self::checkbox(
@@ -1668,7 +1746,7 @@ class Human {
 		self::checkbox( array( Urvanov_Syntax_Highlighter_Settings::CODE_TAG_CAPTURE, esc_html__( 'Capture &lt;code&gt; as' ) ), false );
 		echo ' ';
 		self::dropdown( Urvanov_Syntax_Highlighter_Settings::CODE_TAG_CAPTURE_TYPE, false );
-		echo self::help_button( 'http://aramk.com/blog/2012/03/07/inline-crayons/' ) . '<br/>';
+		echo wp_kses_post( self::help_button( 'http://aramk.com/blog/2012/03/07/inline-crayons/' ) ) . '<br/>';
 		self::checkbox(
 			array(
 				Urvanov_Syntax_Highlighter_Settings::BACKQUOTE,
@@ -1682,6 +1760,7 @@ class Human {
 			)
 		);
 
+		// translators: %s = HTML.
 		echo '<div class="note" style="width: 350px;">', sprintf( esc_html__( 'Using this markup for Mini Tags and Inline tags is now %1$sdeprecated%2$s! Use the %3$sTag Editor%4$s instead and convert legacy tags.', 'urvanov-syntax-highlighter' ), '<a href="http://aramk.com/blog/2011/12/27/mini-tags-in-crayon/" target="_blank">', '</a>', '<a href="http://aramk.com/blog/2012/03/25/urvanov-syntax-highlighter-tag-editor/" target="_blank">', '</a>' ), '</div>';
 		self::checkbox(
 			array(
@@ -1704,21 +1783,22 @@ class Human {
 	}
 
 	/**
-	 *
+	 * Files.
 	 */
 	public static function files() {
-		echo '<a name="files"></a>';
+		echo '<a id="files"></a>';
 		echo esc_html__( 'When loading local files and a relative path is given for the URL, use the absolute path', 'urvanov-syntax-highlighter' ), ': ',
-		'<div style="margin-left: 20px">', home_url(), '/';
+		'<div style="margin-left: 20px">', esc_url( home_url() ), '/';
 		self::input( array( 'id' => Urvanov_Syntax_Highlighter_Settings::LOCAL_PATH ) );
 		echo '</div>', esc_html__( 'Followed by your relative URL.', 'urvanov-syntax-highlighter' );
 	}
 
 	/**
-	 *
+	 * Tag Editor.
 	 */
 	public static function tag_editor() {
 		$can_convert = self::load_legacy_posts();
+
 		if ( $can_convert ) {
 			$disabled     = '';
 			$convert_text = esc_html__( 'Convert Legacy Tags', 'urvanov-syntax-highlighter' );
@@ -1727,14 +1807,17 @@ class Human {
 			$convert_text = esc_html__( 'No Legacy Tags Found', 'urvanov-syntax-highlighter' );
 		}
 
-		echo '<input type="submit" name="', self::OPTIONS, '[convert]" id="convert" class="button-primary" value="', $convert_text, '"', $disabled, ' />&nbsp; ';
+		echo '<input type="submit" name="', esc_attr( self::OPTIONS ), '[convert]" id="convert" class="button-primary" value="', esc_attr( $convert_text ), '"', $disabled, ' />&nbsp; '; // phpcs:ignore
 		self::checkbox( array( 'convert_encode', esc_html__( 'Encode', 'urvanov-syntax-highlighter' ) ), false );
-		echo self::help_button( 'http://aramk.com/blog/2012/09/26/converting-legacy-tags-to-pre/' ), URVANOV_SYNTAX_HIGHLIGHTER_BR, URVANOV_SYNTAX_HIGHLIGHTER_BR;
+		echo wp_kses_post( self::help_button( 'http://aramk.com/blog/2012/09/26/converting-legacy-tags-to-pre/' ) ), URVANOV_SYNTAX_HIGHLIGHTER_BR, URVANOV_SYNTAX_HIGHLIGHTER_BR; // phpcs:ignore
 		$sep = sprintf(
+			// translators: %s = HTML.
 			esc_html__( 'Use %s to separate setting names from values in the &lt;pre&gt; class attribute', 'urvanov-syntax-highlighter' ),
 			self::dropdown( Urvanov_Syntax_Highlighter_Settings::ATTR_SEP, false, false, false )
 		);
-		echo '<span>', $sep, self::help_button( 'http://aramk.com/blog/2012/03/25/urvanov-syntax-highlighter-tag-editor/' ), '</span><br/>';
+
+		echo '<span>', $sep, wp_kses_post( self::help_button( 'http://aramk.com/blog/2012/03/25/urvanov-syntax-highlighter-tag-editor/' ) ), '</span><br/>'; // phpcs:ignore
+
 		self::checkbox(
 			array(
 				Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_FRONT,
@@ -1771,12 +1854,12 @@ class Human {
 	}
 
 	/**
-	 *
+	 * Misc.
 	 */
 	public static function misc() {
 		echo esc_html__( 'Clear the cache used to store remote code requests', 'urvanov-syntax-highlighter' ), ': ';
 		self::dropdown( Urvanov_Syntax_Highlighter_Settings::CACHE, false );
-		echo '<input type="submit" id="', self::CACHE_CLEAR, '" name="', self::CACHE_CLEAR, '" class="button-secondary" value="', esc_html__( 'Clear Now', 'urvanov-syntax-highlighter' ), '" /><br/>';
+		echo '<input type="submit" id="', esc_attr( self::CACHE_CLEAR ), '" name="', esc_attr( self::CACHE_CLEAR ), '" class="button-secondary" value="', esc_html__( 'Clear Now', 'urvanov-syntax-highlighter' ), '" /><br/>';
 		self::checkbox(
 			array(
 				Urvanov_Syntax_Highlighter_Settings::EFFICIENT_ENQUEUE,
@@ -1828,10 +1911,8 @@ class Human {
 		);
 	}
 
-	// Debug Fields ===========================================================
-
 	/**
-	 *
+	 * Errors.
 	 */
 	public static function errors() {
 		self::checkbox(
@@ -1857,7 +1938,7 @@ class Human {
 	}
 
 	/**
-	 *
+	 * Log.
 	 */
 	public static function log() {
 		$log = UrvanovSyntaxHighlighterLog::log();
@@ -1865,16 +1946,18 @@ class Human {
 		$exists   = file_exists( URVANOV_SYNTAX_HIGHLIGHTER_LOG_FILE );
 		$writable = is_writable( URVANOV_SYNTAX_HIGHLIGHTER_LOG_FILE );
 		if ( ! empty( $log ) ) {
-			echo '<div id="urvanov-syntax-highlighter-log-wrapper">', '<div id="urvanov-syntax-highlighter-log"><div id="urvanov-syntax-highlighter-log-text">', $log,
+			echo '<div id="urvanov-syntax-highlighter-log-wrapper">', '<div id="urvanov-syntax-highlighter-log"><div id="urvanov-syntax-highlighter-log-text">', esc_html( $log ),
 			'</div></div>', '<div id="urvanov-syntax-highlighter-log-controls">',
 			'<input type="button" id="urvanov-syntax-highlighter-log-toggle" show_txt="', esc_html__( 'Show Log', 'urvanov-syntax-highlighter' ), '" hide_txt="', esc_html__( 'Hide Log', 'urvanov-syntax-highlighter' ), '" class="button-secondary" value="', esc_html__( 'Show Log', 'urvanov-syntax-highlighter' ), '"> ',
-			'<input type="submit" id="urvanov-syntax-highlighter-log-clear" name="', self::LOG_CLEAR,
+			'<input type="submit" id="urvanov-syntax-highlighter-log-clear" name="', esc_attr( self::LOG_CLEAR ),
 			'" class="button-secondary" value="', esc_html__( 'Clear Log', 'urvanov-syntax-highlighter' ), '"> ', '<input type="submit" id="urvanov-syntax-highlighter-log-email" name="',
-					self::LOG_EMAIL_ADMIN . '" class="button-secondary" value="', esc_html__( 'Email Admin', 'urvanov-syntax-highlighter' ), '"> ',
-			'<input type="submit" id="urvanov-syntax-highlighter-log-email" name="', self::LOG_EMAIL_DEV,
+					esc_attr( self::LOG_EMAIL_ADMIN ) . '" class="button-secondary" value="', esc_html__( 'Email Admin', 'urvanov-syntax-highlighter' ), '"> ',
+			'<input type="submit" id="urvanov-syntax-highlighter-log-email" name="', esc_attr( self::LOG_EMAIL_DEV ),
 			'" class="button-secondary" value="', esc_html__( 'Email Developer', 'urvanov-syntax-highlighter' ), '"> ', '</div>', '</div>';
 		}
-		echo '<span', ( ! empty( $log ) ) ? ' class="urvanov-syntax-highlighter-span"' : '', '>', ( empty( $log ) ) ? esc_html__( 'The log is currently empty.', 'urvanov-syntax-highlighter' ) . ' ' : '';
+
+		echo '<span', ( ! empty( $log ) ) ? ' class="urvanov-syntax-highlighter-span"' : '', '>', ( empty( $log ) ) ? esc_html__( 'The log is currently empty.', 'urvanov-syntax-highlighter' ) . ' ' : ''; // phpcs:ignore
+
 		if ( $exists ) {
 			$writable ? esc_html_e( 'The log file exists and is writable.', 'urvanov-syntax-highlighter' ) : esc_html_e( 'The log file exists and is not writable.', 'urvanov-syntax-highlighter' );
 		} else {
@@ -1883,41 +1966,39 @@ class Human {
 		echo '</span>';
 	}
 
-	// About Fields ===========================================================
-
 	/**
-	 *
+	 * Info.
 	 */
 	public static function info() {
 		global $urvanov_syntax_highlighter_version, $urvanov_syntax_highlighter_date, $urvanov_syntax_highlighter_author, $urvanov_syntax_highlighter_website, $urvanov_syntax_highlighter_twitter, $urvanov_syntax_highlighter_git, $urvanov_syntax_highlighter_plugin_wp, $urvanov_syntax_highlighter_author_site, $urvanov_syntax_highlighter_email, $urvanov_syntax_highlighter_donate;
-		echo '<a name="info"></a>';
+		echo '<a id="info"></a>';
 		$version     = '<strong>' . esc_html__( 'Version', 'urvanov-syntax-highlighter' ) . ':</strong> ' . $urvanov_syntax_highlighter_version;
 		$date        = $urvanov_syntax_highlighter_date;
-		$developer   = '<strong>' . esc_html__( 'Developer', 'urvanov-syntax-highlighter' ) . ':</strong> ' . '<a href="' . $urvanov_syntax_highlighter_author_site . '" target="_blank">' . $urvanov_syntax_highlighter_author . '</a>';
+		$developer   = '<strong>' . esc_html__( 'Developer', 'urvanov-syntax-highlighter' ) . ':</strong> <a href="' . esc_url( $urvanov_syntax_highlighter_author_site ) . '" target="_blank">' . esc_url( $urvanov_syntax_highlighter_author ) . '</a>';
 		$translators = '<strong>' . esc_html__( 'Translators', 'urvanov-syntax-highlighter' ) . ':</strong> ' .
-					   '
+						'
             Arabic (Djennad Hamza),
-            Chinese Simplified (<a href="http://smerpup.com/" target="_blank">Dezhi Liu</a>, Jash Yin),
-            Chinese Traditional (<a href="http://www.arefly.com/" target="_blank">Arefly</a>),
+            Chinese Simplified (<a href="https://smerpup.com/" target="_blank">Dezhi Liu</a>, Jash Yin),
+            Chinese Traditional (<a href="https://www.arefly.com/" target="_blank">Arefly</a>),
             Dutch (<a href="https://twitter.com/RobinRoelofsen" target="_blank">Robin Roelofsen</a>, <a href="https://twitter.com/#!/chilionsnoek" target="_blank">Chilion Snoek</a>),
             French (<a href="https://vhf.github.io" target="_blank">Victor Felder</a>),
             Finnish (<a href="https://github.com/vahalan" target="_blank">vahalan</a>),
-            German (<a href="http://www.technologyblog.de/" target="_blank">Stephan Knau&#223;</a>),
-            Italian (<a href="http://www.federicobellucci.net/" target="_blank">Federico Bellucci</a>),
+            German (<a href="https://www.technologyblog.de/" target="_blank">Stephan Knau&#223;</a>),
+            Italian (<a href="https://www.federicobellucci.net/" target="_blank">Federico Bellucci</a>),
             Japanese (<a href="https://twitter.com/#!/west_323" target="_blank">@west_323</a>),
             Korean (<a href="https://github.com/dokenzy" target="_blank">dokenzy</a>),
             Lithuanian (Vincent G),
-            Norwegian (<a href="http://www.jackalworks.com/blogg" target="_blank">Jackalworks</a>),
+            Norwegian (<a href="https://www.jackalworks.com/blogg" target="_blank">Jackalworks</a>),
             Persian (MahdiY),
             Polish (<a href="https://github.com/toszcze" target="_blank">Bartosz Romanowski</a>, <a href="http://rob006.net/" target="_blank">Robert Korulczyk</a>),
-            Portuguese (<a href="http://www.adonai.eti.br" target="_blank">Adonai S. Canez</a>),
-            Russian (<a href="http://simplelib.com/" target="_blank">Minimus</a>, Di_Skyer),
+            Portuguese (<a href="https://www.adonai.eti.br" target="_blank">Adonai S. Canez</a>),
+            Russian (<a href="https://simplelib.com/" target="_blank">Minimus</a>, Di_Skyer),
             Slovak (<a href="https://twitter.com/#!/webhostgeeks" target="_blank">webhostgeeks</a>),
-            Slovenian (<a href="http://jodlajodla.si/" target="_blank">Jan Su&#353;nik</a>),
-            Spanish (<a href="http://www.hbravo.com/" target="_blank">Hermann Bravo</a>),
+            Slovenian (<a href="https://jodlajodla.si/" target="_blank">Jan Su&#353;nik</a>),
+            Spanish (<a href="https://www.hbravo.com/" target="_blank">Hermann Bravo</a>),
             Tamil (KKS21199),
-            Turkish (<a href="http://hakanertr.wordpress.com" target="_blank">Hakan</a>),
-            Ukrainian (<a href="http://getvoip.com/blog" target="_blank">Michael Yunat</a>)';
+            Turkish (<a href="https://hakanertr.wordpress.com" target="_blank">Hakan</a>),
+            Ukrainian (<a href="https://getvoip.com/blog" target="_blank">Michael Yunat</a>)';
 
 		$links = '
 	 			<a id="docs-icon" class="small-icon" title="Documentation" href="' . $urvanov_syntax_highlighter_website . '" target="_blank"></a>
@@ -1930,7 +2011,7 @@ class Human {
 				</div>';
 
 		echo '
-				<table id="urvanov-syntax-highlighter-info" border="0">
+				<table id="urvanov-syntax-highlighter-info" style="border:0;">
 		  <tr>
 				<td>' . $version . ' - ' . $date . '</td>
 					</tr>
@@ -1948,23 +2029,27 @@ class Human {
 	}
 
 	/**
-	 * @param $link
+	 * Help button.
+	 *
+	 * @param string $link URL.
 	 *
 	 * @return string
 	 */
-	public static function help_button( $link ) {
-		return ' <a href="' . $link . '" target="_blank" class="urvanov-syntax-highlighter-question">' . esc_html__( '?', 'urvanov-syntax-highlighter' ) . '</a>';
+	public static function help_button( string $link ): string {
+		return ' <a href="' . esc_url( $link ) . '" target="_blank" class="urvanov-syntax-highlighter-question">' . esc_html__( '?', 'urvanov-syntax-highlighter' ) . '</a>';
 	}
 
 	/**
-	 * @param $meta
-	 * @param $file
+	 * Plugin row meta.
 	 *
-	 * @return mixed
+	 * @param array  $meta Plugin meta.
+	 * @param string $file Plugin file.
+	 *
+	 * @return array
 	 */
-	public static function plugin_row_meta( $meta, $file ) {
+	public static function plugin_row_meta( array $meta, string $file ): array {
 		global $urvanov_syntax_highlighter_donate;
-		if ( $file == Urvanov_Syntax_Highlighter_Plugin::basename() ) {
+		if ( Urvanov_Syntax_Highlighter_Plugin::basename() === $file ) {
 			$meta[] = '<a href="options-general.php?page=urvanov_syntax_highlighter_settings">' . esc_html__( 'Settings', 'urvanov-syntax-highlighter' ) . '</a>';
 			$meta[] = '<a href="options-general.php?page=urvanov_syntax_highlighter_settings&theme-editor=1">' . esc_html__( 'Theme Editor', 'urvanov-syntax-highlighter' ) . '</a>';
 			$meta[] = '<a href="' . $urvanov_syntax_highlighter_donate . '" target="_blank">' . esc_html__( 'Donate', 'urvanov-syntax-highlighter' ) . '</a>';
@@ -1974,10 +2059,10 @@ class Human {
 	}
 }
 
-// Add the settings menus
-
+// Add the settings menus.
 if ( defined( 'ABSPATH' ) && is_admin() ) {
-	// For the admin section
+
+	// For the admin section.
 	add_action( 'admin_menu', 'Urvanov_Syntax_Highlighter_Settings_WP::admin_load' );
 	add_filter( 'plugin_row_meta', 'Urvanov_Syntax_Highlighter_Settings_WP::plugin_row_meta', 10, 2 );
 }

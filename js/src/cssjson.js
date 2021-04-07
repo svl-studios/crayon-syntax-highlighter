@@ -4,11 +4,26 @@
  */
 
 var CSSJSON = new function() {
+	var base      = this;
+	var commentX  = /\/\*[\s\S]*?\*\//g;
+	var lineAttrX = /([^\:]+):([^\;]*);/;
 
-	var base = this;
+	// Capture groups.
+	var capComment  = 1;
+	var capSelector = 2;
+	var capEnd      = 3;
+	var capAttr     = 4;
+
+	var isEmpty;
+	var strAttr;
+	var strNode;
+
+	// This is used, a concatenation of all above. We use alternation to
+	// capture.
+	var altX = /(\/\*[\s\S]*?\*\/)|([^\s\;\{\}][^\;\{\}]*(?=\{))|(\})|([^\;\{\}]+\;(?!\s*\*\/))/gmi;
 
 	base.init = function() {
-		// String functions
+		// String functions.
 		String.prototype.trim = function() {
 			return this.replace( /^\s+|\s+$/g, '' );
 		};
@@ -17,34 +32,18 @@ var CSSJSON = new function() {
 			return new Array( 1 + n ).join( this );
 		};
 	};
+
 	base.init();
 
-	var selX = /([^\s\;\{\}][^\;\{\}]*)\{/g;
-	var endX = /\}/g;
-	var lineX = /([^\;\{\}]*)\;/g;
-	var commentX = /\/\*[\s\S]*?\*\//g;
-	var lineAttrX = /([^\:]+):([^\;]*);/;
-
-	// This is used, a concatenation of all above. We use alternation to
-	// capture.
-	var altX = /(\/\*[\s\S]*?\*\/)|([^\s\;\{\}][^\;\{\}]*(?=\{))|(\})|([^\;\{\}]+\;(?!\s*\*\/))/gmi;
-
-	// Capture groups
-	var capComment = 1;
-	var capSelector = 2;
-	var capEnd = 3;
-	var capAttr = 4;
-
-	var isEmpty = function( x ) {
-		return typeof x == 'undefined' || x.length == 0 || x == null;
+	isEmpty = function( x ) {
+		return typeof x === 'undefined' || 0 === x.length || null === x;
 	};
 
 	/**
 	 * Input is css string and current pos, returns JSON object
 	 *
-	 * @param cssString
-	 *            The CSS string.
-	 * @param args
+	 * @param {string} cssString The CSS string.
+	 * @param {Array} args
 	 *            An optional argument object. ordered: Whether order of
 	 *            comments and other nodes should be kept in the output. This
 	 *            will return an object where all the keys are numbers and the
@@ -55,53 +54,67 @@ var CSSJSON = new function() {
 	base.toJSON = function( cssString, args ) {
 		var node = {
 			children: {},
-			attributes: {}
+			attributes: {},
 		};
+
 		var match = null;
 		var count = 0;
+		var add;
+		var name;
+		var newNode;
+		var obj = {};
+		var sel;
+		var bits;
+		var i;
+		var att;
+		var line;
+		var attr;
+		var value;
 
-		if ( typeof args == 'undefined' ) {
-			var args = {
+		if ( typeof args === 'undefined' ) {
+			args = {
 				ordered: false,
 				comments: false,
 				stripComments: false,
-				split: false
+				split: false,
 			};
 		}
+
 		if ( args.stripComments ) {
 			args.comments = false;
-			cssString = cssString.replace( commentX, '' );
+			cssString     = cssString.replace( commentX, '' );
 		}
 
-		while ( (match = altX.exec( cssString )) != null ) {
-			if ( !isEmpty( match[capComment] ) && args.comments ) {
-				// Comment
-				var add = match[capComment].trim();
+		while ( null !== ( match = altX.exec( cssString ) ) ) {
+			if ( ! isEmpty( match[capComment] ) && args.comments ) {
+				// Comment.
+				add           = match[capComment].trim();
 				node[count++] = add;
-			} else if ( !isEmpty( match[capSelector] ) ) {
-				// New node, we recurse
-				var name = match[capSelector].trim();
-				// This will return when we encounter a closing brace
-				var newNode = base.toJSON( cssString, args );
+			} else if ( ! isEmpty( match[capSelector] ) ) {
+				// New node, we recurse.
+				name = match[capSelector].trim();
+
+				// This will return when we encounter a closing brace.
+				newNode = base.toJSON( cssString, args );
 				if ( args.ordered ) {
-					var obj = {};
-					obj['name'] = name;
-					obj['value'] = newNode;
+					obj.name  = name;
+					obj.value = newNode;
+
 					// Since we must use key as index to keep order and not
 					// name, this will differentiate between a Rule Node and an
 					// Attribute, since both contain a name and value pair.
-					obj['type'] = 'rule';
+					obj.type      = 'rule';
 					node[count++] = obj;
 				} else {
 					if ( args.split ) {
-						var bits = name.split( ',' );
+						bits = name.split( ',' );
 					} else {
-						var bits = [name];
+						bits = [ name ];
 					}
 					for ( i in bits ) {
-						var sel = bits[i].trim();
+						sel = bits[i].trim();
 						if ( sel in node.children ) {
-							for ( var att in newNode.attributes ) {
+							for ( att in newNode.attributes ) {
 								node.children[sel].attributes[att] = newNode.attributes[att];
 							}
 						} else {
@@ -109,27 +122,30 @@ var CSSJSON = new function() {
 						}
 					}
 				}
-			} else if ( !isEmpty( match[capEnd] ) ) {
-				// Node has finished
+			} else if ( ! isEmpty( match[capEnd] ) ) {
+				// Node has finished.
 				return node;
-			} else if ( !isEmpty( match[capAttr] ) ) {
-				var line = match[capAttr].trim();
-				var attr = lineAttrX.exec( line );
+			} else if ( ! isEmpty( match[capAttr] ) ) {
+				line = match[capAttr].trim();
+				attr = lineAttrX.exec( line );
+
 				if ( attr ) {
-					// Attribute
-					var name = attr[1].trim();
-					var value = attr[2].trim();
+					// Attribute.
+					name  = attr[1].trim();
+					value = attr[2].trim();
+
 					if ( args.ordered ) {
-						var obj = {};
-						obj['name'] = name;
-						obj['value'] = value;
-						obj['type'] = 'attr';
+						obj       = {};
+						obj.name  = name;
+						obj.value = value;
+						obj.type  = 'attr';
+
 						node[count++] = obj;
 					} else {
 						node.attributes[name] = value;
 					}
 				} else {
-					// Semicolon terminated line
+					// Semicolon terminated line.
 					node[count++] = line;
 				}
 			}
@@ -139,52 +155,60 @@ var CSSJSON = new function() {
 	};
 
 	/**
-	 * @param node
+	 * To CSS.
+	 *
+	 * @param {Array} node
 	 *            A JSON node.
-	 * @param depth
+	 * @param {number} depth
 	 *            The depth of the current node; used for indentation and
 	 *            optional.
-	 * @param breaks
+	 * @param {boolean} breaks
 	 *            Whether to add line breaks in the output.
 	 */
 	base.toCSS = function( node, depth, breaks ) {
 		var cssString = '';
-		if ( typeof depth == 'undefined' ) {
+		var first     = true;
+		var i;
+
+		if ( typeof depth === 'undefined' ) {
 			depth = 0;
 		}
-		if ( typeof breaks == 'undefined' ) {
+
+		if ( typeof breaks === 'undefined' ) {
 			breaks = false;
 		}
+
 		if ( node.attributes ) {
 			for ( i in node.attributes ) {
 				cssString += strAttr( i, node.attributes[i], depth );
 			}
 		}
+
 		if ( node.children ) {
-			var first = true;
 			for ( i in node.children ) {
-				if ( breaks && !first ) {
+				if ( breaks && ! first ) {
 					cssString += '\n';
 				} else {
 					first = false;
 				}
+
 				cssString += strNode( i, node.children[i], depth );
 			}
 		}
+
 		return cssString;
 	};
 
-	// Helpers
-
-	var strAttr = function( name, value, depth ) {
+	// Helpers.
+	strAttr = function( name, value, depth ) {
 		return '\t'.repeat( depth ) + name + ': ' + value + ';\n';
 	};
 
-	var strNode = function( name, value, depth ) {
+	strNode = function( name, value, depth ) {
 		var cssString = '\t'.repeat( depth ) + name + ' {\n';
-		cssString += base.toCSS( value, depth + 1 );
-		cssString += '\t'.repeat( depth ) + '}\n';
+		cssString    += base.toCSS( value, depth + 1 );
+		cssString    += '\t'.repeat( depth ) + '}\n';
+
 		return cssString;
 	};
-
-};
+}();

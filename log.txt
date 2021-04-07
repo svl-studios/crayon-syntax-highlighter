@@ -1,0 +1,1582 @@
+The log has been truncated since it exceeded 50000 bytes.
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:04:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:06:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:08:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:10:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:12:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:14:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:16:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:18:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:20:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:22:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:24:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:26:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:28:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:30:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:32:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:34:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:36:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:38:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:40:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:42:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:44:08 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:46:09 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:48:09 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:50:09 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:52:09 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:54:09 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:56:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:58:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:00:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:02:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:04:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:06:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:08:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:10:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:12:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:14:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:16:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:18:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:20:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:24:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:26:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:28:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:30:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:32:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:34:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:36:13 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:38:14 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:40:14 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:42:15 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:44:14 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:46:15 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:48:15 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:50:16 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:52:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:19 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:56:19 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:58:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:00:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:02:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:04:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:06:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:08:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:10:20 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:12:21 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:14:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:16:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:18:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:20:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:22:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:24:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:26:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:28:23 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:30:24 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:32:24 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:34:24 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:36:24 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:38:24 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:40:24 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:42:25 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:44:26 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:46:27 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:48:28 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:50:28 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:52:28 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:54:28 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:56:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:58:30 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:00:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:02:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:04:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:06:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:08:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:10:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:12:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:14:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:16:34 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:17:57 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:18:01 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:19:18 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:19:33 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:20:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:22:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:24:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:26:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:28:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:30:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:32:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:34:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:36:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:38:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:40:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:42:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:44:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:46:35 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:46:40 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:46:51 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:47:50 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:48:41 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:48:45 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:40 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:45 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:50 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:58 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:50:13 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:50:57 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:52:57 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:54:57 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:56:58 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:58:58 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:47 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:25 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:06:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:08:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:12:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:13:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:14:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:15:29 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:15:32 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:16:30 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:18:06 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:18:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:18:17 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:18:17 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:18:18 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:19:16 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:20:17 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:20:39 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:20:44 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:21:14 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:21:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:22:22 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:24:21 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:26:21 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:28:21 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:30:21 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:45:58 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:46:04 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:46:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:47:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:49:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:51:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:53:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:55:10 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:57:11 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:58:25 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:58:31 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:59:05 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+ [Log Email] 'The log was emailed to the admin.'
+
+[Crayon Syntax Highlighter Log Entry - 8:59:07 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:59:13 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:00:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:01:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:03:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:05:13 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:07:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:09:12 PM - 06 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:22:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:22:48 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:22:52 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:23:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:24:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:26:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:28:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:30:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:32:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:34:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:36:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:38:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:40:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:42:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:44:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:46:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:48:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:50:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:52:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:54:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:56:14 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 12:58:17 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:00:17 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:02:18 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:04:19 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:06:19 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:08:21 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:10:22 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:12:22 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:14:23 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:16:24 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:18:25 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:20:26 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:22:26 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:24:29 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:26:30 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:28:30 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:30:31 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:32:32 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:34:33 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:36:35 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:38:35 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:40:36 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:42:37 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:44:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:46:41 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:48:42 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:50:43 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:52:43 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:54:43 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:56:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 1:58:45 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:00:46 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:02:47 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:04:53 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:13:56 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:15:57 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:17:58 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:19:46 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:19:53 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:20:08 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:21:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:23:08 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:25:10 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:27:10 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:29:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 2:31:13 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:05:27 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:05:28 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:05:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:06:39 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:06:59 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:07:00 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:07:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:09:39 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:11:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:13:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 4:15:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:25:18 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:25:21 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:25:34 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:26:01 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:27:10 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:29:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:30:29 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:30:29 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:31:41 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:32:05 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:33:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:34:28 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:34:28 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:35:33 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:36:34 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:38:31 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:38:33 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:38:55 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:40:05 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:41:50 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:41:50 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:42:53 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:43:43 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:44:50 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:46:04 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:46:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:46:16 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:46:20 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:47:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:49:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:51:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:53:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:55:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:57:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:59:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:01:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:03:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:05:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:07:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:09:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:11:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:13:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:15:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:17:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:19:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:21:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:23:15 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:25:16 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:27:17 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:29:19 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:19 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:33:19 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:35:21 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:37:22 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:39:22 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:41:24 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:43:25 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:45:26 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:47:27 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:28 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:51:29 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:53:30 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:55:31 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:57:32 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:59:32 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:01:33 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:34 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:35 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:07:36 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:37 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:11:36 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:13:38 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:15:39 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:17:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:19:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:21:42 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:23:41 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:25:42 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:27:42 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:29:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:31:45 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:33:46 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:35:47 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:36:21 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:36:28 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:36:39 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+ [save_args->oldId] 'bncplusplus'
+ [save_args->name] 'Bncplusplus Copy'
+ [oldPath] '/themes/bncplusplus/bncplusplus.css'
+ [newPath] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/bncplusplus-copy/bncplusplus-copy.css'
+ [newDir] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/bncplusplus-copy'
+ [$replaceID] 'bncplusplus'
+ [change name to ] 'Bncplusplus Copy'
+ [change name to ] 'Bncplusplus Copy'
+ [cssInfoToString] array (
+  'name' => 'Bncplusplus Copy',
+  'description' => 'Based on Tomorrow night',
+  'version' => '1.1',
+  'author' => 'Shipu Ahamed',
+  'url' => 'http://shipuahamed.blogspot.com/  http://bncplusplus.tk',
+)
+ [cssInfoToString] 'result = /*
+Name: Bncplusplus Copy
+Description: Based on Tomorrow night
+Version: 1.1
+Author: Shipu Ahamed
+URL: http://shipuahamed.blogspot.com/  http://bncplusplus.tk
+*/'
+
+[Crayon Syntax Highlighter Log Entry - 8:36:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:36:46 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:36:55 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:37:00 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:37:46 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:38:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:38:45 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:39:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:40:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:41:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:42:44 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:42:57 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:43:04 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:44:05 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:44:06 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:44:12 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:44:20 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:44:27 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:44:47 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:45:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:46:23 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:47:17 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:48:11 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:48:45 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:48:54 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:51:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:51:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:52:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:52:20 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:52:26 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:53:28 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:54:02 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:54:23 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:55:08 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:55:49 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:55:55 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:56:04 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:56:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:56:54 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:57:07 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:57:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:58:40 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:58:46 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:59:45 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 9:01:45 AM - 07 Apr 2021]
+
+ 'Calling update plugin...'

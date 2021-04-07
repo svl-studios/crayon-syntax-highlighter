@@ -1,0 +1,5 @@
+/**/*.min.js
+/admin/extend/**/*.js
+/admin/redux/**/*.js
+/admin/redux-pro/**/*.js
+/admin/js/vendor/**/*.js

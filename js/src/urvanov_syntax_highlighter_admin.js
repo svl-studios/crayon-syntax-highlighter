@@ -1,383 +1,504 @@
-// Urvanov Syntax Highlighter Admin JavaScript
+/* global jQueryUrvanovSyntaxHighlighter, UrvanovSyntaxHighlighterAdmin, UrvanovSyntaxHighlighterSyntax, UrvanovSyntaxHighlighterThemeEditor, UrvanovSyntaxHighlighterThemeEditorStrings, UrvanovSyntaxHighlighterUtil, UrvanovSyntaxHighlighterSyntaxSettings, UrvanovSyntaxHighlighterAdminSettings, UrvanovSyntaxHighlighterAdminStrings */
 
+// Urvanov Syntax Highlighter Admin JavaScript.
 ( function( $ ) {
-	window.UrvanovSyntaxHighlighterAdmin = new function() {
+	window.UrvanovSyntaxHighlighterAdmin = new function() { // jshint ignore:line
 		var base = this;
 
-		// Preview
-		var preview, previewWrapper, previewInner, preview_info, preview_cbox, preview_delay_timer, preview_get, preview_loaded;
-		// The DOM object ids that trigger a preview update
-		var preview_obj_names = [];
-		// The jQuery objects for these objects
-		var preview_objs = [];
-		var preview_last_values = [];
-		// Alignment
-		var align_drop, float;
-		// Toolbar
+		// Preview.
+		var preview, previewWrapper, previewInner, previewInfo, previewCbox, previewDelayTimer, previewLoaded;
+
+		// The DOM object ids that trigger a preview update.
+		var previewObjNames = [];
+
+		// The jQuery objects for these objects.
+		var previewObjs       = [];
+		var previewLastValues = [];
+
+		// Alignment.
+		var alignDrop, float;
+
+		// Toolbar.
 		var overlay, toolbar;
-		// Error
-		var msg_cbox, msg;
-		// Log
-		var log_button, log_text, log_wrapper, change_button, change_code, plain, copy, clog, help;
 
-		var main_wrap, theme_editor_wrap, theme_editor_loading, theme_editor_edit_button, theme_editor_create_button, theme_editor_duplicate_button,
-			theme_editor_delete_button, theme_editor_submit_button;
-		var theme_select, theme_info, theme_ver, theme_author, theme_desc;
+		// Error.
+		var msgCbox, msg;
 
-		var settings = null;
-		var strings = null;
+		// Log.
+		var logButton, logText, logWrapper, changeButton, changeCode, plain, copy, clog, help;
+		var mainWrap, themeEditorWrap, themeEditorLoading, themeEditorEditButton, themeEditorCreateButton, themeEditorDuplicateButton, themeEditorDeleteButton, themeEditorSubmitButton;
+		var themeSelect, themeInfo;
+
+		var settings      = null;
+		var strings       = null;
 		var adminSettings = null;
-		var util = null;
+		var util          = null;
+
+		var previewToggle;
+		var floatToggle;
+		var previewCallback;
+		var previewTxtChange;
+		var previewTxtCallback; // Only updates if text value changed.
+		var previewTxtCallbackDelayed;
+		var previewRegister;
+		var toggleError;
+		var toggleToolbar;
+		var showLog;
+		var hideLog;
+		var len;
 
 		base.init = function() {
-			UrvanovSyntaxHighlighterUtil.log( 'admin init' );
-			settings = UrvanovSyntaxHighlighterSyntaxSettings;
-			adminSettings = UrvanovSyntaxHighlighterAdminSettings;
-			strings = UrvanovSyntaxHighlighterAdminStrings;
-			util = UrvanovSyntaxHighlighterUtil;
+			var dialogFunction;
 
-			// Dialogs
-			var dialogFunction = adminSettings.dialogFunction;
+			UrvanovSyntaxHighlighterUtil.log( 'admin init' );
+
+			settings      = UrvanovSyntaxHighlighterSyntaxSettings;
+			adminSettings = UrvanovSyntaxHighlighterAdminSettings;
+			strings       = UrvanovSyntaxHighlighterAdminStrings;
+			util          = UrvanovSyntaxHighlighterUtil;
+
+			// Dialogs.
+			dialogFunction = adminSettings.dialogFunction;
 			dialogFunction = $.fn[dialogFunction] ? dialogFunction : 'dialog';
+
 			$.fn.urvanovSyntaxHighlighterDialog = $.fn[dialogFunction];
 
-			// Wraps
-			main_wrap = $( '#urvanov-syntax-highlighter-main-wrap' );
-			theme_editor_wrap = $( '#urvanov-syntax-highlighter-theme-editor-wrap' );
+			// Wraps.
+			mainWrap        = $( '#urvanov-syntax-highlighter-main-wrap' );
+			themeEditorWrap = $( '#urvanov-syntax-highlighter-theme-editor-wrap' );
 
-			// Themes
-			theme_select = $( '#urvanov-syntax-highlighter-theme' );
-			theme_info = $( '#urvanov-syntax-highlighter-theme-info' );
-			theme_ver = theme_info.find( '.version' ).next( 'div' );
-			theme_author = theme_info.find( '.author' ).next( 'div' );
-			theme_desc = theme_info.find( '.desc' );
+			// Themes.
+			themeSelect = $( '#urvanov-syntax-highlighter-theme' );
+			themeInfo   = $( '#urvanov-syntax-highlighter-theme-info' );
+
 			base.show_theme_info();
-			theme_select.on( 'change', function() {
-				base.show_theme_info();
-				base.preview_update();
-			} );
-
-			theme_editor_edit_button = $( '#urvanov-syntax-highlighter-theme-editor-edit-button' );
-			theme_editor_create_button = $( '#urvanov-syntax-highlighter-theme-editor-create-button' );
-			theme_editor_duplicate_button = $( '#urvanov-syntax-highlighter-theme-editor-duplicate-button' );
-			theme_editor_delete_button = $( '#urvanov-syntax-highlighter-theme-editor-delete-button' );
-			theme_editor_submit_button = $( '#urvanov-syntax-highlighter-theme-editor-submit-button' );
-			theme_editor_edit_button.on( 'click', function() {
-				base.show_theme_editor(
-					theme_editor_edit_button,
-					true
-				);
-			} );
-			theme_editor_create_button.on( 'click', function() {
-				base.show_theme_editor(
-					theme_editor_create_button,
-					false
-				);
-			} );
-			theme_editor_duplicate_button.on( 'click', function() {
-				UrvanovSyntaxHighlighterThemeEditor.duplicate( adminSettings.currTheme, adminSettings.currThemeName );
-			} );
-			theme_editor_delete_button.on( 'click', function() {
-				if ( ! theme_editor_edit_button.attr( 'disabled' ) ) {
-					UrvanovSyntaxHighlighterThemeEditor.del( adminSettings.currTheme, adminSettings.currThemeName );
+			themeSelect.on(
+				'change',
+				function() {
+					base.show_theme_info();
+					base.preview_update();
 				}
-				return false;
-			} );
-			theme_editor_submit_button.on( 'click', function() {
-				UrvanovSyntaxHighlighterThemeEditor.submit( adminSettings.currTheme, adminSettings.currThemeName );
-			} );
+			);
 
-			// Help
+			themeEditorEditButton      = $( '#urvanov-syntax-highlighter-theme-editor-edit-button' );
+			themeEditorCreateButton    = $( '#urvanov-syntax-highlighter-theme-editor-create-button' );
+			themeEditorDuplicateButton = $( '#urvanov-syntax-highlighter-theme-editor-duplicate-button' );
+			themeEditorDeleteButton    = $( '#urvanov-syntax-highlighter-theme-editor-delete-button' );
+			themeEditorSubmitButton    = $( '#urvanov-syntax-highlighter-theme-editor-submit-button' );
+
+			themeEditorEditButton.on(
+				'click',
+				function() {
+					base.show_theme_editor(
+						themeEditorEditButton,
+						true
+					);
+				}
+			);
+
+			themeEditorCreateButton.on(
+				'click',
+				function() {
+					base.show_theme_editor(
+						themeEditorCreateButton,
+						false
+					);
+				}
+			);
+
+			themeEditorDuplicateButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterThemeEditor.duplicate( adminSettings.currTheme, adminSettings.currThemeName );
+				}
+			);
+
+			themeEditorDeleteButton.on(
+				'click',
+				function() {
+					if ( ! themeEditorEditButton.attr( 'disabled' ) ) {
+						UrvanovSyntaxHighlighterThemeEditor.del( adminSettings.currTheme, adminSettings.currThemeName );
+					}
+
+					return false;
+				}
+			);
+
+			themeEditorSubmitButton.on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterThemeEditor.submit( adminSettings.currTheme, adminSettings.currThemeName );
+				}
+			);
+
+			// Help.
 			help = $( '.urvanov-syntax-highlighter-help-close' );
-			help.on( 'click', function() {
-				$( '.urvanov-syntax-highlighter-help' ).hide();
-				UrvanovSyntaxHighlighterUtil.getAJAX( {
-					action: 'urvanov-syntax-highlighter-ajax',
-					'hide-help': 1,
-				} );
-			} );
+			help.on(
+				'click',
+				function() {
+					$( '.urvanov-syntax-highlighter-help' ).hide();
+					UrvanovSyntaxHighlighterUtil.getAJAX(
+						{
+							action: 'urvanov-syntax-highlighter-ajax',
+							'hide-help': 1,
+						}
+					);
+				}
+			);
 
-			// Preview
-			preview = $( '#urvanov-syntax-highlighter-live-preview' );
+			// Preview.
+			preview        = $( '#urvanov-syntax-highlighter-live-preview' );
 			previewWrapper = $( '#urvanov-syntax-highlighter-live-preview-wrapper' );
-			previewInner = $( '#urvanov-syntax-highlighter-live-preview-inner' );
-			preview_info = $( '#urvanov-syntax-highlighter-preview-info' );
-			preview_cbox = util.cssElem( '#preview' );
-			if ( preview.length != 0 ) {
-				// Preview not needed in Tag Editor
-				preview_register();
-				preview.ready( function() {
-					preview_toggle();
-				} );
-				preview_cbox.on( 'change', function() {
-					preview_toggle();
-				} );
+			previewInner   = $( '#urvanov-syntax-highlighter-live-preview-inner' );
+			previewInfo    = $( '#urvanov-syntax-highlighter-preview-info' );
+			previewCbox    = util.cssElem( '#preview' );
+
+			if ( 0 !== preview.length ) {
+				// Preview not needed in Tag Editor.
+				previewRegister();
+
+				preview.ready(
+					function() {
+						previewToggle();
+					}
+				);
+
+				previewCbox.on(
+					'change',
+					function() {
+						previewToggle();
+					}
+				);
 			}
 
-			$( '#show-posts' ).on( 'click', function() {
-				UrvanovSyntaxHighlighterUtil.getAJAX( {
-					action: 'urvanov-syntax-highlighter-show-posts',
-				}, function( data ) {
-					$( '#urvanov-syntax-highlighter-subsection-posts-info' ).html( data );
-				} );
-			} );
+			$( '#show-posts' ).on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterUtil.getAJAX(
+						{
+							action: 'urvanov-syntax-highlighter-show-posts',
+						},
+						function( data ) {
+							$( '#urvanov-syntax-highlighter-subsection-posts-info' ).html( data );
+						}
+					);
+				}
+			);
 
-			$( '#show-langs' ).on( 'click', function() {
-				UrvanovSyntaxHighlighterUtil.getAJAX( {
-					action: 'urvanov-syntax-highlighter-show-langs',
-				}, function( data ) {
-					$( '#lang-info' ).hide();
-					$( '#urvanov-syntax-highlighter-subsection-langs-info' ).html( data );
-				} );
-			} );
+			$( '#show-langs' ).on(
+				'click',
+				function() {
+					UrvanovSyntaxHighlighterUtil.getAJAX(
+						{
+							action: 'urvanov-syntax-highlighter-show-langs',
+						},
+						function( data ) {
+							$( '#lang-info' ).hide();
+							$( '#urvanov-syntax-highlighter-subsection-langs-info' ).html( data );
+						}
+					);
+				}
+			);
 
-			// Convert
+			// Convert.
 			$( '#urvanov-syntax-highlighter-settings-form input' ).on(
 				'focusin focusout mouseup',
 				function() {
 					$( '#urvanov-syntax-highlighter-settings-form' ).data( 'lastSelected', $( this ) );
 				}
 			);
-			$( '#urvanov-syntax-highlighter-settings-form' )
-				.on(
-					'submit',
-					function() {
-						var last = $( this ).data( 'lastSelected' ).get( 0 );
-						var target = $( '#convert' ).get( 0 );
-						if ( last == target ) {
-							var r = confirm( 'Please BACKUP your database first! Converting will update your post content. Do you wish to continue?' );
-							return r;
-						}
+
+			$( '#urvanov-syntax-highlighter-settings-form' ).on(
+				'submit',
+				function() {
+					var last   = $( this ).data( 'lastSelected' ).get( 0 );
+					var target = $( '#convert' ).get( 0 );
+					var r;
+
+					if ( last === target ) {
+						// eslint-disable-next-line no-alert
+						r = confirm( 'Please BACKUP your database first! Converting will update your post content. Do you wish to continue?' );
+
+						return r;
 					}
-				);
+				}
+			);
 
-			// Alignment
-			align_drop = util.cssElem( '#h-align' );
-			float = $( '#urvanov-syntax-highlighter-subsection-float' );
-			align_drop.on( 'change', function() {
-				float_toggle();
-			} );
-			align_drop.ready( function() {
-				float_toggle();
-			} );
+			// Alignment.
+			alignDrop = util.cssElem( '#h-align' );
+			float     = $( '#urvanov-syntax-highlighter-subsection-float' );
 
-			// Custom Error
-			msg_cbox = util.cssElem( '#error-msg-show' );
-			msg = util.cssElem( '#error-msg' );
-			toggle_error();
-			msg_cbox.on( 'change', function() {
-				toggle_error();
-			} );
+			alignDrop.on(
+				'change',
+				function() {
+					floatToggle();
+				}
+			);
 
-			// Toolbar
+			alignDrop.ready(
+				function() {
+					floatToggle();
+				}
+			);
+
+			// Custom Error.
+			msgCbox = util.cssElem( '#error-msg-show' );
+			msg     = util.cssElem( '#error-msg' );
+
+			toggleError();
+
+			msgCbox.on(
+				'change',
+				function() {
+					toggleError();
+				}
+			);
+
+			// Toolbar.
 			overlay = $( '#urvanov-syntax-highlighter-subsection-toolbar' );
 			toolbar = util.cssElem( '#toolbar' );
-			toggle_toolbar();
-			toolbar.on( 'change', function() {
-				toggle_toolbar();
-			} );
 
-			// Copy
-			plain = util.cssElem( '#plain' );
-			copy = $( '#urvanov-syntax-highlighter-subsection-copy-check' );
-			plain.on( 'change', function() {
-				if ( plain.is( ':checked' ) ) {
-					copy.show();
-				} else {
-					copy.hide();
+			toggleToolbar();
+
+			toolbar.on(
+				'change',
+				function() {
+					toggleToolbar();
 				}
-			} );
+			);
 
-			// Log
-			log_wrapper = $( '#urvanov-syntax-highlighter-log-wrapper' );
-			log_button = $( '#urvanov-syntax-highlighter-log-toggle' );
-			log_text = $( '#urvanov-syntax-highlighter-log-text' );
-			var show_log = log_button.attr( 'show_txt' );
-			var hide_log = log_button.attr( 'hide_txt' );
-			clog = $( '#urvanov-syntax-highlighter-log' );
-			log_button.val( show_log );
-			log_button.on( 'click', function() {
-				clog.width( log_wrapper.width() );
-				clog.toggle();
-				// Scrolls content
-				clog.scrollTop( log_text.height() );
-				var text = ( log_button.val() == show_log ? hide_log
-					: show_log );
-				log_button.val( text );
-			} );
+			// Copy.
+			plain = util.cssElem( '#plain' );
+			copy  = $( '#urvanov-syntax-highlighter-subsection-copy-check' );
 
-			change_button = $( '#urvanov-syntax-highlighter-change-code' );
-			change_button.on( 'click', function() {
-				base.createDialog( {
-					title: strings.changeCode,
-					html: '<textarea id="urvanov-syntax-highlighter-change-code-text"></textarea>',
-					desc: null,
-					value: '',
-					options: {
-						buttons: {
-							OK: function() {
-								change_code = $( '#urvanov-syntax-highlighter-change-code-text' ).val();
-								base.preview_update();
-								$( this ).urvanovSyntaxHighlighterDialog( 'close' );
+			plain.on(
+				'change',
+				function() {
+					if ( plain.is( ':checked' ) ) {
+						copy.show();
+					} else {
+						copy.hide();
+					}
+				}
+			);
+
+			// Log.
+			logWrapper = $( '#urvanov-syntax-highlighter-log-wrapper' );
+			logButton  = $( '#urvanov-syntax-highlighter-log-toggle' );
+			logText    = $( '#urvanov-syntax-highlighter-log-text' );
+			showLog    = logButton.attr( 'show_txt' );
+			hideLog    = logButton.attr( 'hide_txt' );
+			clog       = $( '#urvanov-syntax-highlighter-log' );
+
+			logButton.val( showLog );
+			logButton.on(
+				'click',
+				function() {
+					var text;
+
+					clog.width( logWrapper.width() );
+					clog.toggle();
+
+					// Scrolls content.
+					clog.scrollTop( logText.height() );
+					text = ( logButton.val() === showLog ? hideLog : showLog );
+					logButton.val( text );
+				}
+			);
+
+			changeButton = $( '#urvanov-syntax-highlighter-change-code' );
+			changeButton.on(
+				'click',
+				function() {
+					base.createDialog(
+						{
+							title: strings.changeCode,
+							html: '<textarea id="urvanov-syntax-highlighter-change-code-text"></textarea>',
+							desc: null,
+							value: '',
+							options: {
+								buttons: {
+									OK: function() {
+										changeCode = $( '#urvanov-syntax-highlighter-change-code-text' ).val();
+										base.preview_update();
+										$( this ).urvanovSyntaxHighlighterDialog( 'close' );
+									},
+									Cancel: function() {
+										$( this ).urvanovSyntaxHighlighterDialog( 'close' );
+									},
+								},
+								open: function() {
+									if ( changeCode ) {
+										$( '#urvanov-syntax-highlighter-change-code-text' ).val( changeCode );
+									}
+								},
 							},
-							Cancel: function() {
-								$( this ).urvanovSyntaxHighlighterDialog( 'close' );
-							},
-						},
-						open: function() {
-							if ( change_code ) {
-								$( '#urvanov-syntax-highlighter-change-code-text' ).val( change_code );
-							}
-						},
-					},
-				} );
-				return false;
-			} );
-			$( '#urvanov-syntax-highlighter-fallback-lang' ).on( 'change', function() {
-				change_code = null;
-				base.preview_update();
-			} );
+						}
+					);
+
+					return false;
+				}
+			);
+
+			$( '#urvanov-syntax-highlighter-fallback-lang' ).on(
+				'change',
+				function() {
+					changeCode = null;
+					base.preview_update();
+				}
+			);
 		};
 
 		/* Whenever a control changes preview */
 		base.preview_update = function( vars ) {
 			var val = 0;
 			var obj;
-			var getVars = $.extend( {
-				action: 'urvanov-syntax-highlighter-show-preview',
-				theme: adminSettings.currTheme,
-			}, vars );
-			if ( change_code ) {
-				getVars[adminSettings.sampleCode] = change_code;
+			var i;
+			var getVars = $.extend(
+				{
+					action: 'urvanov-syntax-highlighter-show-preview',
+					theme: adminSettings.currTheme,
+				},
+				vars
+			);
+
+			if ( changeCode ) {
+				getVars[adminSettings.sampleCode] = changeCode;
 			}
-			for ( var i = 0; i < preview_obj_names.length; i++ ) {
-				obj = preview_objs[i];
-				if ( obj.attr( 'type' ) == 'checkbox' ) {
+
+			len = previewObjNames.length;
+			for ( i = 0; i < len; i++ ) {
+				obj = previewObjs[i];
+
+				if ( 'checkbox' === obj.attr( 'type' ) ) {
 					val = obj.is( ':checked' );
 				} else {
 					val = obj.val();
 				}
-				getVars[preview_obj_names[i]] = val;//UrvanovSyntaxHighlighterUtil.escape(val);
+
+				getVars[previewObjNames[i]] = val;
 			}
 
-			// Load Preview
-			UrvanovSyntaxHighlighterUtil.postAJAX( getVars, function( data ) {
-				preview.html( data );
-				// Important! Calls the urvanov_syntax_highlighter.js init
-				UrvanovSyntaxHighlighterSyntax.init();
-				base.preview_ready();
-			} );
+			// Load Preview.
+			UrvanovSyntaxHighlighterUtil.postAJAX(
+				getVars,
+				function( data ) {
+					preview.html( data );
+
+					// Important! Calls the urvanov_syntax_highlighter.js init.
+					UrvanovSyntaxHighlighterSyntax.init();
+					base.preview_ready();
+				}
+			);
 		};
 
 		base.preview_ready = function() {
-			if ( ! preview_loaded ) {
-				preview_loaded = true;
+			if ( ! previewLoaded ) {
+				previewLoaded = true;
 				if ( window.GET['theme-editor'] ) {
-					UrvanovSyntaxHighlighterAdmin.show_theme_editor(
-						theme_editor_edit_button, true );
+					UrvanovSyntaxHighlighterAdmin.show_theme_editor( themeEditorEditButton, true );
 				}
 			}
 		};
 
-		var preview_toggle = function() {
-			// UrvanovSyntaxHighlighterUtil.log('preview_toggle');
-			if ( preview_cbox.is( ':checked' ) ) {
+		previewToggle = function() {
+			if ( previewCbox.is( ':checked' ) ) {
 				preview.show();
-				preview_info.show();
+				previewInfo.show();
 				base.preview_update();
 			} else {
 				preview.hide();
-				preview_info.hide();
+				previewInfo.hide();
 			}
 		};
 
-		var float_toggle = function() {
-			if ( align_drop.val() != 0 ) {
+		floatToggle = function() {
+			if ( 0 !== alignDrop.val() ) {
 				float.show();
 			} else {
 				float.hide();
 			}
 		};
 
-		// List of callbacks
-		var preview_callback;
-		var preview_txt_change;
-		var preview_txt_callback; // Only updates if text value changed
-		var preview_txt_callback_delayed;
-		// var height_set;
-
-		// Register all event handlers for preview objects
-		var preview_register = function() {
-			// Instant callback
-			preview_callback = function() {
+		// Register all event handlers for preview objects.
+		previewRegister = function() {
+			// Instant callback.
+			previewCallback = function() {
 				base.preview_update();
 			};
 
 			// Checks if the text input is changed, if so, runs the callback
-			// with given event
-			preview_txt_change = function( callback, event ) {
-				// UrvanovSyntaxHighlighterUtil.log('checking if changed');
-				var obj = event.target;
-				var last = preview_last_values[obj.id];
-				// UrvanovSyntaxHighlighterUtil.log('last' + preview_last_values[obj.id]);
+			// with given event.
+			previewTxtChange = function( callback, event ) {
+				var obj  = event.target;
+				var last = previewLastValues[obj.id];
 
-				if ( obj.value != last ) {
-					// UrvanovSyntaxHighlighterUtil.log('changed');
-					// Update last value to current
-					preview_last_values[obj.id] = obj.value;
-					// Run callback with event
+				if ( obj.value !== last ) {
+					// Update last value to current.
+					previewLastValues[obj.id] = obj.value;
+
+					// Run callback with event.
 					callback( event );
 				}
 			};
 
-			// Only updates when text is changed
-			preview_txt_callback = function( event ) {
-				// UrvanovSyntaxHighlighterUtil.log('txt callback');
-				preview_txt_change( base.preview_update, event );
+			// Only updates when text is changed.
+			previewTxtCallback = function( event ) {
+				previewTxtChange( base.preview_update, event );
 			};
 
-			// Only updates when text is changed, but callback
-			preview_txt_callback_delayed = function( event ) {
-				preview_txt_change( function() {
-					clearInterval( preview_delay_timer );
-					preview_delay_timer = setInterval( function() {
-						// UrvanovSyntaxHighlighterUtil.log('delayed update');
-						base.preview_update();
-						clearInterval( preview_delay_timer );
-					}, 500 );
-				}, event );
+			// Only updates when text is changed, but callback.
+			previewTxtCallbackDelayed = function( event ) {
+				previewTxtChange(
+					function() {
+						clearInterval( previewDelayTimer );
+						previewDelayTimer = setInterval(
+							function() {
+								base.preview_update();
+								clearInterval( previewDelayTimer );
+							},
+							500
+						);
+					},
+					event
+				);
 			};
 
-			// Retreive preview objects
-			$( '[urvanov-syntax-highlighter-preview="1"]' ).each( function( i ) {
-				var obj = $( this );
-				var id = obj.attr( 'id' );
-				// XXX Remove prefix
-				id = util.removePrefixFromID( id );
-				preview_obj_names[i] = id;
-				preview_objs[i] = obj;
-				// To capture key up events when typing
-				if ( obj.attr( 'type' ) == 'text' ) {
-					preview_last_values[obj.attr( 'id' )] = obj.val();
-					obj.on( 'keyup', preview_txt_callback_delayed );
-					obj.on( 'change', preview_txt_callback );
-				} else {
-					// For all other objects
-					obj.on( 'change', preview_callback );
+			// Retreive preview objects.
+			$( '[urvanov-syntax-highlighter-preview="1"]' ).each(
+				function( i ) {
+					var obj = $( this );
+					var id  = obj.attr( 'id' );
+
+					// XXX Remove prefix.
+					id                 = util.removePrefixFromID( id );
+					previewObjNames[i] = id;
+					previewObjs[i]     = obj;
+
+					// To capture key up events when typing.
+					if ( 'text' === obj.attr( 'type' ) ) {
+						previewLastValues[obj.attr( 'id' )] = obj.val();
+
+						obj.on( 'keyup', previewTxtCallbackDelayed );
+						obj.on( 'change', previewTxtCallback );
+					} else {
+						// For all other objects.
+						obj.on( 'change', previewCallback );
+					}
 				}
-			} );
+			);
 		};
 
-		var toggle_error = function() {
-			if ( msg_cbox.is( ':checked' ) ) {
+		toggleError = function() {
+			if ( msgCbox.is( ':checked' ) ) {
 				msg.show();
 			} else {
 				msg.hide();
 			}
 		};
 
-		var toggle_toolbar = function() {
-			if ( toolbar.val() == 0 ) {
+		toggleToolbar = function() {
+			if ( 0 === toolbar.val() ) {
 				overlay.show();
 			} else {
 				overlay.hide();
@@ -386,126 +507,136 @@
 
 		base.get_vars = function() {
 			var vars = {};
-			window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value ) {
-				vars[key] = value;
-			} );
+
+			window.location.href.replace(
+				/[?&]+([^=&]+)=([^&]*)/gi,
+				function( m, key, value ) {
+					vars[key] = value;
+				}
+			);
+
 			return vars;
 		};
 
-		// Changing wrap views
+		// Changing wrap views.
 		base.show_main = function() {
-			theme_editor_wrap.hide();
-			main_wrap.show();
+			themeEditorWrap.hide();
+			mainWrap.show();
+
 			return false;
 		};
 
-		base.refresh_theme_info = function( callback ) {
-			adminSettings.currTheme = theme_select.val();
-			adminSettings.currThemeName = theme_select.find( 'option:selected' ).attr( 'data-value' );
+		base.refresh_themeInfo = function( callback ) {
+			adminSettings.currTheme       = themeSelect.val();
+			adminSettings.currThemeName   = themeSelect.find( 'option:selected' ).attr( 'data-value' );
 			adminSettings.currThemeIsUser = adminSettings.currTheme in adminSettings.userThemes;
-			var url = adminSettings.currThemeIsUser ? adminSettings.userThemesURL : adminSettings.themesURL;
-			adminSettings.currThemeURL = base.get_theme_url( adminSettings.currTheme );
-			// Load the theme file
+			adminSettings.currThemeURL    = base.get_theme_url( adminSettings.currTheme );
 
-			$.ajax( {
-				url: adminSettings.currThemeURL,
-				success: function( data ) {
-					adminSettings.currThemeCSS = data;
-					//                    var fields = {
-					//                        'Version': theme_ver,
-					//                        'Author': theme_author,
-					//                        'URL': null,
-					//                        'Description': theme_desc
-					//                    };
-					//                    for (field in fields) {
-					//                        var re = new RegExp('(?:^|[\\r\\n]\\s*)\\b' + field
-					//                            + '\\s*:\\s*([^\\r\\n]+)', 'gmi');
-					//                        var match = re.exec(data);
-					//                        var val = fields[field];
-					//                        if (match) {
-					//                            if (val != null) {
-					//                                val.html(match[1].escape().linkify('_blank'));
-					//                            } else if (field == 'Author URI') {
-					//                                theme_author.html('<a href="' + match[1]
-					//                                    + '" target="_blank">'
-					//                                    + theme_author.text() + '</a>');
-					//                            }
-					//                        } else if (val != null) {
-					//                            val.text('N/A');
-					//                        }
-					//                    }
-					if ( callback ) {
-						callback();
-					}
-				},
-				cache: false,
-			} );
+			// Load the theme file.
+			$.ajax(
+				{
+					url: adminSettings.currThemeURL,
+					success: function( data ) {
+						adminSettings.currThemeCSS = data;
+
+						if ( callback ) {
+							callback();
+						}
+					},
+					cache: false,
+				}
+			);
 
 			adminSettings.currThemeCSS = '';
 		};
 
 		base.get_theme_url = function( $id ) {
 			var url = $id in adminSettings.userThemes ? adminSettings.userThemesURL : adminSettings.themesURL;
+
 			return url + $id + '/' + $id + '.css';
 		};
 
 		base.show_theme_info = function( callback ) {
-			base.refresh_theme_info( function() {
-				var info = UrvanovSyntaxHighlighterThemeEditor.readCSSInfo( adminSettings.currThemeCSS );
-				var infoHTML = '';
-				for ( id in info ) {
-					if ( id != 'name' ) {
-						infoHTML += '<div class="fieldset">';
-						if ( id != 'description' ) {
-							infoHTML += '<div class="' + id + ' field">' + UrvanovSyntaxHighlighterThemeEditor.getFieldName( id ) + ':</div>';
+			base.refresh_themeInfo(
+				function() {
+					var type;
+					var typeName;
+					var info     = UrvanovSyntaxHighlighterThemeEditor.readCSSInfo( adminSettings.currThemeCSS );
+					var infoHTML = '';
+					var disabled;
+					var id;
+
+					for ( id in info ) {
+						if ( 'name' !== id ) {
+							infoHTML += '<div class="fieldset">';
+
+							if ( 'description' !== id ) {
+								infoHTML += '<div class="' + id + ' field">' + UrvanovSyntaxHighlighterThemeEditor.getFieldName( id ) + ':</div>';
+							}
+
+							infoHTML += '<div class="' + id + ' value">' + info[id].linkify( '_blank' ) + '</div></div>';
 						}
-						infoHTML += '<div class="' + id + ' value">' + info[id].linkify( '_blank' ) + '</div></div>';
+					}
+
+					if ( adminSettings.currThemeIsUser ) {
+						type     = 'user';
+						typeName = UrvanovSyntaxHighlighterThemeEditorStrings.userTheme;
+					} else {
+						type     = 'stock';
+						typeName = UrvanovSyntaxHighlighterThemeEditorStrings.stockTheme;
+					}
+
+					infoHTML = '<div class="type ' + type + '">' + typeName + '</div><div class="content">' + infoHTML + '</div>';
+					themeInfo.html( infoHTML );
+
+					// Disable for stock themes.
+					disabled = ! adminSettings.currThemeIsUser && ! settings.debug;
+
+					themeEditorEditButton.attr( 'disabled', disabled );
+					themeEditorDeleteButton.attr( 'disabled', disabled );
+					themeEditorSubmitButton.attr( 'disabled', disabled );
+
+					if ( callback ) {
+						callback();
 					}
 				}
-				var type, typeName;
-				if ( adminSettings.currThemeIsUser ) {
-					type = 'user';
-					typeName = UrvanovSyntaxHighlighterThemeEditorStrings.userTheme;
-				} else {
-					type = 'stock';
-					typeName = UrvanovSyntaxHighlighterThemeEditorStrings.stockTheme;
-				}
-				infoHTML = '<div class="type ' + type + '">' + typeName + '</div><div class="content">' + infoHTML + '</div>';
-				theme_info.html( infoHTML );
-				// Disable for stock themes
-				var disabled = ! adminSettings.currThemeIsUser && ! settings.debug;
-				theme_editor_edit_button.attr( 'disabled', disabled );
-				theme_editor_delete_button.attr( 'disabled', disabled );
-				theme_editor_submit_button.attr( 'disabled', disabled );
-				if ( callback ) {
-					callback();
-				}
-			} );
+			);
 		};
 
 		base.show_theme_editor = function( button, editing ) {
-			if ( theme_editor_edit_button.attr( 'disabled' ) ) {
+			if ( themeEditorEditButton.attr( 'disabled' ) ) {
 				return false;
 			}
-			base.refresh_theme_info();
+
+			base.refresh_themeInfo();
 			button.html( button.attr( 'loading' ) );
 			adminSettings.editing_theme = editing;
-			theme_editor_loading = true;
-			// Load theme editor
-			UrvanovSyntaxHighlighterUtil.getAJAX( {
-				action: 'urvanov-syntax-highlighter-theme-editor',
-				currTheme: adminSettings.currTheme,
-				editing: editing,
-			}, function( data ) {
-				theme_editor_wrap.html( data );
-				// Load preview into editor
-				if ( theme_editor_loading ) {
-					UrvanovSyntaxHighlighterThemeEditor.init();
+			themeEditorLoading          = true;
+
+			// Load theme editor.
+			UrvanovSyntaxHighlighterUtil.getAJAX(
+				{
+					action: 'urvanov-syntax-highlighter-theme-editor',
+					currTheme: adminSettings.currTheme,
+					editing: editing,
+				},
+				function( data ) {
+					themeEditorWrap.html( data );
+
+					// Load preview into editor.
+					if ( themeEditorLoading ) {
+						UrvanovSyntaxHighlighterThemeEditor.init();
+					}
+
+					UrvanovSyntaxHighlighterThemeEditor.show(
+						function() {
+							base.show_theme_editor_now( button );
+						},
+						previewInner
+					);
 				}
-				UrvanovSyntaxHighlighterThemeEditor.show( function() {
-					base.show_theme_editor_now( button );
-				}, previewInner );
-			} );
+			);
+
 			return false;
 		};
 
@@ -515,25 +646,28 @@
 		};
 
 		base.show_theme_editor_now = function( button ) {
-			main_wrap.hide();
-			theme_editor_wrap.show();
-			theme_editor_loading = false;
+			mainWrap.hide();
+			themeEditorWrap.show();
+			themeEditorLoading = false;
 			button.html( button.attr( 'loaded' ) );
 		};
 
-		// JQUERY UI DIALOGS
-
+		// JQUERY UI DIALOGS.
 		base.createAlert = function( args ) {
-			args = $.extend( {
-				title: strings.alert,
-				options: {
-					buttons: {
-						OK: function() {
-							$( this ).urvanovSyntaxHighlighterDialog( 'close' );
+			args = $.extend(
+				{
+					title: strings.alert,
+					options: {
+						buttons: {
+							OK: function() {
+								$( this ).urvanovSyntaxHighlighterDialog( 'close' );
+							},
 						},
 					},
 				},
-			}, args );
+				args
+			);
+
 			base.createDialog( args );
 		};
 
@@ -543,30 +677,40 @@
 				noLabel: strings.no,
 				title: strings.confirm,
 			};
+
 			args = $.extend( defaultArgs, args );
-			var options = $.extend( {
-				modal: true, title: args.title, zIndex: 10000, autoOpen: true,
-				width: 'auto', resizable: false,
-				buttons: {},
-				dialogClass: 'wp-dialog',
-				selectedButtonIndex: 1, // starts from 1
-				close: function( event, ui ) {
-					$( this ).remove();
+
+			options = $.extend(
+				{
+					modal: true, title: args.title, zIndex: 10000, autoOpen: true,
+					width: 'auto', resizable: false,
+					buttons: {},
+					dialogClass: 'wp-dialog',
+					selectedButtonIndex: 1, // starts from 1.
+					close: function() {
+						$( this ).remove();
+					},
 				},
-			}, options );
+				options
+			);
+
 			options.buttons[args.yesLabel] = function() {
 				if ( args.yes ) {
 					args.yes();
 				}
+
 				$( this ).urvanovSyntaxHighlighterDialog( 'close' );
 			};
+
 			options.buttons[args.noLabel] = function() {
 				if ( args.no ) {
 					args.no();
 				}
+
 				$( this ).urvanovSyntaxHighlighterDialog( 'close' );
 			};
-			options = $.extend( options, args.options );
+
+			options      = $.extend( options, args.options );
 			options.open = function() {
 				$( '.ui-button' ).addClass( 'button-primary' );
 				$( this ).parent().find( 'button:nth-child(' + options.selectedButtonIndex + ')' ).focus();
@@ -574,8 +718,10 @@
 					args.options.open();
 				}
 			};
+
 			$( '<div></div>' ).appendTo( 'body' ).html( args.html ).urvanovSyntaxHighlighterDialog( options );
-			// Can be modified afterwards
+
+			// Can be modified afterwards.
 			return args;
 		};
 	};
