@@ -220,7 +220,7 @@
 				$( this.outer ).prepend( $( s.bar_content ) );
 			},
 			onComplete: function() {
-				$( s.code_css ).focus();
+				$( s.code_css ).trigger( 'focus' );
 			},
 			onCleanup: function() {
 				$( s.bar ).prepend( $( s.bar_content ) );
@@ -314,7 +314,7 @@
 						function() {
 							code.val( '' );
 							code.removeClass( gs.selected );
-							code.focus();
+							code.trigger( 'focus' );
 						}
 					);
 
@@ -653,7 +653,7 @@
 				showCallback();
 			}
 
-			code.focus();
+			code.trigger( 'focus' );
 			codeRefresh();
 			urlRefresh();
 			if ( ajaxClassTimer ) {
@@ -709,7 +709,7 @@
 
 			if ( 0 === url.val().length && 0 === code.val().length ) {
 				code.addClass( gs.selected );
-				code.focus();
+				code.trigger( 'focus' );
 				return false;
 			}
 

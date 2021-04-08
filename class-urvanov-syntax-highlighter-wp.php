@@ -1515,7 +1515,7 @@ class Human {
 				'delete'    => esc_html__( 'Delete', 'urvanov-syntax-highlighter' ),
 			);
 			foreach ( $buttons as $k => $v ) {
-				echo '<a id="urvanov-syntax-highlighter-theme-editor-', esc_attr( $k ), '-button" class="button-secondary urvanov-syntax-highlighter-admin-button" loading="', esc_html__( 'Loading...', 'urvanov-syntax-highlighter' ), '" loaded="', esc_attr( $v ), '" >', esc_html( $v ), '</a>';
+				echo '<a id="urvanov-syntax-highlighter-theme-editor-', esc_attr( $k ), '-button" data-nonce="' . esc_attr( wp_create_nonce( 'theme_editor_action' ) ) . '" class="button-secondary urvanov-syntax-highlighter-admin-button" loading="', esc_html__( 'Loading...', 'urvanov-syntax-highlighter' ), '" loaded="', esc_attr( $v ), '" >', esc_html( $v ), '</a>';
 			}
 
 			echo '<span class="urvanov-syntax-highlighter-span-5"></span>', wp_kses_post( self::help_button( 'http://aramk.com/blog/2012/12/27/urvanov-syntax-highlighter-theme-editor/' ) ), '<span class="urvanov-syntax-highlighter-span-5"></span>', esc_html__( 'Duplicate a Stock Theme into a User Theme to allow editing.', 'urvanov-syntax-highlighter' );

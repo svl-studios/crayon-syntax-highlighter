@@ -3,7 +3,6 @@
 // Urvanov Syntax Highlighter Theme Editor JavaScript.
 ( function( $ ) {
 	var showMain;
-	var UrvanovSyntaxHighlighterThemeEditor;
 
 	UrvanovSyntaxHighlighterThemeEditor = new function() { // jshint ignore:line
 		var base = this;
@@ -14,8 +13,7 @@
 		var adminStrings  = UrvanovSyntaxHighlighterAdminStrings;
 		var admin         = UrvanovSyntaxHighlighterAdmin;
 
-		var info = {};
-		var preview, previewUrvanovSyntaxHighlighter, previewCSS, status, title;
+		var preview, previewUrvanovSyntaxHighlighter, previewCSS, status, title, info;
 		var colorPickerPos;
 		var changed, loaded;
 		var themeID, themeJSON, themeCSS, themeStr;
@@ -58,7 +56,6 @@
 					split: true,
 				}
 			);
-
 			themeJSON = base.filterCSS( themeJSON );
 			UrvanovSyntaxHighlighterUtil.log( themeJSON );
 			themeInfo = base.readCSSInfo( themeStr );
@@ -77,6 +74,8 @@
 			var names;
 			var id;
 			var newThemeStr;
+			var themeMeta = {};
+			var data      = $( '#urvanov-syntax-highlighter-editor-save' ).data( 'nonce' );
 
 			// Update info from form fields.
 			themeInfo = base.getFieldValues( $.keys( themeInfo ) );
@@ -85,7 +84,7 @@
 			names = base.getFieldNames( themeInfo );
 
 			for ( id in themeInfo ) {
-				info[names[id]] = themeInfo[id];
+				themeMeta[names[id]] = themeInfo[id];
 			}
 
 			// Update attributes.
@@ -93,7 +92,7 @@
 
 			// Save.
 			themeCSS    = CSSJSON.toCSS( themeJSON );
-			newThemeStr = base.writeCSSInfo( info ) + themeCSS;
+			newThemeStr = base.writeCSSInfo( themeMeta ) + themeCSS;
 
 			UrvanovSyntaxHighlighterUtil.postAJAX(
 				{
@@ -101,6 +100,7 @@
 					id: themeID,
 					name: base.getName(),
 					css: newThemeStr,
+					nonce: data,
 				},
 				function( result ) {
 					status.show();
@@ -127,6 +127,8 @@
 		};
 
 		base.del = function( id, name ) {
+			var data = $( '#urvanov-syntax-highlighter-theme-editor-delete-button' ).data( 'nonce' );
+
 			admin.createDialog(
 				{
 					title: strings.del,
@@ -136,6 +138,7 @@
 							{
 								action: 'urvanov-syntax-highlighter-theme-editor-delete',
 								id: id,
+								nonce: data,
 							},
 							function( result ) {
 								if ( result > 0 ) {
@@ -158,6 +161,8 @@
 		};
 
 		base.duplicate = function( id ) {
+			var data = $( '#urvanov-syntax-highlighter-theme-editor-duplicate-button' ).data( 'nonce' );
+
 			base.createPrompt(
 				{
 					title: strings.duplicate,
@@ -169,6 +174,7 @@
 								action: 'urvanov-syntax-highlighter-theme-editor-duplicate',
 								id: id,
 								name: val,
+								nonce: data,
 							},
 							function( result ) {
 								if ( result > 0 ) {
@@ -188,6 +194,8 @@
 		};
 
 		base.submit = function( id ) {
+			var data = $( '#urvanov-syntax-highlighter-theme-editor-submit-button' ).data( 'nonce' );
+
 			base.createPrompt(
 				{
 					title: strings.submit,
@@ -200,6 +208,7 @@
 								action: 'urvanov-syntax-highlighter-theme-editor-submit',
 								id: id,
 								message: val,
+								nonce: data,
 							},
 							function( result ) {
 								var msg = result > 0 ? strings.submitSucceed : strings.submitFail + ' ' + strings.checkLog;
@@ -358,13 +367,15 @@
 		};
 
 		base.getFieldValues = function( fields ) {
+			var themeMeta = {};
+
 			$( fields ).each(
 				function( i, id ) {
-					info[id] = base.getFieldValue( id );
+					themeMeta[id] = base.getFieldValue( id );
 				}
 			);
 
-			return info;
+			return themeMeta;
 		};
 
 		base.setFieldValue = function( id, value ) {
@@ -604,7 +615,7 @@
 							},
 						},
 						open: function() {
-							base.getField( 'prompt-text' ).val( args.value ).focus();
+							base.getField( 'prompt-text' ).val( args.value ).trigger( 'focus' );
 						},
 					},
 				},

@@ -1821,7 +1821,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function capture_replace_pre( $capture = array(), $original = '', $id = '', bool $is_inline, string $wp_content, $args = array() ) {
+	public static function capture_replace_pre( $capture = array(), $original = '', $id = '', bool $is_inline = false, string $wp_content = '', $args = array() ) {
 		$code     = $capture['code'];
 		$old_atts = $capture['atts'];
 		$new_atts = array();

@@ -604,6 +604,8 @@
 		};
 
 		base.show_theme_editor = function( button, editing ) {
+			var nonce;
+
 			if ( themeEditorEditButton.attr( 'disabled' ) ) {
 				return false;
 			}
@@ -612,13 +614,15 @@
 			button.html( button.attr( 'loading' ) );
 			adminSettings.editing_theme = editing;
 			themeEditorLoading          = true;
+			nonce                       = themeEditorEditButton.data( 'nonce' );
 
 			// Load theme editor.
 			UrvanovSyntaxHighlighterUtil.getAJAX(
 				{
 					action: 'urvanov-syntax-highlighter-theme-editor',
-					currTheme: adminSettings.currTheme,
+					curr_theme: adminSettings.currTheme,
 					editing: editing,
+					nonce: nonce,
 				},
 				function( data ) {
 					themeEditorWrap.html( data );
@@ -713,7 +717,7 @@
 			options      = $.extend( options, args.options );
 			options.open = function() {
 				$( '.ui-button' ).addClass( 'button-primary' );
-				$( this ).parent().find( 'button:nth-child(' + options.selectedButtonIndex + ')' ).focus();
+				$( this ).parent().find( 'button:nth-child(' + options.selectedButtonIndex + ')' ).trigger( 'focus' );
 				if ( args.options.open ) {
 					args.options.open();
 				}
@@ -724,5 +728,5 @@
 			// Can be modified afterwards.
 			return args;
 		};
-	};
+	}();
 } )( jQueryUrvanovSyntaxHighlighter );

@@ -352,9 +352,9 @@ class Urvanov_Syntax_Highlighter {
 	 *
 	 * @param string $code Code string.
 	 *
-	 * @return mixed
+	 * @return string
 	 */
-	public function code( $code = null ) {
+	public function code( $code = null ): string {
 		if ( null === $code ) {
 			return $this->code;
 		} else {
@@ -384,6 +384,8 @@ class Urvanov_Syntax_Highlighter {
 				$this->code         = $code;
 				$this->needs_format = true;
 			}
+
+			return '';
 		}
 	}
 

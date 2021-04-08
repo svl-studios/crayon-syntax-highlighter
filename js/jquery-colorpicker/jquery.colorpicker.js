@@ -356,7 +356,7 @@
         },
 
         _parseColor = function(color) {
-            var name = $.trim(color).toLowerCase(),
+            var name = color.toLowerCase().trim(),
                 m;
 
             if (color == '') {
@@ -2077,7 +2077,7 @@
 				that.dialog = $('.ui-colorpicker:last');
 
 				// Click outside/inside
-				$(document).mousedown(function (event) {
+				$(document).on( 'mousedown', function (event) {
 					if (!that.opened || event.target === that.element[0] || that.overlay) {
 						return;
 					}
@@ -2105,7 +2105,7 @@
 					that.close();
 				});
 
-				$(document).keydown(function (event) {
+				$(document).on( 'keydown', function (event) {
 					if (event.keyCode == 27 && that.opened && that.options.closeOnEscape) {
 						that.close();
 					}
@@ -2144,11 +2144,11 @@
 					that.open();
 				}
 
-				that.element.keydown(function (event) {
+				that.element.on( 'keydown', function (event) {
 					if (event.keyCode === 9) {
 						that.close();
 					}
-				}).keyup(function (event) {
+				}).on( 'keyup', function (event) {
 					var color = _parseColor(that.element.val());
 					if (!that.color.equals(color)) {
 						that.color = color;
@@ -2202,7 +2202,7 @@
 					properties = this.options.altProperties.split(',');
 
 				for (index = 0; index <= properties.length; ++index) {
-					property = $.trim(properties[index]);
+					property = properties[index].trim()
 					switch (property) {
 						case 'color':
 						case 'background-color':
