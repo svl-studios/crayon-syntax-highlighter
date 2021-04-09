@@ -277,6 +277,7 @@
 				{
 					action: 'urvanov-syntax-highlighter-tag-editor',
 					is_admin: gs.is_admin,
+					nonce: gs.nonce,
 				},
 				function( data ) {
 					var url;

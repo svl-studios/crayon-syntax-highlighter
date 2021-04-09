@@ -49,6 +49,7 @@
 
 		base.init = function() {
 			var dialogFunction;
+			var data;
 
 			UrvanovSyntaxHighlighterUtil.log( 'admin init' );
 
@@ -133,6 +134,8 @@
 
 			// Help.
 			help = $( '.urvanov-syntax-highlighter-help-close' );
+			data = help.data( 'nonce' );
+
 			help.on(
 				'click',
 				function() {
@@ -141,6 +144,7 @@
 						{
 							action: 'urvanov-syntax-highlighter-ajax',
 							'hide-help': 1,
+							nonce: data,
 						}
 					);
 				}
@@ -174,12 +178,15 @@
 			$( '#show-posts' ).on(
 				'click',
 				function() {
+					var nonce = $( this ).siblings( '#posts' ).data( 'nonce' );
+
 					UrvanovSyntaxHighlighterUtil.getAJAX(
 						{
 							action: 'urvanov-syntax-highlighter-show-posts',
+							nonce: nonce,
 						},
-						function( data ) {
-							$( '#urvanov-syntax-highlighter-subsection-posts-info' ).html( data );
+						function( ajaxData ) {
+							$( '#urvanov-syntax-highlighter-subsection-posts-info' ).html( ajaxData );
 						}
 					);
 				}
@@ -188,13 +195,16 @@
 			$( '#show-langs' ).on(
 				'click',
 				function() {
+					var nonce = $( this ).parents( '#urvanov-syntax-highlighter-subsection-langs-info' ).data( 'nonce' );
+
 					UrvanovSyntaxHighlighterUtil.getAJAX(
 						{
 							action: 'urvanov-syntax-highlighter-show-langs',
+							nonce: nonce,
 						},
-						function( data ) {
+						function( ajaxData ) {
 							$( '#lang-info' ).hide();
-							$( '#urvanov-syntax-highlighter-subsection-langs-info' ).html( data );
+							$( '#urvanov-syntax-highlighter-subsection-langs-info' ).html( ajaxData );
 						}
 					);
 				}

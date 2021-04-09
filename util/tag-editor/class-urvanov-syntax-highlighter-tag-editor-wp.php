@@ -375,10 +375,17 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 				<tr>
 					<td colspan="2">
 					<?php
-						$admin = isset( $_GET['is_admin'] ) ? intval( $_GET['is_admin'] ) : is_admin(); // phpcs:ignore WordPress.Security.NonceVerification
+
+					if ( isset( $_GET['nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'crayon-dialog-nonce' ) ) {
+						$admin = isset( $_GET['is_admin'] ) ? intval( $_GET['is_admin'] ) : is_admin();
+					} else {
+						exit;
+					}
+
 					if ( ! $admin && ! Urvanov_Syntax_Highlighter_Global_Settings::val( Urvanov_Syntax_Highlighter_Settings::TAG_EDITOR_SETTINGS ) ) {
 						exit();
 					}
+
 					?>
 						<hr/>
 						<div>

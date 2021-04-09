@@ -1473,18 +1473,20 @@ class Urvanov_Syntax_Highlighter_Plugin {
 	}
 
 	/**
-	 * AJAX.
-	 *
-	 * TODO"  Nonce stuff here??
+	 * AJAX - Hide the help bar.
 	 */
 	public static function ajax() {
 		$allowed = array( Urvanov_Syntax_Highlighter_Settings::HIDE_HELP );
 
-		foreach ( $allowed as $allow ) {
-			if ( array_key_exists( $allow, $_GET ) ) {
-				Urvanov_Syntax_Highlighter_Global_Settings::set( $allow, $_GET[ $allow ] );
-				Urvanov_Syntax_Highlighter_Settings_WP::save_settings();
+		if ( isset( $_GET['nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'crayon-close-help' ) ) {
+			foreach ( $allowed as $allow ) {
+				if ( array_key_exists( $allow, $_GET ) ) {
+					Urvanov_Syntax_Highlighter_Global_Settings::set( $allow, sanitize_text_field( wp_unslash( $_GET[ $allow ] ) ) );
+					Urvanov_Syntax_Highlighter_Settings_WP::save_settings();
+				}
 			}
+		} else {
+			wp_nonce_ays( 'expired' );
 		}
 	}
 
@@ -1578,7 +1580,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 		);
 
 		$captures = self::capture_crayons( $id, $post->post_content, array(), $args );
-//var_dump($captures);
+
 		if ( $captures['has_captured'] ) {
 			return true;
 		} elseif ( $scan_comments ) {
@@ -1733,7 +1735,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 	 *
 	 * @param mixed $e Excerpt, I guess.
 	 *
-	 * @return array|mixed|string|string[]|null
+	 * @return array|string|string[]|null
 	 */
 	public static function post_excerpt( $e ) {
 		UrvanovSyntaxHighlighterLog::debug( 'post_excerpt' );

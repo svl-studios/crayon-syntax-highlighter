@@ -191,13 +191,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		add_action( 'admin_print_styles-post-new.php', 'Urvanov_Syntax_Highlighter_Settings_WP::admin_styles' );
 		add_action( 'admin_print_styles-post.php', 'Urvanov_Syntax_Highlighter_Settings_WP::admin_styles' );
 
-		// TODO deprecated since WP 3.3, remove eventually.
-		global $wp_version;
-		if ( $wp_version >= '3.3' ) {
-			add_action( "load-$admin_page", 'Urvanov_Syntax_Highlighter_Settings_WP::help_screen' );
-		} else {
-			add_filter( 'contextual_help', 'Urvanov_Syntax_Highlighter_Settings_WP::cont_help', 10, 3 );
-		}
+		add_action( "load-$admin_page", 'Urvanov_Syntax_Highlighter_Settings_WP::help_screen' );
 	}
 
 	/**
@@ -288,6 +282,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 				'changed'    => Urvanov_Syntax_Highlighter_Settings::SETTING_CHANGED,
 				'special'    => Urvanov_Syntax_Highlighter_Settings::SETTING_SPECIAL,
 				'orig_value' => Urvanov_Syntax_Highlighter_Settings::SETTING_ORIG_VALUE,
+				'nonce'      => wp_create_nonce( 'crayon-dialog-nonce' ),
 				'debug'      => URVANOV_SYNTAX_HIGHLIGHTER_DEBUG,
 			);
 		}
@@ -770,11 +765,11 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	/**
 	 * Add section.
 	 *
-	 * @param string $name     Name.
-	 * @param string $title    Title.
-	 * @param string $callback Callback.
+	 * @param string $name  Name.
+	 * @param string $title Title.
 	 */
-	private static function add_section( string $name, string $title, $callback = '' ) {
+	private static function add_section( string $name, string $title ) {
+		$callback = '';
 		$callback = ( empty( $callback ) ? 'blank' : '' );
 		add_settings_section( $name, $title, 'Urvanov_Syntax_Highlighter_Settings_WP::' . $callback, self::SETTINGS );
 	}
@@ -785,9 +780,9 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	 * @param string $section  Section.
 	 * @param string $title    Title.
 	 * @param string $callback Callback.
-	 * @param array  $args     Args.
 	 */
-	private static function add_field( string $section, string $title, string $callback, $args = array() ) {
+	private static function add_field( string $section, string $title, string $callback ) {
+		$args   = array();
 		$unique = preg_replace( '#\\s#', '_', strtolower( $title ) );
 		add_settings_field( $unique, $title, 'Urvanov_Syntax_Highlighter_Settings_WP::' . $callback, self::SETTINGS, $section, $args );
 	}
@@ -1044,7 +1039,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		}
 
 		echo '<div id="urvanov-syntax-highlighter-help" class="updated settings-error urvanov-syntax-highlighter-help">
-				<p><strong>Howdy, coder!</strong> Thanks for using Crayon. <strong>Useful Links:</strong> <a href="' . esc_url( $urvanov_syntax_highlighter_website ) . '" target="_blank">Documentation</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_git ) . '" target="_blank">GitHub</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_plugin_wp ) . '" target="_blank">Plugin Page</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_twitter ) . '" target="_blank">Twitter</a>. Crayon has always been free. If you value my work please consider a <a href="' . esc_url( $urvanov_syntax_highlighter_donate ) . '">small donation</a> to show your appreciation. Thanks! <a class="urvanov-syntax-highlighter-help-close">X</a></p></div>
+				<p><strong>Howdy, coder!</strong> Thanks for using Crayon. <strong>Useful Links:</strong> <a href="' . esc_url( $urvanov_syntax_highlighter_website ) . '" target="_blank">Documentation</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_git ) . '" target="_blank">GitHub</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_plugin_wp ) . '" target="_blank">Plugin Page</a>, <a href="' . esc_url( $urvanov_syntax_highlighter_twitter ) . '" target="_blank">Twitter</a>. Crayon has always been free. If you value my work please consider a <a href="' . esc_url( $urvanov_syntax_highlighter_donate ) . '">small donation</a> to show your appreciation. Thanks! <a data-nonce="' . esc_attr( wp_create_nonce( 'crayon-close-help' ) ) . '" class="urvanov-syntax-highlighter-help-close">X</a></p></div>
 						';
 	}
 
@@ -1260,7 +1255,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 
 				// Language parsing info.
 				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo URVANOV_SYNTAX_HIGHLIGHTER_BR, '<div id="urvanov-syntax-highlighter-subsection-langs-info"><div>' . self::button(
+				echo URVANOV_SYNTAX_HIGHLIGHTER_BR, '<div data-nonce="' . esc_attr( wp_create_nonce( 'crayon-lang-nonce' ) ) . '" id="urvanov-syntax-highlighter-subsection-langs-info"><div>' . self::button(
 					array(
 						'id'    => 'show-langs',
 						'title' => esc_html__( 'Show Languages', 'urvanov-syntax-highlighter' ),
@@ -1276,37 +1271,42 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	 * Show langs.
 	 */
 	public static function show_langs() {
-		self::load_settings();
+		if ( isset( $_GET['nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'crayon-lang-nonce' ) ) {
+			self::load_settings();
 
-		require_once URVANOV_SYNTAX_HIGHLIGHTER_PARSER_PHP;
+			require_once URVANOV_SYNTAX_HIGHLIGHTER_PARSER_PHP;
 
-		$langs = Urvanov_Syntax_Highlighter_Parser::parse_all();
-		if ( false !== $langs ) {
-			$langs = Urvanov_Syntax_Highlighter_Langs::sort_by_name( $langs );
-			echo '<table class="urvanov-syntax-highlighter-table" style="padding:0;border-spacing:0;"><tr class="urvanov-syntax-highlighter-table-header">',
-			'<td>', esc_html__( 'ID', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Name', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Version', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'File Extensions', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Aliases', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'State', 'urvanov-syntax-highlighter' ), '</td></tr>';
-			$keys = array_values( $langs );
+			$langs = Urvanov_Syntax_Highlighter_Parser::parse_all();
+			if ( false !== $langs ) {
+				$langs = Urvanov_Syntax_Highlighter_Langs::sort_by_name( $langs );
+				echo '<table class="urvanov-syntax-highlighter-table" style="padding:0;border-spacing:0;"><tr class="urvanov-syntax-highlighter-table-header">',
+				'<td>', esc_html__( 'ID', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Name', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Version', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'File Extensions', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Aliases', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'State', 'urvanov-syntax-highlighter' ), '</td></tr>';
+				$keys = array_values( $langs );
 
-			$count = count( $langs );
-			for ( $i = 0; $i < $count; $i ++ ) {
-				$lang    = $keys[ $i ];
-				$count_2 = count( $langs );
-				$tr      = ( $count_2 - 1 === $i ) ? 'urvanov-syntax-highlighter-table-last' : '';
-				echo '<tr class="', esc_attr( $tr ), '">',
-				'<td>', esc_html( $lang->id() ), '</td>',
-				'<td>', esc_html( $lang->name() ), '</td>',
-				'<td>', esc_html( $lang->version() ), '</td>',
-				'<td>', implode( ', ', $lang->ext() ), '</td>', // phpcs:ignore WordPress.Security.EscapeOutput
-				'<td>', implode( ', ', $lang->alias() ), '</td>', // phpcs:ignore WordPress.Security.EscapeOutput
-				'<td class="', esc_html( strtolower( UrvanovSyntaxHighlighterUtil::space_to_hyphen( $lang->state_info() ) ) ), '">',
-				esc_html( $lang->state_info() ), '</td>',
-				'</tr>';
+				$count = count( $langs );
+				for ( $i = 0; $i < $count; $i ++ ) {
+					$lang    = $keys[ $i ];
+					$count_2 = count( $langs );
+					$tr      = ( $count_2 - 1 === $i ) ? 'urvanov-syntax-highlighter-table-last' : '';
+					echo '<tr class="', esc_attr( $tr ), '">',
+					'<td>', esc_html( $lang->id() ), '</td>',
+					'<td>', esc_html( $lang->name() ), '</td>',
+					'<td>', esc_html( $lang->version() ), '</td>',
+					'<td>', implode( ', ', $lang->ext() ), '</td>', // phpcs:ignore WordPress.Security.EscapeOutput
+					'<td>', implode( ', ', $lang->alias() ), '</td>', // phpcs:ignore WordPress.Security.EscapeOutput
+					'<td class="', esc_html( strtolower( UrvanovSyntaxHighlighterUtil::space_to_hyphen( $lang->state_info() ) ) ), '">',
+					esc_html( $lang->state_info() ), '</td>',
+					'</tr>';
+				}
+
+				echo '</table><br/>' . esc_html__( "Languages that have the same extension as their name don't need to explicitly map extensions.", 'urvanov-syntax-highlighter' );
+			} else {
+				echo esc_html__( 'No languages could be found.', 'urvanov-syntax-highlighter' );
 			}
-
-			echo '</table><br/>' . esc_html__( "Languages that have the same extension as their name don't need to explicitly map extensions.", 'urvanov-syntax-highlighter' );
 		} else {
-			echo esc_html__( 'No languages could be found.', 'urvanov-syntax-highlighter' );
+			echo esc_html__( 'Security credentials have expied.  Please reload the page and try again.', 'urvanov-syntax-highlighter' );
 		}
+
 		exit();
 	}
 
@@ -1314,7 +1314,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	 * Posts.
 	 */
 	public static function posts() {
-		echo '<a id="posts"></a>';
+		echo '<a data-nonce="' . esc_attr( wp_create_nonce( 'crayon-posts-nonce' ) ) . '" id="posts"></a>';
 
 		self::checkbox( array( Urvanov_Syntax_Highlighter_Settings::BBPRESS_POSTS, esc_html__( 'List posts for bbPress forums, topics, and replies', 'urvanov-syntax-highlighter' ) ) );
 
@@ -1356,48 +1356,53 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	 * Show posts.
 	 */
 	public static function show_posts() {
-		self::load_settings();
+		if ( isset( $_GET['nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['nonce'] ) ), 'crayon-posts-nonce' ) ) {
+			self::load_settings();
 
-		$post_ids     = self::load_posts();
-		$legacy_posts = self::load_legacy_posts();
+			$post_ids     = self::load_posts();
+			$legacy_posts = self::load_legacy_posts();
 
-		// Avoids O(n^2) by using a hash map, tradeoff in using strval.
-		$legacy_map = array();
-		foreach ( $legacy_posts as $legacy_id ) {
-			$legacy_map[ strval( $legacy_id ) ] = true;
+			// Avoids O(n^2) by using a hash map, tradeoff in using strval.
+			$legacy_map = array();
+			foreach ( $legacy_posts as $legacy_id ) {
+				$legacy_map[ strval( $legacy_id ) ] = true;
+			}
+
+			echo '<table class="urvanov-syntax-highlighter-table" style="padding:0;border-spacing:0;"><tr class="urvanov-syntax-highlighter-table-header">',
+			'<td>', esc_html__( 'ID', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Title', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Posted', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Modifed', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Contains Legacy Tags?', 'urvanov-syntax-highlighter' ), '</td></tr>';
+
+			$posts = array();
+
+			$count = count( $post_ids );
+
+			for ( $i = 0; $i < $count; $i ++ ) {
+				$posts[ $i ] = get_post( $post_ids[ $i ] );
+			}
+
+			usort( $posts, 'Urvanov_Syntax_Highlighter_Settings_WP::post_cmp' );
+
+			$count = count( $posts );
+			for ( $i = 0; $i < $count; $i ++ ) {
+				$post    = $posts[ $i ];
+				$post_id = $post->ID;
+				$title   = $post->post_title;
+				$title   = ! empty( $title ) ? $title : 'N/A';
+				$tr      = ( count( $posts ) - 1 === $i ) ? 'urvanov-syntax-highlighter-table-last' : '';
+
+				echo '<tr class="', esc_attr( $tr ), '">',
+				'<td>', esc_html( $post_id ), '</td>',
+				'<td><a href="', esc_url( $post->guid ), '" target="_blank">', wp_kses_post( $title ), '</a></td>',
+				'<td>', esc_html( $post->post_date ), '</td>',
+				'<td>', esc_html( $post->post_modified ), '</td>',
+				'<td>', isset( $legacy_map[ strval( $post_id ) ] ) ? '<span style="color: red;">' . esc_html__( 'Yes', 'urvanov-syntax-highlighter' ) . '</a>' : esc_html__( 'No', 'urvanov-syntax-highlighter' ), '</td>',
+				'</tr>';
+			}
+
+			echo '</table>';
+		} else {
+			echo esc_html__( 'Security credentials have expied.  Please reload the page and try again.', 'urvanov-syntax-highlighter' );
 		}
 
-		echo '<table class="urvanov-syntax-highlighter-table" style="padding:0;border-spacing:0;"><tr class="urvanov-syntax-highlighter-table-header">',
-		'<td>', esc_html__( 'ID', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Title', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Posted', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Modifed', 'urvanov-syntax-highlighter' ), '</td><td>', esc_html__( 'Contains Legacy Tags?', 'urvanov-syntax-highlighter' ), '</td></tr>';
-
-		$posts = array();
-
-		$count = count( $post_ids );
-
-		for ( $i = 0; $i < $count; $i ++ ) {
-			$posts[ $i ] = get_post( $post_ids[ $i ] );
-		}
-
-		usort( $posts, 'Urvanov_Syntax_Highlighter_Settings_WP::post_cmp' );
-
-		$count = count( $posts );
-		for ( $i = 0; $i < $count; $i ++ ) {
-			$post    = $posts[ $i ];
-			$post_id = $post->ID;
-			$title   = $post->post_title;
-			$title   = ! empty( $title ) ? $title : 'N/A';
-			$tr      = ( count( $posts ) - 1 === $i ) ? 'urvanov-syntax-highlighter-table-last' : '';
-
-			echo '<tr class="', esc_attr( $tr ), '">',
-			'<td>', esc_html( $post_id ), '</td>',
-			'<td><a href="', esc_url( $post->guid ), '" target="_blank">', wp_kses_post( $title ), '</a></td>',
-			'<td>', esc_html( $post->post_date ), '</td>',
-			'<td>', esc_html( $post->post_modified ), '</td>',
-			'<td>', isset( $legacy_map[ strval( $post_id ) ] ) ? '<span style="color: red;">' . esc_html__( 'Yes', 'urvanov-syntax-highlighter' ) . '</a>' : esc_html__( 'No', 'urvanov-syntax-highlighter' ), '</td>',
-			'</tr>';
-		}
-
-		echo '</table>';
 		exit();
 	}
 
@@ -2013,8 +2018,8 @@ class Human {
 					<img src="' . plugins_url( URVANOV_SYNTAX_HIGHLIGHTER_DONATE_BUTTON, __FILE__ ) . '"></a>
 				</div>';
 
-		echo '
-				<table id="urvanov-syntax-highlighter-info" style="border:0;">
+		echo wp_kses_post(
+			'<table id="urvanov-syntax-highlighter-info" style="border:0;">
 		  <tr>
 				<td>' . $version . ' - ' . $date . '</td>
 					</tr>
@@ -2027,8 +2032,8 @@ class Human {
 		  <tr>
 				<td colspan="2">' . $links . '</td>
 		  </tr>
-				</table>';
-
+				</table>'
+		);
 	}
 
 	/**
