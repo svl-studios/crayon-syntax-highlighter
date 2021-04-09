@@ -270,11 +270,14 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 	public static function textbox( string $id, $atts = array(), $set_class = true ) {
 		$id       = Urvanov_Syntax_Highlighter_Settings::PREFIX . $id;
 		$atts_str = '';
-		$class    = $set_class ? 'class="' . Urvanov_Syntax_Highlighter_Settings::SETTING . ' ' . Urvanov_Syntax_Highlighter_Settings::SETTING_SPECIAL . '"' : '';
+		$class    = $set_class ? 'class="' . esc_html( Urvanov_Syntax_Highlighter_Settings::SETTING ) . ' ' . esc_html( Urvanov_Syntax_Highlighter_Settings::SETTING_SPECIAL ) . '"' : '';
+
 		foreach ( $atts as $k => $v ) {
-			$atts_str = $k . '="' . $v . '" ';
+			$atts_str = esc_html( $k ) . '="' . esc_attr( $v ) . '" ';
 		}
-		echo '<input type="text" id="' . esc_attr( $id ) . '" name="' . esc_attr( $id ) . '" ' . esc_html( $class ) . ' ' . esc_html( $atts_str ) . ' />';
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo '<input type="text" id="' . esc_attr( $id ) . '" name="' . esc_attr( $id ) . '" ' . $class . ' ' . $atts_str . ' />';
 	}
 
 	/**

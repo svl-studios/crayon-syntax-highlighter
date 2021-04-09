@@ -1316,6 +1316,8 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 	public static function posts() {
 		echo '<a id="posts"></a>';
 
+		self::checkbox( array( Urvanov_Syntax_Highlighter_Settings::BBPRESS_POSTS, esc_html__( 'List posts for bbPress forums, topics, and replies', 'urvanov-syntax-highlighter' ) ) );
+
 		// phpcs:ignore WordPress.Security.EscapeOutput
 		echo self::button(
 			array(
@@ -1371,6 +1373,7 @@ class Urvanov_Syntax_Highlighter_Settings_WP {
 		$posts = array();
 
 		$count = count( $post_ids );
+
 		for ( $i = 0; $i < $count; $i ++ ) {
 			$posts[ $i ] = get_post( $post_ids[ $i ] );
 		}

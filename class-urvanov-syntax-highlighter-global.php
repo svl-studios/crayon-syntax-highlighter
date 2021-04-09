@@ -10,15 +10,44 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Debug switch.
+ */
+const URVANOV_SYNTAX_HIGHLIGHTER_DEBUG = false;
+
+/**
+ * Tag editor switch.
+ */
+const URVANOV_SYNTAX_HIGHLIGHTER_TAG_EDITOR = true;
+
+/**
+ * Theme editor switch.
+ */
+const URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR = true;
+
+/**
+ * Minify switch.
+ */
+const URVANOV_SYNTAX_HIGHLIGHTER_MINIFY = false;
+
+// These are overridden by functions since v1.1.1.
+$urvanov_syntax_highlighter_version     = '2.8.21';
+$urvanov_syntax_highlighter_date        = '22th August, 2020';
+$urvanov_syntax_highlighter_author      = 'Fedor Urvanov';
+$urvanov_syntax_highlighter_author_site = 'https://urvanov.ru';
+$urvanov_syntax_highlighter_donate      = 'https://money.yandex.ru/to/41001288941320';
+$urvanov_syntax_highlighter_website     = 'https://github.com/urvanov-ru/crayon-syntax-highlighter';
+$urvanov_syntax_highlighter_email       = 'fedor@urvanov.ru';
+$urvanov_syntax_highlighter_twitter     = 'https://twitter.com/crayonsyntax';
+$urvanov_syntax_highlighter_git         = 'https://github.com/urvanov-ru/crayon-syntax-highlighter';
+$urvanov_syntax_highlighter_plugin_wp   = 'https://wordpress.org/plugins/urvanov-syntax-highlighter/';
+
 if ( ! class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 
 	/**
 	 * Class Urvanov_Syntax_Highlighter_Global
 	 */
 	class Urvanov_Syntax_Highlighter_Global {
-
-		// Turn on the error & exception handlers
-		// crayon_handler_on();.
 
 		/**
 		 * Check for forwardslash/backslash in folder path to structure paths
@@ -95,14 +124,16 @@ if ( ! class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 		 * @param array  $array Array...really tho?.
 		 * @param mixed  $info Info.
 		 *
-		 * @return mixed
+		 * @return bool
 		 */
-		public static function set_info_key( string $key, array $array, &$info ) {
+		public static function set_info_key( string $key, array $array, &$info ): bool {
 			if ( array_key_exists( $key, $array ) ) {
 				$info = $array[ $key ];
 			} else {
 				return false;
 			}
+
+			return true;
 		}
 
 		/**
@@ -153,38 +184,6 @@ if ( ! class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 		}
 	}
 }
-
-/**
- * Debug switch.
- */
-const URVANOV_SYNTAX_HIGHLIGHTER_DEBUG = true;
-
-/**
- * Tag editor switch.
- */
-const URVANOV_SYNTAX_HIGHLIGHTER_TAG_EDITOR = true;
-
-/**
- * Theme editor switch.
- */
-const URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR = true;
-
-/**
- * Minify switch.
- */
-const URVANOV_SYNTAX_HIGHLIGHTER_MINIFY = false;
-
-// These are overridden by functions since v1.1.1.
-$urvanov_syntax_highlighter_version     = '1.1.1';
-$urvanov_syntax_highlighter_date        = '22th August, 2020';
-$urvanov_syntax_highlighter_author      = 'Fedor Urvanov';
-$urvanov_syntax_highlighter_author_site = 'https://urvanov.ru';
-$urvanov_syntax_highlighter_donate      = 'https://money.yandex.ru/to/41001288941320';
-$urvanov_syntax_highlighter_website     = 'https://github.com/urvanov-ru/crayon-syntax-highlighter';
-$urvanov_syntax_highlighter_email       = 'fedor@urvanov.ru';
-$urvanov_syntax_highlighter_twitter     = 'https://twitter.com/crayonsyntax';
-$urvanov_syntax_highlighter_git         = 'https://github.com/urvanov-ru/crayon-syntax-highlighter';
-$urvanov_syntax_highlighter_plugin_wp   = 'https://wordpress.org/plugins/urvanov-syntax-highlighter/';
 
 /**
  * Highlighter title.
@@ -543,3 +542,4 @@ const URVANOV_SYNTAX_HIGHLIGHTER_NL = "\r\n";
 require_once URVANOV_SYNTAX_HIGHLIGHTER_UTIL_PHP;
 require_once URVANOV_SYNTAX_HIGHLIGHTER_TIMER_PHP;
 require_once URVANOV_SYNTAX_HIGHLIGHTER_LOG_PHP;
+

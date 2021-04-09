@@ -230,6 +230,11 @@ class Urvanov_Syntax_Highlighter_Settings {
 	const STRIPED = 'striped';
 
 	/**
+	 * BbPress post support.
+	 */
+	const BBPRESS_POSTS = 'bbpress-posts';
+
+	/**
 	 * Marking class.
 	 */
 	const MARKING = 'marking';
@@ -581,6 +586,27 @@ class Urvanov_Syntax_Highlighter_Settings {
 	 */
 	public function __construct() {
 		$this->init();
+
+		add_filter( 'bbp_register_forum_post_type', array( $this, 'bbpress_switch_exclude_from_search' ) );
+		add_filter( 'bbp_register_topic_post_type', array( $this, 'bbpress_switch_exclude_from_search' ) );
+		add_filter( 'bbp_register_reply_post_type', array( $this, 'bbpress_switch_exclude_from_search' ) );
+	}
+
+	/**
+	 * Fix bbPress post types to be searchable.
+	 *
+	 * @param array $args Arguments.
+	 *
+	 * @return array
+	 */
+	public function bbpress_switch_exclude_from_search( array $args ): array {
+		$settings = $this->copy();
+
+		if ( $settings->val( self::BBPRESS_POSTS ) ) {
+			$args['exclude_from_search'] = false;
+		}
+
+		return $args;
 	}
 
 	/**
@@ -698,6 +724,7 @@ class Urvanov_Syntax_Highlighter_Settings {
 			new Urvanov_Syntax_Highlighter_Setting( self::SHOW_TITLE, true ),
 			new Urvanov_Syntax_Highlighter_Setting( self::STRIPED, true ),
 			new Urvanov_Syntax_Highlighter_Setting( self::MARKING, true ),
+			new Urvanov_Syntax_Highlighter_Setting( self::BBPRESS_POSTS, true ),
 			new Urvanov_Syntax_Highlighter_Setting( self::START_LINE, 1 ),
 			new Urvanov_Syntax_Highlighter_Setting( self::NUMS, true ),
 			new Urvanov_Syntax_Highlighter_Setting( self::NUMS_TOGGLE, true ),

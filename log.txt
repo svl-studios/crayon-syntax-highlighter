@@ -20695,3 +20695,1935 @@
 [Crayon Syntax Highlighter Log Entry - 5:14:28 PM - 09 Apr 2021]
 
  [DEBUG] 'init'
+
+[Crayon Syntax Highlighter Log Entry - 5:15:54 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:15:54 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:15:55 PM - 09 Apr 2021]
+
+ [DEBUG] 'init'
+ [DEBUG] 'other_scripts'
+ [DEBUG] 'Init js settings...'
+ [UrvanovSyntaxHighlighterSyntaxSettings to js...] array (
+  'version' => '2.8.20',
+  'is_admin' => 1,
+  'ajaxurl' => 'http://127.0.0.1/support/wp-admin/admin-ajax.php',
+  'prefix' => 'urvanov-syntax-highlighter-',
+  'setting' => 'urvanov-syntax-highlighter-setting',
+  'selected' => 'urvanov-syntax-highlighter-setting-selected',
+  'changed' => 'urvanov-syntax-highlighter-setting-changed',
+  'special' => 'urvanov-syntax-highlighter-setting-special',
+  'orig_value' => 'data-orig-value',
+  'debug' => true,
+)
+ [WP UPLOAD FUNCTION] array (
+  'path' => 'C:\\wamp64\\www/wp-content/uploads/sites/31/2021/04',
+  'url' => 'http://127.0.0.1/support/wp-content/uploads/sites/31/2021/04',
+  'subdir' => '/2021/04',
+  'basedir' => 'C:\\wamp64\\www/wp-content/uploads/sites/31',
+  'baseurl' => 'http://127.0.0.1/support/wp-content/uploads/sites/31',
+  'error' => false,
+)
+ [URVANOV_SYNTAX_HIGHLIGHTER_DIR=crayon-syntax-highlighter/] 'crayon-syntax-highlighter/'
+ [UPLOAD PATH] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/'
+ [DEBUG] 'Setting lang directories'
+ [DEBUG] '/langs/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/langs/'
+ [DEBUG] 'Added resource: /langs/1c-kod/1c-kod.txt'
+ [DEBUG] 'Added resource: /langs/1c-zapros/1c-zapros.txt'
+ [DEBUG] 'Added resource: /langs/abap/abap.txt'
+ [DEBUG] 'Added resource: /langs/amigados/amigados.txt'
+ [DEBUG] 'Added resource: /langs/apache/apache.txt'
+ [DEBUG] 'Added resource: /langs/applescript/applescript.txt'
+ [DEBUG] 'Added resource: /langs/arduino/arduino.txt'
+ [DEBUG] 'Added resource: /langs/as/as.txt'
+ [DEBUG] 'Added resource: /langs/asm/asm.txt'
+ [DEBUG] 'Added resource: /langs/asp/asp.txt'
+ [DEBUG] 'Added resource: /langs/autoit/autoit.txt'
+ [DEBUG] 'Added resource: /langs/batch/batch.txt'
+ [DEBUG] 'Added resource: /langs/c/c.txt'
+ [DEBUG] 'Added resource: /langs/c#/c#.txt'
+ [DEBUG] 'Added resource: /langs/c++/c++.txt'
+ [DEBUG] 'Added resource: /langs/clojure/clojure.txt'
+ [DEBUG] 'Added resource: /langs/coffee/coffee.txt'
+ [DEBUG] 'Added resource: /langs/css/css.txt'
+ [DEBUG] 'Added resource: /langs/default/default.txt'
+ [DEBUG] 'Added resource: /langs/delphi/delphi.txt'
+ [DEBUG] 'Added resource: /langs/diff/diff.txt'
+ [DEBUG] 'Added resource: /langs/dws/dws.txt'
+ [DEBUG] 'Added resource: /langs/erlang/erlang.txt'
+ [DEBUG] 'Added resource: /langs/go/go.txt'
+ [DEBUG] 'Added resource: /langs/haskell/haskell.txt'
+ [DEBUG] 'Added resource: /langs/ilogic/ilogic.txt'
+ [DEBUG] 'Added resource: /langs/ini/ini.txt'
+ [DEBUG] 'Added resource: /langs/java/java.txt'
+ [DEBUG] 'Added resource: /langs/js/js.txt'
+ [DEBUG] 'Added resource: /langs/kl/kl.txt'
+ [DEBUG] 'Added resource: /langs/less/less.txt'
+ [DEBUG] 'Added resource: /langs/lisp/lisp.txt'
+ [DEBUG] 'Added resource: /langs/lua/lua.txt'
+ [DEBUG] 'Added resource: /langs/matlab/matlab.txt'
+ [DEBUG] 'Added resource: /langs/mel/mel.txt'
+ [DEBUG] 'Added resource: /langs/miva/miva.txt'
+ [DEBUG] 'Added resource: /langs/monkey/monkey.txt'
+ [DEBUG] 'Added resource: /langs/mysql/mysql.txt'
+ [DEBUG] 'Added resource: /langs/objc/objc.txt'
+ [DEBUG] 'Added resource: /langs/ocaml/ocaml.txt'
+ [DEBUG] 'Added resource: /langs/papyrus/papyrus.txt'
+ [DEBUG] 'Added resource: /langs/perl/perl.txt'
+ [DEBUG] 'Added resource: /langs/pgsql/pgsql.txt'
+ [DEBUG] 'Added resource: /langs/php/php.txt'
+ [DEBUG] 'Added resource: /langs/plsql/plsql.txt'
+ [DEBUG] 'Added resource: /langs/ps/ps.txt'
+ [DEBUG] 'Added resource: /langs/python/python.txt'
+ [DEBUG] 'Added resource: /langs/r/r.txt'
+ [DEBUG] 'Added resource: /langs/reg/reg.txt'
+ [DEBUG] 'Added resource: /langs/ruby/ruby.txt'
+ [DEBUG] 'Added resource: /langs/rust/rust.txt'
+ [DEBUG] 'Added resource: /langs/sass/sass.txt'
+ [DEBUG] 'Added resource: /langs/scala/scala.txt'
+ [DEBUG] 'Added resource: /langs/scheme/scheme.txt'
+ [DEBUG] 'Added resource: /langs/sh/sh.txt'
+ [DEBUG] 'Added resource: /langs/swift/swift.txt'
+ [DEBUG] 'Added resource: /langs/tex/tex.txt'
+ [DEBUG] 'Added resource: /langs/tsql/tsql.txt'
+ [DEBUG] 'Added resource: /langs/vb/vb.txt'
+ [DEBUG] 'Added resource: /langs/verilog/verilog.txt'
+ [DEBUG] 'Added resource: /langs/vim/vim.txt'
+ [DEBUG] 'Added resource: /langs/xhtml/xhtml.txt'
+ [DEBUG] 'Added resource: /langs/yaml/yaml.txt'
+ [DEBUG] 'Added resource: /langs/zsh/zsh.txt'
+ [DEBUG] 'Parsing language /langs/default/default.txt'
+ [DEBUG] 'Setting theme directories'
+ [DEBUG] '/themes/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/'
+ [DEBUG] 'Added resource: /themes/1c-kod/1c-kod.css'
+ [DEBUG] 'Added resource: /themes/1c-zapros/1c-zapros.css'
+ [DEBUG] 'Added resource: /themes/809finest/809finest.css'
+ [DEBUG] 'Added resource: /themes/ado/ado.css'
+ [DEBUG] 'Added resource: /themes/amity/amity.css'
+ [DEBUG] 'Added resource: /themes/arduino-ide/arduino-ide.css'
+ [DEBUG] 'Added resource: /themes/bncplusplus/bncplusplus.css'
+ [DEBUG] 'Added resource: /themes/capacitacionti/capacitacionti.css'
+ [DEBUG] 'Added resource: /themes/cg-cookie/cg-cookie.css'
+ [DEBUG] 'Added resource: /themes/cisco-router/cisco-router.css'
+ [DEBUG] 'Added resource: /themes/classic/classic.css'
+ [DEBUG] 'Added resource: /themes/coda-special-board/coda-special-board.css'
+ [DEBUG] 'Added resource: /themes/coy/coy.css'
+ [DEBUG] 'Added resource: /themes/dark-terminal/dark-terminal.css'
+ [DEBUG] 'Added resource: /themes/eclipse/eclipse.css'
+ [DEBUG] 'Added resource: /themes/epicgeeks/epicgeeks.css'
+ [DEBUG] 'Added resource: /themes/familiar/familiar.css'
+ [DEBUG] 'Added resource: /themes/feeldesign/feeldesign.css'
+ [DEBUG] 'Added resource: /themes/flatui-light/flatui-light.css'
+ [DEBUG] 'Added resource: /themes/github/github.css'
+ [DEBUG] 'Added resource: /themes/idle/idle.css'
+ [DEBUG] 'Added resource: /themes/inlellij-idea/inlellij-idea.css'
+ [DEBUG] 'Added resource: /themes/iris-vfx/iris-vfx.css'
+ [DEBUG] 'Added resource: /themes/kaderu/kaderu.css'
+ [DEBUG] 'Added resource: /themes/kayote/kayote.css'
+ [DEBUG] 'Added resource: /themes/light-abite/light-abite.css'
+ [DEBUG] 'Added resource: /themes/mirc-dark/mirc-dark.css'
+ [DEBUG] 'Added resource: /themes/mm-dark-blue/mm-dark-blue.css'
+ [DEBUG] 'Added resource: /themes/monokai/monokai.css'
+ [DEBUG] 'Added resource: /themes/neon/neon.css'
+ [DEBUG] 'Added resource: /themes/obsidian/obsidian.css'
+ [DEBUG] 'Added resource: /themes/obsidian-light/obsidian-light.css'
+ [DEBUG] 'Added resource: /themes/onderka15/onderka15.css'
+ [DEBUG] 'Added resource: /themes/orange-code/orange-code.css'
+ [DEBUG] 'Added resource: /themes/plain-white/plain-white.css'
+ [DEBUG] 'Added resource: /themes/powershell/powershell.css'
+ [DEBUG] 'Added resource: /themes/powershell-ise/powershell-ise.css'
+ [DEBUG] 'Added resource: /themes/prism-like/prism-like.css'
+ [DEBUG] 'Added resource: /themes/pspad/pspad.css'
+ [DEBUG] 'Added resource: /themes/qtcreator/qtcreator.css'
+ [DEBUG] 'Added resource: /themes/raygun/raygun.css'
+ [DEBUG] 'Added resource: /themes/secrets-of-rock/secrets-of-rock.css'
+ [DEBUG] 'Added resource: /themes/shell-default/shell-default.css'
+ [DEBUG] 'Added resource: /themes/solarized-dark/solarized-dark.css'
+ [DEBUG] 'Added resource: /themes/solarized-light/solarized-light.css'
+ [DEBUG] 'Added resource: /themes/son-of-obsidian/son-of-obsidian.css'
+ [DEBUG] 'Added resource: /themes/ssms2012/ssms2012.css'
+ [DEBUG] 'Added resource: /themes/sublime-text/sublime-text.css'
+ [DEBUG] 'Added resource: /themes/terminal/terminal.css'
+ [DEBUG] 'Added resource: /themes/tomorrow/tomorrow.css'
+ [DEBUG] 'Added resource: /themes/tomorrow-night/tomorrow-night.css'
+ [DEBUG] 'Added resource: /themes/turnwall/turnwall.css'
+ [DEBUG] 'Added resource: /themes/twilight/twilight.css'
+ [DEBUG] 'Added resource: /themes/visual-assist/visual-assist.css'
+ [DEBUG] 'Added resource: /themes/vs2012/vs2012.css'
+ [DEBUG] 'Added resource: /themes/vs2012-black/vs2012-black.css'
+ [DEBUG] 'Added resource: /themes/x3info/x3info.css'
+ [DEBUG] 'Added resource: /themes/xcode/xcode.css'
+ [DEBUG] 'Added resource: C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/bncplusplus-copy/bncplusplus-copy.css'
+ [Theme editor settings] array (
+  'cssThemePrefix' => '.crayon-theme-',
+  'cssInputPrefix' => 'crayon-theme-input-',
+  'attribute' => 'attribute',
+  'fields' => 
+  array (
+    'name' => 'Name',
+    'description' => 'Description',
+    'version' => 'Version',
+    'author' => 'Author',
+    'url' => 'URL',
+    'original-author' => 'Original Author',
+    'notes' => 'Notes',
+    'maintainer' => 'Maintainer',
+    'maintainer-url' => 'Maintainer URL',
+  ),
+  'fieldsInverse' => 
+  array (
+    'Name' => 'name',
+    'Description' => 'description',
+    'Version' => 'version',
+    'Author' => 'author',
+    'URL' => 'url',
+    'Original Author' => 'original-author',
+    'Notes' => 'notes',
+    'Maintainer' => 'maintainer',
+    'Maintainer URL' => 'maintainer-url',
+  ),
+  'prefix' => 'urvanov-syntax-highlighter-theme-editor',
+)
+ [DEBUG] 'Setting font directories'
+ [DEBUG] '/fonts/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/fonts/'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/arial.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/courier-new.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monospace.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/tahoma.css'
+ [DEBUG] 'Added resource: /fonts/times.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/verdana.css'
+ [DEBUG] 'Parsing language /langs/1c-kod/1c-kod.txt'
+ [DEBUG] 'Parsing language /langs/1c-zapros/1c-zapros.txt'
+ [DEBUG] 'Parsing language /langs/abap/abap.txt'
+ [DEBUG] 'Parsing language /langs/amigados/amigados.txt'
+ [DEBUG] 'Parsing language /langs/apache/apache.txt'
+ [DEBUG] 'Parsing language /langs/applescript/applescript.txt'
+ [DEBUG] 'Parsing language /langs/arduino/arduino.txt'
+ [DEBUG] 'Parsing language /langs/as/as.txt'
+ [DEBUG] 'Parsing language /langs/asm/asm.txt'
+ [DEBUG] 'Parsing language /langs/asp/asp.txt'
+ [DEBUG] 'Parsing language /langs/autoit/autoit.txt'
+ [DEBUG] 'Parsing language /langs/batch/batch.txt'
+ [DEBUG] 'Parsing language /langs/c/c.txt'
+ [DEBUG] 'Parsing language /langs/c#/c#.txt'
+ [DEBUG] 'Parsing language /langs/c++/c++.txt'
+ [DEBUG] 'Parsing language /langs/clojure/clojure.txt'
+ [DEBUG] 'Parsing language /langs/coffee/coffee.txt'
+ [DEBUG] 'Parsing language /langs/css/css.txt'
+ [DEBUG] 'Parsing language /langs/delphi/delphi.txt'
+ [DEBUG] 'Parsing language /langs/diff/diff.txt'
+ [DEBUG] 'Parsing language /langs/dws/dws.txt'
+ [DEBUG] 'Parsing language /langs/erlang/erlang.txt'
+ [DEBUG] 'Parsing language /langs/go/go.txt'
+ [DEBUG] 'Parsing language /langs/haskell/haskell.txt'
+ [DEBUG] 'Parsing language /langs/ilogic/ilogic.txt'
+ [DEBUG] 'Parsing language /langs/ini/ini.txt'
+ [DEBUG] 'Parsing language /langs/java/java.txt'
+ [DEBUG] 'Parsing language /langs/js/js.txt'
+ [DEBUG] 'Parsing language /langs/kl/kl.txt'
+ [DEBUG] 'Parsing language /langs/less/less.txt'
+ [DEBUG] 'Parsing language /langs/lisp/lisp.txt'
+ [DEBUG] 'Parsing language /langs/lua/lua.txt'
+ [DEBUG] 'Parsing language /langs/matlab/matlab.txt'
+ [DEBUG] 'Parsing language /langs/mel/mel.txt'
+ [DEBUG] 'Parsing language /langs/miva/miva.txt'
+ [DEBUG] 'Parsing language /langs/monkey/monkey.txt'
+ [DEBUG] 'Parsing language /langs/mysql/mysql.txt'
+ [DEBUG] 'Parsing language /langs/objc/objc.txt'
+ [DEBUG] 'Parsing language /langs/ocaml/ocaml.txt'
+ [DEBUG] 'Parsing language /langs/papyrus/papyrus.txt'
+ [DEBUG] 'Parsing language /langs/perl/perl.txt'
+ [DEBUG] 'Parsing language /langs/pgsql/pgsql.txt'
+ [DEBUG] 'Parsing language /langs/php/php.txt'
+ [DEBUG] 'Parsing language /langs/plsql/plsql.txt'
+ [DEBUG] 'Parsing language /langs/ps/ps.txt'
+ [DEBUG] 'Parsing language /langs/python/python.txt'
+ [DEBUG] 'Parsing language /langs/r/r.txt'
+ [DEBUG] 'Parsing language /langs/reg/reg.txt'
+ [DEBUG] 'Parsing language /langs/ruby/ruby.txt'
+ [DEBUG] 'Parsing language /langs/rust/rust.txt'
+ [DEBUG] 'Parsing language /langs/sass/sass.txt'
+ [DEBUG] 'Parsing language /langs/scala/scala.txt'
+ [DEBUG] 'Parsing language /langs/scheme/scheme.txt'
+ [DEBUG] 'Parsing language /langs/sh/sh.txt'
+ [DEBUG] 'Parsing language /langs/swift/swift.txt'
+ [DEBUG] 'Parsing language /langs/tex/tex.txt'
+ [DEBUG] 'Parsing language /langs/tsql/tsql.txt'
+ [DEBUG] 'Parsing language /langs/vb/vb.txt'
+ [DEBUG] 'Parsing language /langs/verilog/verilog.txt'
+ [DEBUG] 'Parsing language /langs/vim/vim.txt'
+ [DEBUG] 'Parsing language /langs/xhtml/xhtml.txt'
+ [DEBUG] 'Parsing language /langs/yaml/yaml.txt'
+ [DEBUG] 'Parsing language /langs/zsh/zsh.txt'
+ [DEBUG] 'capture for id 23 len 17'
+ [DEBUG] 'capture adding id 23 , now has len 17'
+ [DEBUG] 'capture added id 23 : 17'
+ [DEBUG] 'capture for id 1 len 118'
+ [DEBUG] 'capture adding id 1 , now has len 118'
+ [DEBUG] 'capture added id 1 : 118'
+ [DEBUG] 'capture for id 1 len 210'
+ [DEBUG] 'capture adding id 1 , now has len 210'
+ [DEBUG] 'capture added id 1 : 210'
+ [DEBUG] 'capture for id 2 len 1269'
+ [DEBUG] 'capture adding id 2 , now has len 1269'
+ [DEBUG] 'capture added id 2 : 1269'
+
+[Crayon Syntax Highlighter Log Entry - 5:15:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+ [WP UPLOAD FUNCTION] array (
+  'path' => 'C:\\wamp64\\www/wp-content/uploads/sites/31/2021/04',
+  'url' => 'http://127.0.0.1/support/wp-content/uploads/sites/31/2021/04',
+  'subdir' => '/2021/04',
+  'basedir' => 'C:\\wamp64\\www/wp-content/uploads/sites/31',
+  'baseurl' => 'http://127.0.0.1/support/wp-content/uploads/sites/31',
+  'error' => false,
+)
+ [URVANOV_SYNTAX_HIGHLIGHTER_DIR=crayon-syntax-highlighter/] 'crayon-syntax-highlighter/'
+ [UPLOAD PATH] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/'
+ [DEBUG] 'Setting lang directories'
+ [DEBUG] '/langs/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/langs/'
+ [DEBUG] 'Added resource: /langs/1c-kod/1c-kod.txt'
+ [DEBUG] 'Added resource: /langs/1c-zapros/1c-zapros.txt'
+ [DEBUG] 'Added resource: /langs/abap/abap.txt'
+ [DEBUG] 'Added resource: /langs/amigados/amigados.txt'
+ [DEBUG] 'Added resource: /langs/apache/apache.txt'
+ [DEBUG] 'Added resource: /langs/applescript/applescript.txt'
+ [DEBUG] 'Added resource: /langs/arduino/arduino.txt'
+ [DEBUG] 'Added resource: /langs/as/as.txt'
+ [DEBUG] 'Added resource: /langs/asm/asm.txt'
+ [DEBUG] 'Added resource: /langs/asp/asp.txt'
+ [DEBUG] 'Added resource: /langs/autoit/autoit.txt'
+ [DEBUG] 'Added resource: /langs/batch/batch.txt'
+ [DEBUG] 'Added resource: /langs/c/c.txt'
+ [DEBUG] 'Added resource: /langs/c#/c#.txt'
+ [DEBUG] 'Added resource: /langs/c++/c++.txt'
+ [DEBUG] 'Added resource: /langs/clojure/clojure.txt'
+ [DEBUG] 'Added resource: /langs/coffee/coffee.txt'
+ [DEBUG] 'Added resource: /langs/css/css.txt'
+ [DEBUG] 'Added resource: /langs/default/default.txt'
+ [DEBUG] 'Added resource: /langs/delphi/delphi.txt'
+ [DEBUG] 'Added resource: /langs/diff/diff.txt'
+ [DEBUG] 'Added resource: /langs/dws/dws.txt'
+ [DEBUG] 'Added resource: /langs/erlang/erlang.txt'
+ [DEBUG] 'Added resource: /langs/go/go.txt'
+ [DEBUG] 'Added resource: /langs/haskell/haskell.txt'
+ [DEBUG] 'Added resource: /langs/ilogic/ilogic.txt'
+ [DEBUG] 'Added resource: /langs/ini/ini.txt'
+ [DEBUG] 'Added resource: /langs/java/java.txt'
+ [DEBUG] 'Added resource: /langs/js/js.txt'
+ [DEBUG] 'Added resource: /langs/kl/kl.txt'
+ [DEBUG] 'Added resource: /langs/less/less.txt'
+ [DEBUG] 'Added resource: /langs/lisp/lisp.txt'
+ [DEBUG] 'Added resource: /langs/lua/lua.txt'
+ [DEBUG] 'Added resource: /langs/matlab/matlab.txt'
+ [DEBUG] 'Added resource: /langs/mel/mel.txt'
+ [DEBUG] 'Added resource: /langs/miva/miva.txt'
+ [DEBUG] 'Added resource: /langs/monkey/monkey.txt'
+ [DEBUG] 'Added resource: /langs/mysql/mysql.txt'
+ [DEBUG] 'Added resource: /langs/objc/objc.txt'
+ [DEBUG] 'Added resource: /langs/ocaml/ocaml.txt'
+ [DEBUG] 'Added resource: /langs/papyrus/papyrus.txt'
+ [DEBUG] 'Added resource: /langs/perl/perl.txt'
+ [DEBUG] 'Added resource: /langs/pgsql/pgsql.txt'
+ [DEBUG] 'Added resource: /langs/php/php.txt'
+ [DEBUG] 'Added resource: /langs/plsql/plsql.txt'
+ [DEBUG] 'Added resource: /langs/ps/ps.txt'
+ [DEBUG] 'Added resource: /langs/python/python.txt'
+ [DEBUG] 'Added resource: /langs/r/r.txt'
+ [DEBUG] 'Added resource: /langs/reg/reg.txt'
+ [DEBUG] 'Added resource: /langs/ruby/ruby.txt'
+ [DEBUG] 'Added resource: /langs/rust/rust.txt'
+ [DEBUG] 'Added resource: /langs/sass/sass.txt'
+ [DEBUG] 'Added resource: /langs/scala/scala.txt'
+ [DEBUG] 'Added resource: /langs/scheme/scheme.txt'
+ [DEBUG] 'Added resource: /langs/sh/sh.txt'
+ [DEBUG] 'Added resource: /langs/swift/swift.txt'
+ [DEBUG] 'Added resource: /langs/tex/tex.txt'
+ [DEBUG] 'Added resource: /langs/tsql/tsql.txt'
+ [DEBUG] 'Added resource: /langs/vb/vb.txt'
+ [DEBUG] 'Added resource: /langs/verilog/verilog.txt'
+ [DEBUG] 'Added resource: /langs/vim/vim.txt'
+ [DEBUG] 'Added resource: /langs/xhtml/xhtml.txt'
+ [DEBUG] 'Added resource: /langs/yaml/yaml.txt'
+ [DEBUG] 'Added resource: /langs/zsh/zsh.txt'
+ [DEBUG] 'Parsing language /langs/default/default.txt'
+ [DEBUG] 'Setting theme directories'
+ [DEBUG] '/themes/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/'
+ [DEBUG] 'Added resource: /themes/1c-kod/1c-kod.css'
+ [DEBUG] 'Added resource: /themes/1c-zapros/1c-zapros.css'
+ [DEBUG] 'Added resource: /themes/809finest/809finest.css'
+ [DEBUG] 'Added resource: /themes/ado/ado.css'
+ [DEBUG] 'Added resource: /themes/amity/amity.css'
+ [DEBUG] 'Added resource: /themes/arduino-ide/arduino-ide.css'
+ [DEBUG] 'Added resource: /themes/bncplusplus/bncplusplus.css'
+ [DEBUG] 'Added resource: /themes/capacitacionti/capacitacionti.css'
+ [DEBUG] 'Added resource: /themes/cg-cookie/cg-cookie.css'
+ [DEBUG] 'Added resource: /themes/cisco-router/cisco-router.css'
+ [DEBUG] 'Added resource: /themes/classic/classic.css'
+ [DEBUG] 'Added resource: /themes/coda-special-board/coda-special-board.css'
+ [DEBUG] 'Added resource: /themes/coy/coy.css'
+ [DEBUG] 'Added resource: /themes/dark-terminal/dark-terminal.css'
+ [DEBUG] 'Added resource: /themes/eclipse/eclipse.css'
+ [DEBUG] 'Added resource: /themes/epicgeeks/epicgeeks.css'
+ [DEBUG] 'Added resource: /themes/familiar/familiar.css'
+ [DEBUG] 'Added resource: /themes/feeldesign/feeldesign.css'
+ [DEBUG] 'Added resource: /themes/flatui-light/flatui-light.css'
+ [DEBUG] 'Added resource: /themes/github/github.css'
+ [DEBUG] 'Added resource: /themes/idle/idle.css'
+ [DEBUG] 'Added resource: /themes/inlellij-idea/inlellij-idea.css'
+ [DEBUG] 'Added resource: /themes/iris-vfx/iris-vfx.css'
+ [DEBUG] 'Added resource: /themes/kaderu/kaderu.css'
+ [DEBUG] 'Added resource: /themes/kayote/kayote.css'
+ [DEBUG] 'Added resource: /themes/light-abite/light-abite.css'
+ [DEBUG] 'Added resource: /themes/mirc-dark/mirc-dark.css'
+ [DEBUG] 'Added resource: /themes/mm-dark-blue/mm-dark-blue.css'
+ [DEBUG] 'Added resource: /themes/monokai/monokai.css'
+ [DEBUG] 'Added resource: /themes/neon/neon.css'
+ [DEBUG] 'Added resource: /themes/obsidian/obsidian.css'
+ [DEBUG] 'Added resource: /themes/obsidian-light/obsidian-light.css'
+ [DEBUG] 'Added resource: /themes/onderka15/onderka15.css'
+ [DEBUG] 'Added resource: /themes/orange-code/orange-code.css'
+ [DEBUG] 'Added resource: /themes/plain-white/plain-white.css'
+ [DEBUG] 'Added resource: /themes/powershell/powershell.css'
+ [DEBUG] 'Added resource: /themes/powershell-ise/powershell-ise.css'
+ [DEBUG] 'Added resource: /themes/prism-like/prism-like.css'
+ [DEBUG] 'Added resource: /themes/pspad/pspad.css'
+ [DEBUG] 'Added resource: /themes/qtcreator/qtcreator.css'
+ [DEBUG] 'Added resource: /themes/raygun/raygun.css'
+ [DEBUG] 'Added resource: /themes/secrets-of-rock/secrets-of-rock.css'
+ [DEBUG] 'Added resource: /themes/shell-default/shell-default.css'
+ [DEBUG] 'Added resource: /themes/solarized-dark/solarized-dark.css'
+ [DEBUG] 'Added resource: /themes/solarized-light/solarized-light.css'
+ [DEBUG] 'Added resource: /themes/son-of-obsidian/son-of-obsidian.css'
+ [DEBUG] 'Added resource: /themes/ssms2012/ssms2012.css'
+ [DEBUG] 'Added resource: /themes/sublime-text/sublime-text.css'
+ [DEBUG] 'Added resource: /themes/terminal/terminal.css'
+ [DEBUG] 'Added resource: /themes/tomorrow/tomorrow.css'
+ [DEBUG] 'Added resource: /themes/tomorrow-night/tomorrow-night.css'
+ [DEBUG] 'Added resource: /themes/turnwall/turnwall.css'
+ [DEBUG] 'Added resource: /themes/twilight/twilight.css'
+ [DEBUG] 'Added resource: /themes/visual-assist/visual-assist.css'
+ [DEBUG] 'Added resource: /themes/vs2012/vs2012.css'
+ [DEBUG] 'Added resource: /themes/vs2012-black/vs2012-black.css'
+ [DEBUG] 'Added resource: /themes/x3info/x3info.css'
+ [DEBUG] 'Added resource: /themes/xcode/xcode.css'
+ [DEBUG] 'Added resource: C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/bncplusplus-copy/bncplusplus-copy.css'
+ [DEBUG] 'instance'
+ [DEBUG] 'Setting font directories'
+ [DEBUG] '/fonts/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/fonts/'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/arial.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/courier-new.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monospace.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/tahoma.css'
+ [DEBUG] 'Added resource: /fonts/times.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/verdana.css'
+
+[Crayon Syntax Highlighter Log Entry - 5:16:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:17:00 PM - 09 Apr 2021]
+
+ [DEBUG] 'init'
+
+[Crayon Syntax Highlighter Log Entry - 5:19:09 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:19:09 PM - 09 Apr 2021]
+
+ [DEBUG] 'init'
+ [DEBUG] 'other_scripts'
+ [DEBUG] 'Init js settings...'
+ [UrvanovSyntaxHighlighterSyntaxSettings to js...] array (
+  'version' => '2.8.20',
+  'is_admin' => 1,
+  'ajaxurl' => 'http://127.0.0.1/support/wp-admin/admin-ajax.php',
+  'prefix' => 'urvanov-syntax-highlighter-',
+  'setting' => 'urvanov-syntax-highlighter-setting',
+  'selected' => 'urvanov-syntax-highlighter-setting-selected',
+  'changed' => 'urvanov-syntax-highlighter-setting-changed',
+  'special' => 'urvanov-syntax-highlighter-setting-special',
+  'orig_value' => 'data-orig-value',
+  'debug' => true,
+)
+ [WP UPLOAD FUNCTION] array (
+  'path' => 'C:\\wamp64\\www/wp-content/uploads/sites/31/2021/04',
+  'url' => 'http://127.0.0.1/support/wp-content/uploads/sites/31/2021/04',
+  'subdir' => '/2021/04',
+  'basedir' => 'C:\\wamp64\\www/wp-content/uploads/sites/31',
+  'baseurl' => 'http://127.0.0.1/support/wp-content/uploads/sites/31',
+  'error' => false,
+)
+ [URVANOV_SYNTAX_HIGHLIGHTER_DIR=crayon-syntax-highlighter/] 'crayon-syntax-highlighter/'
+ [UPLOAD PATH] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/'
+ [DEBUG] 'Setting lang directories'
+ [DEBUG] '/langs/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/langs/'
+ [DEBUG] 'Added resource: /langs/1c-kod/1c-kod.txt'
+ [DEBUG] 'Added resource: /langs/1c-zapros/1c-zapros.txt'
+ [DEBUG] 'Added resource: /langs/abap/abap.txt'
+ [DEBUG] 'Added resource: /langs/amigados/amigados.txt'
+ [DEBUG] 'Added resource: /langs/apache/apache.txt'
+ [DEBUG] 'Added resource: /langs/applescript/applescript.txt'
+ [DEBUG] 'Added resource: /langs/arduino/arduino.txt'
+ [DEBUG] 'Added resource: /langs/as/as.txt'
+ [DEBUG] 'Added resource: /langs/asm/asm.txt'
+ [DEBUG] 'Added resource: /langs/asp/asp.txt'
+ [DEBUG] 'Added resource: /langs/autoit/autoit.txt'
+ [DEBUG] 'Added resource: /langs/batch/batch.txt'
+ [DEBUG] 'Added resource: /langs/c/c.txt'
+ [DEBUG] 'Added resource: /langs/c#/c#.txt'
+ [DEBUG] 'Added resource: /langs/c++/c++.txt'
+ [DEBUG] 'Added resource: /langs/clojure/clojure.txt'
+ [DEBUG] 'Added resource: /langs/coffee/coffee.txt'
+ [DEBUG] 'Added resource: /langs/css/css.txt'
+ [DEBUG] 'Added resource: /langs/default/default.txt'
+ [DEBUG] 'Added resource: /langs/delphi/delphi.txt'
+ [DEBUG] 'Added resource: /langs/diff/diff.txt'
+ [DEBUG] 'Added resource: /langs/dws/dws.txt'
+ [DEBUG] 'Added resource: /langs/erlang/erlang.txt'
+ [DEBUG] 'Added resource: /langs/go/go.txt'
+ [DEBUG] 'Added resource: /langs/haskell/haskell.txt'
+ [DEBUG] 'Added resource: /langs/ilogic/ilogic.txt'
+ [DEBUG] 'Added resource: /langs/ini/ini.txt'
+ [DEBUG] 'Added resource: /langs/java/java.txt'
+ [DEBUG] 'Added resource: /langs/js/js.txt'
+ [DEBUG] 'Added resource: /langs/kl/kl.txt'
+ [DEBUG] 'Added resource: /langs/less/less.txt'
+ [DEBUG] 'Added resource: /langs/lisp/lisp.txt'
+ [DEBUG] 'Added resource: /langs/lua/lua.txt'
+ [DEBUG] 'Added resource: /langs/matlab/matlab.txt'
+ [DEBUG] 'Added resource: /langs/mel/mel.txt'
+ [DEBUG] 'Added resource: /langs/miva/miva.txt'
+ [DEBUG] 'Added resource: /langs/monkey/monkey.txt'
+ [DEBUG] 'Added resource: /langs/mysql/mysql.txt'
+ [DEBUG] 'Added resource: /langs/objc/objc.txt'
+ [DEBUG] 'Added resource: /langs/ocaml/ocaml.txt'
+ [DEBUG] 'Added resource: /langs/papyrus/papyrus.txt'
+ [DEBUG] 'Added resource: /langs/perl/perl.txt'
+ [DEBUG] 'Added resource: /langs/pgsql/pgsql.txt'
+ [DEBUG] 'Added resource: /langs/php/php.txt'
+ [DEBUG] 'Added resource: /langs/plsql/plsql.txt'
+ [DEBUG] 'Added resource: /langs/ps/ps.txt'
+ [DEBUG] 'Added resource: /langs/python/python.txt'
+ [DEBUG] 'Added resource: /langs/r/r.txt'
+ [DEBUG] 'Added resource: /langs/reg/reg.txt'
+ [DEBUG] 'Added resource: /langs/ruby/ruby.txt'
+ [DEBUG] 'Added resource: /langs/rust/rust.txt'
+ [DEBUG] 'Added resource: /langs/sass/sass.txt'
+ [DEBUG] 'Added resource: /langs/scala/scala.txt'
+ [DEBUG] 'Added resource: /langs/scheme/scheme.txt'
+ [DEBUG] 'Added resource: /langs/sh/sh.txt'
+ [DEBUG] 'Added resource: /langs/swift/swift.txt'
+ [DEBUG] 'Added resource: /langs/tex/tex.txt'
+ [DEBUG] 'Added resource: /langs/tsql/tsql.txt'
+ [DEBUG] 'Added resource: /langs/vb/vb.txt'
+ [DEBUG] 'Added resource: /langs/verilog/verilog.txt'
+ [DEBUG] 'Added resource: /langs/vim/vim.txt'
+ [DEBUG] 'Added resource: /langs/xhtml/xhtml.txt'
+ [DEBUG] 'Added resource: /langs/yaml/yaml.txt'
+ [DEBUG] 'Added resource: /langs/zsh/zsh.txt'
+ [DEBUG] 'Parsing language /langs/default/default.txt'
+ [DEBUG] 'Setting theme directories'
+ [DEBUG] '/themes/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/'
+ [DEBUG] 'Added resource: /themes/1c-kod/1c-kod.css'
+ [DEBUG] 'Added resource: /themes/1c-zapros/1c-zapros.css'
+ [DEBUG] 'Added resource: /themes/809finest/809finest.css'
+ [DEBUG] 'Added resource: /themes/ado/ado.css'
+ [DEBUG] 'Added resource: /themes/amity/amity.css'
+ [DEBUG] 'Added resource: /themes/arduino-ide/arduino-ide.css'
+ [DEBUG] 'Added resource: /themes/bncplusplus/bncplusplus.css'
+ [DEBUG] 'Added resource: /themes/capacitacionti/capacitacionti.css'
+ [DEBUG] 'Added resource: /themes/cg-cookie/cg-cookie.css'
+ [DEBUG] 'Added resource: /themes/cisco-router/cisco-router.css'
+ [DEBUG] 'Added resource: /themes/classic/classic.css'
+ [DEBUG] 'Added resource: /themes/coda-special-board/coda-special-board.css'
+ [DEBUG] 'Added resource: /themes/coy/coy.css'
+ [DEBUG] 'Added resource: /themes/dark-terminal/dark-terminal.css'
+ [DEBUG] 'Added resource: /themes/eclipse/eclipse.css'
+ [DEBUG] 'Added resource: /themes/epicgeeks/epicgeeks.css'
+ [DEBUG] 'Added resource: /themes/familiar/familiar.css'
+ [DEBUG] 'Added resource: /themes/feeldesign/feeldesign.css'
+ [DEBUG] 'Added resource: /themes/flatui-light/flatui-light.css'
+ [DEBUG] 'Added resource: /themes/github/github.css'
+ [DEBUG] 'Added resource: /themes/idle/idle.css'
+ [DEBUG] 'Added resource: /themes/inlellij-idea/inlellij-idea.css'
+ [DEBUG] 'Added resource: /themes/iris-vfx/iris-vfx.css'
+ [DEBUG] 'Added resource: /themes/kaderu/kaderu.css'
+ [DEBUG] 'Added resource: /themes/kayote/kayote.css'
+ [DEBUG] 'Added resource: /themes/light-abite/light-abite.css'
+ [DEBUG] 'Added resource: /themes/mirc-dark/mirc-dark.css'
+ [DEBUG] 'Added resource: /themes/mm-dark-blue/mm-dark-blue.css'
+ [DEBUG] 'Added resource: /themes/monokai/monokai.css'
+ [DEBUG] 'Added resource: /themes/neon/neon.css'
+ [DEBUG] 'Added resource: /themes/obsidian/obsidian.css'
+ [DEBUG] 'Added resource: /themes/obsidian-light/obsidian-light.css'
+ [DEBUG] 'Added resource: /themes/onderka15/onderka15.css'
+ [DEBUG] 'Added resource: /themes/orange-code/orange-code.css'
+ [DEBUG] 'Added resource: /themes/plain-white/plain-white.css'
+ [DEBUG] 'Added resource: /themes/powershell/powershell.css'
+ [DEBUG] 'Added resource: /themes/powershell-ise/powershell-ise.css'
+ [DEBUG] 'Added resource: /themes/prism-like/prism-like.css'
+ [DEBUG] 'Added resource: /themes/pspad/pspad.css'
+ [DEBUG] 'Added resource: /themes/qtcreator/qtcreator.css'
+ [DEBUG] 'Added resource: /themes/raygun/raygun.css'
+ [DEBUG] 'Added resource: /themes/secrets-of-rock/secrets-of-rock.css'
+ [DEBUG] 'Added resource: /themes/shell-default/shell-default.css'
+ [DEBUG] 'Added resource: /themes/solarized-dark/solarized-dark.css'
+ [DEBUG] 'Added resource: /themes/solarized-light/solarized-light.css'
+ [DEBUG] 'Added resource: /themes/son-of-obsidian/son-of-obsidian.css'
+ [DEBUG] 'Added resource: /themes/ssms2012/ssms2012.css'
+ [DEBUG] 'Added resource: /themes/sublime-text/sublime-text.css'
+ [DEBUG] 'Added resource: /themes/terminal/terminal.css'
+ [DEBUG] 'Added resource: /themes/tomorrow/tomorrow.css'
+ [DEBUG] 'Added resource: /themes/tomorrow-night/tomorrow-night.css'
+ [DEBUG] 'Added resource: /themes/turnwall/turnwall.css'
+ [DEBUG] 'Added resource: /themes/twilight/twilight.css'
+ [DEBUG] 'Added resource: /themes/visual-assist/visual-assist.css'
+ [DEBUG] 'Added resource: /themes/vs2012/vs2012.css'
+ [DEBUG] 'Added resource: /themes/vs2012-black/vs2012-black.css'
+ [DEBUG] 'Added resource: /themes/x3info/x3info.css'
+ [DEBUG] 'Added resource: /themes/xcode/xcode.css'
+ [DEBUG] 'Added resource: C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/bncplusplus-copy/bncplusplus-copy.css'
+ [Theme editor settings] array (
+  'cssThemePrefix' => '.crayon-theme-',
+  'cssInputPrefix' => 'crayon-theme-input-',
+  'attribute' => 'attribute',
+  'fields' => 
+  array (
+    'name' => 'Name',
+    'description' => 'Description',
+    'version' => 'Version',
+    'author' => 'Author',
+    'url' => 'URL',
+    'original-author' => 'Original Author',
+    'notes' => 'Notes',
+    'maintainer' => 'Maintainer',
+    'maintainer-url' => 'Maintainer URL',
+  ),
+  'fieldsInverse' => 
+  array (
+    'Name' => 'name',
+    'Description' => 'description',
+    'Version' => 'version',
+    'Author' => 'author',
+    'URL' => 'url',
+    'Original Author' => 'original-author',
+    'Notes' => 'notes',
+    'Maintainer' => 'maintainer',
+    'Maintainer URL' => 'maintainer-url',
+  ),
+  'prefix' => 'urvanov-syntax-highlighter-theme-editor',
+)
+ [DEBUG] 'Setting font directories'
+ [DEBUG] '/fonts/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/fonts/'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/arial.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/courier-new.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monospace.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/tahoma.css'
+ [DEBUG] 'Added resource: /fonts/times.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/verdana.css'
+ [DEBUG] 'Parsing language /langs/1c-kod/1c-kod.txt'
+ [DEBUG] 'Parsing language /langs/1c-zapros/1c-zapros.txt'
+ [DEBUG] 'Parsing language /langs/abap/abap.txt'
+ [DEBUG] 'Parsing language /langs/amigados/amigados.txt'
+ [DEBUG] 'Parsing language /langs/apache/apache.txt'
+ [DEBUG] 'Parsing language /langs/applescript/applescript.txt'
+ [DEBUG] 'Parsing language /langs/arduino/arduino.txt'
+ [DEBUG] 'Parsing language /langs/as/as.txt'
+ [DEBUG] 'Parsing language /langs/asm/asm.txt'
+ [DEBUG] 'Parsing language /langs/asp/asp.txt'
+ [DEBUG] 'Parsing language /langs/autoit/autoit.txt'
+ [DEBUG] 'Parsing language /langs/batch/batch.txt'
+ [DEBUG] 'Parsing language /langs/c/c.txt'
+ [DEBUG] 'Parsing language /langs/c#/c#.txt'
+ [DEBUG] 'Parsing language /langs/c++/c++.txt'
+ [DEBUG] 'Parsing language /langs/clojure/clojure.txt'
+ [DEBUG] 'Parsing language /langs/coffee/coffee.txt'
+ [DEBUG] 'Parsing language /langs/css/css.txt'
+ [DEBUG] 'Parsing language /langs/delphi/delphi.txt'
+ [DEBUG] 'Parsing language /langs/diff/diff.txt'
+ [DEBUG] 'Parsing language /langs/dws/dws.txt'
+ [DEBUG] 'Parsing language /langs/erlang/erlang.txt'
+ [DEBUG] 'Parsing language /langs/go/go.txt'
+ [DEBUG] 'Parsing language /langs/haskell/haskell.txt'
+ [DEBUG] 'Parsing language /langs/ilogic/ilogic.txt'
+ [DEBUG] 'Parsing language /langs/ini/ini.txt'
+ [DEBUG] 'Parsing language /langs/java/java.txt'
+ [DEBUG] 'Parsing language /langs/js/js.txt'
+ [DEBUG] 'Parsing language /langs/kl/kl.txt'
+ [DEBUG] 'Parsing language /langs/less/less.txt'
+ [DEBUG] 'Parsing language /langs/lisp/lisp.txt'
+ [DEBUG] 'Parsing language /langs/lua/lua.txt'
+ [DEBUG] 'Parsing language /langs/matlab/matlab.txt'
+ [DEBUG] 'Parsing language /langs/mel/mel.txt'
+ [DEBUG] 'Parsing language /langs/miva/miva.txt'
+ [DEBUG] 'Parsing language /langs/monkey/monkey.txt'
+ [DEBUG] 'Parsing language /langs/mysql/mysql.txt'
+ [DEBUG] 'Parsing language /langs/objc/objc.txt'
+ [DEBUG] 'Parsing language /langs/ocaml/ocaml.txt'
+ [DEBUG] 'Parsing language /langs/papyrus/papyrus.txt'
+ [DEBUG] 'Parsing language /langs/perl/perl.txt'
+ [DEBUG] 'Parsing language /langs/pgsql/pgsql.txt'
+ [DEBUG] 'Parsing language /langs/php/php.txt'
+ [DEBUG] 'Parsing language /langs/plsql/plsql.txt'
+ [DEBUG] 'Parsing language /langs/ps/ps.txt'
+ [DEBUG] 'Parsing language /langs/python/python.txt'
+ [DEBUG] 'Parsing language /langs/r/r.txt'
+ [DEBUG] 'Parsing language /langs/reg/reg.txt'
+ [DEBUG] 'Parsing language /langs/ruby/ruby.txt'
+ [DEBUG] 'Parsing language /langs/rust/rust.txt'
+ [DEBUG] 'Parsing language /langs/sass/sass.txt'
+ [DEBUG] 'Parsing language /langs/scala/scala.txt'
+ [DEBUG] 'Parsing language /langs/scheme/scheme.txt'
+ [DEBUG] 'Parsing language /langs/sh/sh.txt'
+ [DEBUG] 'Parsing language /langs/swift/swift.txt'
+ [DEBUG] 'Parsing language /langs/tex/tex.txt'
+ [DEBUG] 'Parsing language /langs/tsql/tsql.txt'
+ [DEBUG] 'Parsing language /langs/vb/vb.txt'
+ [DEBUG] 'Parsing language /langs/verilog/verilog.txt'
+ [DEBUG] 'Parsing language /langs/vim/vim.txt'
+ [DEBUG] 'Parsing language /langs/xhtml/xhtml.txt'
+ [DEBUG] 'Parsing language /langs/yaml/yaml.txt'
+ [DEBUG] 'Parsing language /langs/zsh/zsh.txt'
+ [DEBUG] 'capture for id 23 len 17'
+ [DEBUG] 'capture adding id 23 , now has len 17'
+ [DEBUG] 'capture added id 23 : 17'
+ [DEBUG] 'capture for id 1 len 118'
+ [DEBUG] 'capture adding id 1 , now has len 118'
+ [DEBUG] 'capture added id 1 : 118'
+ [DEBUG] 'capture for id 1 len 210'
+ [DEBUG] 'capture adding id 1 , now has len 210'
+ [DEBUG] 'capture added id 1 : 210'
+ [DEBUG] 'capture for id 2 len 1269'
+ [DEBUG] 'capture adding id 2 , now has len 1269'
+ [DEBUG] 'capture added id 2 : 1269'
+
+[Crayon Syntax Highlighter Log Entry - 5:19:15 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+ [WP UPLOAD FUNCTION] array (
+  'path' => 'C:\\wamp64\\www/wp-content/uploads/sites/31/2021/04',
+  'url' => 'http://127.0.0.1/support/wp-content/uploads/sites/31/2021/04',
+  'subdir' => '/2021/04',
+  'basedir' => 'C:\\wamp64\\www/wp-content/uploads/sites/31',
+  'baseurl' => 'http://127.0.0.1/support/wp-content/uploads/sites/31',
+  'error' => false,
+)
+ [URVANOV_SYNTAX_HIGHLIGHTER_DIR=crayon-syntax-highlighter/] 'crayon-syntax-highlighter/'
+ [UPLOAD PATH] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/'
+ [DEBUG] 'Setting lang directories'
+ [DEBUG] '/langs/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/langs/'
+ [DEBUG] 'Added resource: /langs/1c-kod/1c-kod.txt'
+ [DEBUG] 'Added resource: /langs/1c-zapros/1c-zapros.txt'
+ [DEBUG] 'Added resource: /langs/abap/abap.txt'
+ [DEBUG] 'Added resource: /langs/amigados/amigados.txt'
+ [DEBUG] 'Added resource: /langs/apache/apache.txt'
+ [DEBUG] 'Added resource: /langs/applescript/applescript.txt'
+ [DEBUG] 'Added resource: /langs/arduino/arduino.txt'
+ [DEBUG] 'Added resource: /langs/as/as.txt'
+ [DEBUG] 'Added resource: /langs/asm/asm.txt'
+ [DEBUG] 'Added resource: /langs/asp/asp.txt'
+ [DEBUG] 'Added resource: /langs/autoit/autoit.txt'
+ [DEBUG] 'Added resource: /langs/batch/batch.txt'
+ [DEBUG] 'Added resource: /langs/c/c.txt'
+ [DEBUG] 'Added resource: /langs/c#/c#.txt'
+ [DEBUG] 'Added resource: /langs/c++/c++.txt'
+ [DEBUG] 'Added resource: /langs/clojure/clojure.txt'
+ [DEBUG] 'Added resource: /langs/coffee/coffee.txt'
+ [DEBUG] 'Added resource: /langs/css/css.txt'
+ [DEBUG] 'Added resource: /langs/default/default.txt'
+ [DEBUG] 'Added resource: /langs/delphi/delphi.txt'
+ [DEBUG] 'Added resource: /langs/diff/diff.txt'
+ [DEBUG] 'Added resource: /langs/dws/dws.txt'
+ [DEBUG] 'Added resource: /langs/erlang/erlang.txt'
+ [DEBUG] 'Added resource: /langs/go/go.txt'
+ [DEBUG] 'Added resource: /langs/haskell/haskell.txt'
+ [DEBUG] 'Added resource: /langs/ilogic/ilogic.txt'
+ [DEBUG] 'Added resource: /langs/ini/ini.txt'
+ [DEBUG] 'Added resource: /langs/java/java.txt'
+ [DEBUG] 'Added resource: /langs/js/js.txt'
+ [DEBUG] 'Added resource: /langs/kl/kl.txt'
+ [DEBUG] 'Added resource: /langs/less/less.txt'
+ [DEBUG] 'Added resource: /langs/lisp/lisp.txt'
+ [DEBUG] 'Added resource: /langs/lua/lua.txt'
+ [DEBUG] 'Added resource: /langs/matlab/matlab.txt'
+ [DEBUG] 'Added resource: /langs/mel/mel.txt'
+ [DEBUG] 'Added resource: /langs/miva/miva.txt'
+ [DEBUG] 'Added resource: /langs/monkey/monkey.txt'
+ [DEBUG] 'Added resource: /langs/mysql/mysql.txt'
+ [DEBUG] 'Added resource: /langs/objc/objc.txt'
+ [DEBUG] 'Added resource: /langs/ocaml/ocaml.txt'
+ [DEBUG] 'Added resource: /langs/papyrus/papyrus.txt'
+ [DEBUG] 'Added resource: /langs/perl/perl.txt'
+ [DEBUG] 'Added resource: /langs/pgsql/pgsql.txt'
+ [DEBUG] 'Added resource: /langs/php/php.txt'
+ [DEBUG] 'Added resource: /langs/plsql/plsql.txt'
+ [DEBUG] 'Added resource: /langs/ps/ps.txt'
+ [DEBUG] 'Added resource: /langs/python/python.txt'
+ [DEBUG] 'Added resource: /langs/r/r.txt'
+ [DEBUG] 'Added resource: /langs/reg/reg.txt'
+ [DEBUG] 'Added resource: /langs/ruby/ruby.txt'
+ [DEBUG] 'Added resource: /langs/rust/rust.txt'
+ [DEBUG] 'Added resource: /langs/sass/sass.txt'
+ [DEBUG] 'Added resource: /langs/scala/scala.txt'
+ [DEBUG] 'Added resource: /langs/scheme/scheme.txt'
+ [DEBUG] 'Added resource: /langs/sh/sh.txt'
+ [DEBUG] 'Added resource: /langs/swift/swift.txt'
+ [DEBUG] 'Added resource: /langs/tex/tex.txt'
+ [DEBUG] 'Added resource: /langs/tsql/tsql.txt'
+ [DEBUG] 'Added resource: /langs/vb/vb.txt'
+ [DEBUG] 'Added resource: /langs/verilog/verilog.txt'
+ [DEBUG] 'Added resource: /langs/vim/vim.txt'
+ [DEBUG] 'Added resource: /langs/xhtml/xhtml.txt'
+ [DEBUG] 'Added resource: /langs/yaml/yaml.txt'
+ [DEBUG] 'Added resource: /langs/zsh/zsh.txt'
+ [DEBUG] 'Parsing language /langs/default/default.txt'
+ [DEBUG] 'Setting theme directories'
+ [DEBUG] '/themes/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/'
+ [DEBUG] 'Added resource: /themes/1c-kod/1c-kod.css'
+ [DEBUG] 'Added resource: /themes/1c-zapros/1c-zapros.css'
+ [DEBUG] 'Added resource: /themes/809finest/809finest.css'
+ [DEBUG] 'Added resource: /themes/ado/ado.css'
+ [DEBUG] 'Added resource: /themes/amity/amity.css'
+ [DEBUG] 'Added resource: /themes/arduino-ide/arduino-ide.css'
+ [DEBUG] 'Added resource: /themes/bncplusplus/bncplusplus.css'
+ [DEBUG] 'Added resource: /themes/capacitacionti/capacitacionti.css'
+ [DEBUG] 'Added resource: /themes/cg-cookie/cg-cookie.css'
+ [DEBUG] 'Added resource: /themes/cisco-router/cisco-router.css'
+ [DEBUG] 'Added resource: /themes/classic/classic.css'
+ [DEBUG] 'Added resource: /themes/coda-special-board/coda-special-board.css'
+ [DEBUG] 'Added resource: /themes/coy/coy.css'
+ [DEBUG] 'Added resource: /themes/dark-terminal/dark-terminal.css'
+ [DEBUG] 'Added resource: /themes/eclipse/eclipse.css'
+ [DEBUG] 'Added resource: /themes/epicgeeks/epicgeeks.css'
+ [DEBUG] 'Added resource: /themes/familiar/familiar.css'
+ [DEBUG] 'Added resource: /themes/feeldesign/feeldesign.css'
+ [DEBUG] 'Added resource: /themes/flatui-light/flatui-light.css'
+ [DEBUG] 'Added resource: /themes/github/github.css'
+ [DEBUG] 'Added resource: /themes/idle/idle.css'
+ [DEBUG] 'Added resource: /themes/inlellij-idea/inlellij-idea.css'
+ [DEBUG] 'Added resource: /themes/iris-vfx/iris-vfx.css'
+ [DEBUG] 'Added resource: /themes/kaderu/kaderu.css'
+ [DEBUG] 'Added resource: /themes/kayote/kayote.css'
+ [DEBUG] 'Added resource: /themes/light-abite/light-abite.css'
+ [DEBUG] 'Added resource: /themes/mirc-dark/mirc-dark.css'
+ [DEBUG] 'Added resource: /themes/mm-dark-blue/mm-dark-blue.css'
+ [DEBUG] 'Added resource: /themes/monokai/monokai.css'
+ [DEBUG] 'Added resource: /themes/neon/neon.css'
+ [DEBUG] 'Added resource: /themes/obsidian/obsidian.css'
+ [DEBUG] 'Added resource: /themes/obsidian-light/obsidian-light.css'
+ [DEBUG] 'Added resource: /themes/onderka15/onderka15.css'
+ [DEBUG] 'Added resource: /themes/orange-code/orange-code.css'
+ [DEBUG] 'Added resource: /themes/plain-white/plain-white.css'
+ [DEBUG] 'Added resource: /themes/powershell/powershell.css'
+ [DEBUG] 'Added resource: /themes/powershell-ise/powershell-ise.css'
+ [DEBUG] 'Added resource: /themes/prism-like/prism-like.css'
+ [DEBUG] 'Added resource: /themes/pspad/pspad.css'
+ [DEBUG] 'Added resource: /themes/qtcreator/qtcreator.css'
+ [DEBUG] 'Added resource: /themes/raygun/raygun.css'
+ [DEBUG] 'Added resource: /themes/secrets-of-rock/secrets-of-rock.css'
+ [DEBUG] 'Added resource: /themes/shell-default/shell-default.css'
+ [DEBUG] 'Added resource: /themes/solarized-dark/solarized-dark.css'
+ [DEBUG] 'Added resource: /themes/solarized-light/solarized-light.css'
+ [DEBUG] 'Added resource: /themes/son-of-obsidian/son-of-obsidian.css'
+ [DEBUG] 'Added resource: /themes/ssms2012/ssms2012.css'
+ [DEBUG] 'Added resource: /themes/sublime-text/sublime-text.css'
+ [DEBUG] 'Added resource: /themes/terminal/terminal.css'
+ [DEBUG] 'Added resource: /themes/tomorrow/tomorrow.css'
+ [DEBUG] 'Added resource: /themes/tomorrow-night/tomorrow-night.css'
+ [DEBUG] 'Added resource: /themes/turnwall/turnwall.css'
+ [DEBUG] 'Added resource: /themes/twilight/twilight.css'
+ [DEBUG] 'Added resource: /themes/visual-assist/visual-assist.css'
+ [DEBUG] 'Added resource: /themes/vs2012/vs2012.css'
+ [DEBUG] 'Added resource: /themes/vs2012-black/vs2012-black.css'
+ [DEBUG] 'Added resource: /themes/x3info/x3info.css'
+ [DEBUG] 'Added resource: /themes/xcode/xcode.css'
+ [DEBUG] 'Added resource: C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/themes/bncplusplus-copy/bncplusplus-copy.css'
+ [DEBUG] 'instance'
+ [DEBUG] 'Setting font directories'
+ [DEBUG] '/fonts/'
+ [DEBUG] 'C:/wamp64/www/wp-content/uploads/sites/31/crayon-syntax-highlighter/fonts/'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/adobe-source-sans.css'
+ [DEBUG] 'Added resource: /fonts/arial.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/consolas.css'
+ [DEBUG] 'Added resource: /fonts/courier-new.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/droid-sans-mono.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/inconsolata.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/liberation-mono.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monaco.css'
+ [DEBUG] 'Added resource: /fonts/monospace.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/sourcecodepro.css'
+ [DEBUG] 'Added resource: /fonts/tahoma.css'
+ [DEBUG] 'Added resource: /fonts/times.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/ubuntu-mono.css'
+ [DEBUG] 'Added resource: /fonts/verdana.css'
+
+[Crayon Syntax Highlighter Log Entry - 5:20:15 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:20:54 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:20:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:21:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:14 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:36 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:39 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:39 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:47 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:22:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:23:00 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:23:57 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:24:57 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:24:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:25:43 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:25:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:25:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:26:58 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:28:00 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:28:58 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:30:01 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:30:58 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:32:01 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:32:58 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:34:02 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:34:18 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:34:21 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:34:38 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:35:03 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:35:27 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:36:03 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:36:48 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:38:04 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:39:38 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:40:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:40:54 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:42:06 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:42:53 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:44:09 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:47:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:48:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:49:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:49:28 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:50:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:51:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:53:09 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:53:56 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:02 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:16 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:19 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:20 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:24 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:54:30 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:55:24 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:55:38 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:55:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:55:45 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:56:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:56:18 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:56:22 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:57:18 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:58:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:58:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:59:04 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 5:59:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:00:04 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:00:18 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:00:26 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:01:25 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:02:25 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:03:25 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:04:21 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:04:29 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:05:28 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:06:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:06:28 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:07:29 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:08:29 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:10:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:10:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:10:24 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:11:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:12:24 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:12:52 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:12:56 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:13:24 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:13:26 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:13:32 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:13:53 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:14:31 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:16:31 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:18:31 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:20:32 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:22:32 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:55:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:55:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:55:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:56:00 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:56:30 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:56:37 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:57:37 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:59:18 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:59:18 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:59:26 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 6:59:35 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:00:10 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:00:15 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:00:19 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:01:16 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:02:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:03:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:04:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:05:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:06:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:08:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:10:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:11:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:12:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:14:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:15:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:17:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:19:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:20:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:22:05 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:24:06 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:25:06 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:25:06 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:25:12 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:25:52 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:26:12 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:27:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:28:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:29:51 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:42 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:45 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:52 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:55 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:31:56 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:32:00 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:32:03 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:32:43 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:32:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:33:15 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:33:22 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:33:51 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:33:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:34:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:34:51 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:35:50 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:36:25 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:36:32 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:37:32 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:38:39 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:38:39 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:38:46 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:38:52 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:39:46 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:41:46 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:43:46 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:45:27 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:45:27 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:45:34 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:46:33 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:46:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:46:52 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:47:51 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:24 PM - 09 Apr 2021]
+
+
+[Crayon Syntax Highlighter Log Entry - 7:49:24 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:49:54 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:50:32 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:50:51 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:51:02 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:51:14 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:52:37 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:52:56 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:53:20 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:53:35 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:53:45 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:53:59 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:55:09 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:55:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:57:01 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:57:55 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:58:12 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:58:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:59:10 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:59:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 7:59:27 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:00:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:01:47 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:15 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:23 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:28 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:41 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:48 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:48 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:54 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:57 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:02:57 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:01 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:09 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:30 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:35 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:36 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:40 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:40 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:44 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:53 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:03:57 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:02 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:04 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:06 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:07 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:10 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:04:15 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:20 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:20 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:21 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:05:21 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:06:26 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:06:30 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:06:35 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:06:38 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:06:42 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:07:38 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:07:45 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:07:49 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:07:49 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:08:20 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:08:26 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:08:29 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:02 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:03 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:06 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:09 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:30 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:31 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:36 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:09:39 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:02 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:10 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:11 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:13 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:16 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:10:34 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'
+
+[Crayon Syntax Highlighter Log Entry - 8:11:17 PM - 09 Apr 2021]
+
+ 'Calling update plugin...'

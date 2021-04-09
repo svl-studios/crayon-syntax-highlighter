@@ -252,6 +252,7 @@ class Urvanov_Syntax_Highlighter {
 			$this->load();
 			$this->runtime[ URVANOV_SYNTAX_HIGHLIGHTER_LOAD_TIME ] = $tmr->stop();
 		}
+
 		if ( ! empty( $this->error ) || empty( $this->code ) ) {
 
 			// Disable highlighting for errors and empty code.

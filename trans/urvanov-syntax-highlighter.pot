@@ -16,111 +16,111 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: class-urvanov-syntax-highlighter-settings.php:610
+#: class-urvanov-syntax-highlighter-settings.php:615
 msgid "Hourly"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:611
+#: class-urvanov-syntax-highlighter-settings.php:616
 msgid "Daily"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:612
+#: class-urvanov-syntax-highlighter-settings.php:617
 msgid "Weekly"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:613
+#: class-urvanov-syntax-highlighter-settings.php:618
 msgid "Monthly"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:614
+#: class-urvanov-syntax-highlighter-settings.php:619
 msgid "Immediately"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:629, class-urvanov-syntax-highlighter-settings.php:646
+#: class-urvanov-syntax-highlighter-settings.php:634, class-urvanov-syntax-highlighter-settings.php:651
 msgid "Max"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:630, class-urvanov-syntax-highlighter-settings.php:647
+#: class-urvanov-syntax-highlighter-settings.php:635, class-urvanov-syntax-highlighter-settings.php:652
 msgid "Min"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:631, class-urvanov-syntax-highlighter-settings.php:648
+#: class-urvanov-syntax-highlighter-settings.php:636, class-urvanov-syntax-highlighter-settings.php:653
 msgid "Static"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:638, class-urvanov-syntax-highlighter-settings.php:655, class-urvanov-syntax-highlighter-wp.php:1132, class-urvanov-syntax-highlighter-wp.php:1154, class-urvanov-syntax-highlighter-wp.php:1592, class-urvanov-syntax-highlighter-wp.php:1599
+#: class-urvanov-syntax-highlighter-settings.php:643, class-urvanov-syntax-highlighter-settings.php:660, class-urvanov-syntax-highlighter-wp.php:1132, class-urvanov-syntax-highlighter-wp.php:1154, class-urvanov-syntax-highlighter-wp.php:1595, class-urvanov-syntax-highlighter-wp.php:1602
 msgid "Pixels"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:639, class-urvanov-syntax-highlighter-settings.php:656
+#: class-urvanov-syntax-highlighter-settings.php:644, class-urvanov-syntax-highlighter-settings.php:661
 msgid "Percent"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:670
+#: class-urvanov-syntax-highlighter-settings.php:675
 msgid "None"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:671
+#: class-urvanov-syntax-highlighter-settings.php:676
 msgid "Left"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:672
+#: class-urvanov-syntax-highlighter-settings.php:677
 msgid "Center"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:673
+#: class-urvanov-syntax-highlighter-settings.php:678
 msgid "Right"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:680, class-urvanov-syntax-highlighter-settings.php:721
+#: class-urvanov-syntax-highlighter-settings.php:685, class-urvanov-syntax-highlighter-settings.php:727
 msgid "On MouseOver"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:681, class-urvanov-syntax-highlighter-settings.php:694
+#: class-urvanov-syntax-highlighter-settings.php:686, class-urvanov-syntax-highlighter-settings.php:699
 msgid "Always"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:682, class-urvanov-syntax-highlighter-settings.php:695
+#: class-urvanov-syntax-highlighter-settings.php:687, class-urvanov-syntax-highlighter-settings.php:700
 msgid "Never"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:693
+#: class-urvanov-syntax-highlighter-settings.php:698
 msgid "When Found"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:719
+#: class-urvanov-syntax-highlighter-settings.php:725
 msgid "On Double Click"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:720
+#: class-urvanov-syntax-highlighter-settings.php:726
 msgid "On Single Click"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:722
+#: class-urvanov-syntax-highlighter-settings.php:728
 msgid "Disable Mouse Events"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:732
+#: class-urvanov-syntax-highlighter-settings.php:738
 msgid "An error has occurred. Please try again later."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:751
+#: class-urvanov-syntax-highlighter-settings.php:757
 msgid "Inline Tag"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:752
+#: class-urvanov-syntax-highlighter-settings.php:758
 msgid "Block Tag"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:766
+#: class-urvanov-syntax-highlighter-settings.php:772
 msgid "Add Code"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-settings.php:767
+#: class-urvanov-syntax-highlighter-settings.php:773
 msgid "Edit Code"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:177, class-urvanov-syntax-highlighter-wp.php:391, class-urvanov-syntax-highlighter-wp.php:2053, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:383
+#: class-urvanov-syntax-highlighter-wp.php:177, class-urvanov-syntax-highlighter-wp.php:391, class-urvanov-syntax-highlighter-wp.php:2056, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:386
 msgid "Settings"
 msgstr ""
 
@@ -145,11 +145,11 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:359, class-urvanov-syntax-highlighter-wp.php:1393
+#: class-urvanov-syntax-highlighter-wp.php:359, class-urvanov-syntax-highlighter-wp.php:1396
 msgid "No"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:360, class-urvanov-syntax-highlighter-wp.php:1393
+#: class-urvanov-syntax-highlighter-wp.php:360, class-urvanov-syntax-highlighter-wp.php:1396
 msgid "Yes"
 msgstr ""
 
@@ -177,27 +177,27 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:744, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:400
+#: class-urvanov-syntax-highlighter-wp.php:744, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:403
 msgid "Theme"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:745, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:401
+#: class-urvanov-syntax-highlighter-wp.php:745, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:404
 msgid "Font"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:746, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:402
+#: class-urvanov-syntax-highlighter-wp.php:746, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:405
 msgid "Metrics"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:747, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:403, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:733
+#: class-urvanov-syntax-highlighter-wp.php:747, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:406, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:733
 msgid "Toolbar"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:748, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:404, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:731
+#: class-urvanov-syntax-highlighter-wp.php:748, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:407, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:731
 msgid "Lines"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:749, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:344, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:405
+#: class-urvanov-syntax-highlighter-wp.php:749, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:347, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:408
 msgid "Code"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgstr ""
 msgid "No languages could be found."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1287, class-urvanov-syntax-highlighter-wp.php:1369
+#: class-urvanov-syntax-highlighter-wp.php:1287, class-urvanov-syntax-highlighter-wp.php:1371
 msgid "ID"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1287, class-urvanov-syntax-highlighter-wp.php:1975
+#: class-urvanov-syntax-highlighter-wp.php:1287, class-urvanov-syntax-highlighter-wp.php:1978
 msgid "Version"
 msgstr ""
 
@@ -395,356 +395,360 @@ msgstr ""
 msgid "Languages that have the same extension as their name don't need to explicitly map extensions."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1323
+#: class-urvanov-syntax-highlighter-wp.php:1319
+msgid "List posts for bbPress forums, topics, and replies"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-wp.php:1325
 msgid "Show Crayon Posts"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1330
+#: class-urvanov-syntax-highlighter-wp.php:1332
 msgid "Refresh"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1369, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:321, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:748
+#: class-urvanov-syntax-highlighter-wp.php:1371, util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:324, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:748
 msgid "Title"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1369
+#: class-urvanov-syntax-highlighter-wp.php:1371
 msgid "Posted"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1369
+#: class-urvanov-syntax-highlighter-wp.php:1371
 msgid "Modifed"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1369
+#: class-urvanov-syntax-highlighter-wp.php:1371
 msgid "Contains Legacy Tags?"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1512
+#: class-urvanov-syntax-highlighter-wp.php:1515
 msgid "Edit"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1513, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:555
+#: class-urvanov-syntax-highlighter-wp.php:1516, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:555
 msgid "Duplicate"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1514
+#: class-urvanov-syntax-highlighter-wp.php:1517
 msgid "Submit"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1515, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:552
+#: class-urvanov-syntax-highlighter-wp.php:1518, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:552
 msgid "Delete"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1518
+#: class-urvanov-syntax-highlighter-wp.php:1521
 msgid "Loading..."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1521
+#: class-urvanov-syntax-highlighter-wp.php:1524
 msgid "Duplicate a Stock Theme into a User Theme to allow editing."
 msgstr ""
 
 #. translators: %s = HTML.
-#: class-urvanov-syntax-highlighter-wp.php:1534
+#: class-urvanov-syntax-highlighter-wp.php:1537
 msgid "Change the %1$sfallback language%2$s to change the sample code or %3$schange it manually%4$s. Lines 5-7 are marked."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1545
+#: class-urvanov-syntax-highlighter-wp.php:1548
 msgid "Enable Live Preview"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1554
+#: class-urvanov-syntax-highlighter-wp.php:1557
 msgid "Enqueue themes in the header (more efficient)."
 msgstr ""
 
 #. translators: %s = Theme.
-#: class-urvanov-syntax-highlighter-wp.php:1561
+#: class-urvanov-syntax-highlighter-wp.php:1564
 msgid "The selected theme with id %s could not be loaded"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1582
+#: class-urvanov-syntax-highlighter-wp.php:1585
 msgid "Custom Font Size"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1592
+#: class-urvanov-syntax-highlighter-wp.php:1595
 msgid "Line Height"
 msgstr ""
 
 #. translators: %s = Theme.
-#: class-urvanov-syntax-highlighter-wp.php:1604
+#: class-urvanov-syntax-highlighter-wp.php:1607
 msgid "The selected font with id %s could not be loaded"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1615
+#: class-urvanov-syntax-highlighter-wp.php:1618
 msgid "Enqueue fonts in the header (more efficient)."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1630
+#: class-urvanov-syntax-highlighter-wp.php:1633
 msgid "Enable plain code view and display"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1636
+#: class-urvanov-syntax-highlighter-wp.php:1639
 msgid "Enable plain code toggling"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1640
+#: class-urvanov-syntax-highlighter-wp.php:1643
 msgid "Show the plain code by default"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1643
+#: class-urvanov-syntax-highlighter-wp.php:1646
 msgid "Enable code copy/paste"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1645
+#: class-urvanov-syntax-highlighter-wp.php:1648
 msgid "Enable opening code in a window"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1646
+#: class-urvanov-syntax-highlighter-wp.php:1649
 msgid "Always display scrollbars"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1650
+#: class-urvanov-syntax-highlighter-wp.php:1653
 msgid "Minimize code"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1656
+#: class-urvanov-syntax-highlighter-wp.php:1659
 msgid "Expand code beyond page borders on mouseover"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1662
+#: class-urvanov-syntax-highlighter-wp.php:1665
 msgid "Enable code expanding toggling when possible"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1667
+#: class-urvanov-syntax-highlighter-wp.php:1670
 msgid "Decode HTML entities in code"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1672
+#: class-urvanov-syntax-highlighter-wp.php:1675
 msgid "Decode HTML entities in attributes"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1679
+#: class-urvanov-syntax-highlighter-wp.php:1682
 msgid "Remove whitespace surrounding the shortcode content"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1686
+#: class-urvanov-syntax-highlighter-wp.php:1689
 msgid "Remove &lt;code&gt; tags surrounding the shortcode content"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1692
+#: class-urvanov-syntax-highlighter-wp.php:1695
 msgid "Allow Mixed Language Highlighting with delimiters and tags."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1699
+#: class-urvanov-syntax-highlighter-wp.php:1702
 msgid "Show Mixed Language Icon (+)"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1703
+#: class-urvanov-syntax-highlighter-wp.php:1706
 msgid "Convert tabs to spaces"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1704
+#: class-urvanov-syntax-highlighter-wp.php:1707
 msgid "Tab size in spaces"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1712
+#: class-urvanov-syntax-highlighter-wp.php:1715
 msgid "Blank lines before code:"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1720
+#: class-urvanov-syntax-highlighter-wp.php:1723
 msgid "Blank lines after code:"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1737
+#: class-urvanov-syntax-highlighter-wp.php:1740
 msgid "Capture Inline Tags"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1743
+#: class-urvanov-syntax-highlighter-wp.php:1746
 msgid "Wrap Inline Tags"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1753
+#: class-urvanov-syntax-highlighter-wp.php:1756
 msgid "Capture `backquotes` as &lt;code&gt;"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1759
+#: class-urvanov-syntax-highlighter-wp.php:1762
 msgid "Capture &lt;pre&gt; tags as Crayons"
 msgstr ""
 
 #. translators: %s = HTML.
-#: class-urvanov-syntax-highlighter-wp.php:1764
+#: class-urvanov-syntax-highlighter-wp.php:1767
 msgid "Using this markup for Mini Tags and Inline tags is now %1$sdeprecated%2$s! Use the %3$sTag Editor%4$s instead and convert legacy tags."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1768
+#: class-urvanov-syntax-highlighter-wp.php:1771
 msgid "Capture Mini Tags like [php][/php] as Crayons."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1774
+#: class-urvanov-syntax-highlighter-wp.php:1777
 msgid "Capture Inline Tags like {php}{/php} inside sentences."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1780
+#: class-urvanov-syntax-highlighter-wp.php:1783
 msgid "Enable [plain][/plain] tag."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1790
+#: class-urvanov-syntax-highlighter-wp.php:1793
 msgid "When loading local files and a relative path is given for the URL, use the absolute path"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1793
+#: class-urvanov-syntax-highlighter-wp.php:1796
 msgid "Followed by your relative URL."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1807
+#: class-urvanov-syntax-highlighter-wp.php:1810
 msgid "No Legacy Tags Found"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1804
+#: class-urvanov-syntax-highlighter-wp.php:1807
 msgid "Convert Legacy Tags"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1811
+#: class-urvanov-syntax-highlighter-wp.php:1814
 msgid "Encode"
 msgstr ""
 
 #. translators: %s = HTML.
-#: class-urvanov-syntax-highlighter-wp.php:1815
+#: class-urvanov-syntax-highlighter-wp.php:1818
 msgid "Use %s to separate setting names from values in the &lt;pre&gt; class attribute"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1824
+#: class-urvanov-syntax-highlighter-wp.php:1827
 msgid "Display the Tag Editor in any TinyMCE instances on the frontend (e.g. bbPress)"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1830
+#: class-urvanov-syntax-highlighter-wp.php:1833
 msgid "Display Tag Editor settings on the frontend"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1833
+#: class-urvanov-syntax-highlighter-wp.php:1836
 msgid "Add Code button text"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1840
+#: class-urvanov-syntax-highlighter-wp.php:1843
 msgid "Edit Code button text"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1847
+#: class-urvanov-syntax-highlighter-wp.php:1850
 msgid "Quicktag button text"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1860
+#: class-urvanov-syntax-highlighter-wp.php:1863
 msgid "Clear the cache used to store remote code requests"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1862
+#: class-urvanov-syntax-highlighter-wp.php:1865
 msgid "Clear Now"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1866
+#: class-urvanov-syntax-highlighter-wp.php:1869
 msgid "Attempt to load Crayon's CSS and JavaScript only when needed"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1872
+#: class-urvanov-syntax-highlighter-wp.php:1875
 msgid "Disable enqueuing for page templates that may contain The Loop."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1875
+#: class-urvanov-syntax-highlighter-wp.php:1878
 msgid "Allow Crayons inside comments"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1879
+#: class-urvanov-syntax-highlighter-wp.php:1882
 msgid "Remove Crayons from excerpts"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1885
+#: class-urvanov-syntax-highlighter-wp.php:1888
 msgid "Load Crayons only from the main Wordpress query"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1891
+#: class-urvanov-syntax-highlighter-wp.php:1894
 msgid "Disable mouse gestures for touchscreen devices (eg. MouseOver)"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1894
+#: class-urvanov-syntax-highlighter-wp.php:1897
 msgid "Disable animations"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1895
+#: class-urvanov-syntax-highlighter-wp.php:1898
 msgid "Disable runtime stats"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1896
+#: class-urvanov-syntax-highlighter-wp.php:1899
 msgid "Disable for posts before"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1909
+#: class-urvanov-syntax-highlighter-wp.php:1912
 msgid "Load scripts in the page footer using wp_footer() to improve loading performance."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1921
+#: class-urvanov-syntax-highlighter-wp.php:1924
 msgid "Log errors for individual Crayons"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1924
+#: class-urvanov-syntax-highlighter-wp.php:1927
 msgid "Log system-wide errors"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1928
+#: class-urvanov-syntax-highlighter-wp.php:1931
 msgid "Display custom message for errors"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1951, class-urvanov-syntax-highlighter-wp.php:1951
+#: class-urvanov-syntax-highlighter-wp.php:1954, class-urvanov-syntax-highlighter-wp.php:1954
 msgid "Show Log"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1951
+#: class-urvanov-syntax-highlighter-wp.php:1954
 msgid "Hide Log"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1953
+#: class-urvanov-syntax-highlighter-wp.php:1956
 msgid "Clear Log"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1954
+#: class-urvanov-syntax-highlighter-wp.php:1957
 msgid "Email Admin"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1956
+#: class-urvanov-syntax-highlighter-wp.php:1959
 msgid "Email Developer"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1959
+#: class-urvanov-syntax-highlighter-wp.php:1962
 msgid "The log is currently empty."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1964
+#: class-urvanov-syntax-highlighter-wp.php:1967
 msgid "The log file does not exist and is not writable."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1962
+#: class-urvanov-syntax-highlighter-wp.php:1965
 msgid "The log file exists and is writable."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1962
+#: class-urvanov-syntax-highlighter-wp.php:1965
 msgid "The log file exists and is not writable."
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1977
+#: class-urvanov-syntax-highlighter-wp.php:1980
 msgid "Developer"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:1978
+#: class-urvanov-syntax-highlighter-wp.php:1981
 msgid "Translators"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:2039
+#: class-urvanov-syntax-highlighter-wp.php:2042
 msgid "?"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:2054, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:770
+#: class-urvanov-syntax-highlighter-wp.php:2057, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:770
 msgid "Theme Editor"
 msgstr ""
 
-#: class-urvanov-syntax-highlighter-wp.php:2055
+#: class-urvanov-syntax-highlighter-wp.php:2058
 msgid "Donate"
 msgstr ""
 
@@ -756,69 +760,69 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:313
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:316
 msgid "OK"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:315
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:318
 msgid "Cancel"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:323
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:326
 msgid "A short description"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:325, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:752
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:328, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:752
 msgid "Inline"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:328
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:331
 msgid "Don't Highlight"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:333, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:756
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:336, util/theme-editor/class-urvanov-syntax-highlighter-theme-editor.php:756
 msgid "Language"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:335
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:338
 msgid "Line Range"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:337
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:340
 msgid "Marked Lines"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:347
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:350
 msgid "Clear"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:351
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:354
 msgid "Paste your code here, or type it in manually."
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:355
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:358
 msgid "URL"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:360
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:363
 msgid "If the URL fails to load, the code above will be shown instead. If no code exists, an error is shown."
 msgstr ""
 
 #. translators: %s = HTML.
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:363
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:366
 msgid "If a relative local path is given it will be appended to %1$s - which is defined in %2$sUrvanovSyntaxHighlighter &gt; Settings &gt; Files%3$s."
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:388
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:391
 msgid "Change the following settings to override their global values."
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:390
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:393
 msgid "Only changes (shown yellow) are applied."
 msgstr ""
 
 #. translators: %s = URL.
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:393
+#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:396
 msgid "Future changes to the global settings under %1$sUrvanovSyntaxHighlighter &gt; Settings%2$s won't affect overridden settings."
 msgstr ""
 

@@ -307,8 +307,8 @@
 						}
 					};
 
-					code.keyup( codeRefresh );
-					code.change( codeRefresh );
+					code.on( 'keyup', codeRefresh );
+					code.on( 'change', codeRefresh );
 					clear.on(
 						'click',
 						function() {
@@ -356,8 +356,8 @@
 						}
 					};
 
-					url.keyup( urlRefresh );
-					url.change( urlRefresh );
+					url.on( 'keyup', urlRefresh );
+					url.on( 'change', urlRefresh );
 
 					settingChange = function() {
 						var setting   = $( this );
@@ -399,8 +399,8 @@
 
 					$( '.' + gs.setting + '[id]:not(.' + gs.special + ')' ).each(
 						function() {
-							$( this ).change( settingChange );
-							$( this ).keyup( settingChange );
+							$( this ).on( 'change', settingChange );
+							$( this ).on( 'keyup', settingChange );
 						}
 					);
 
@@ -476,7 +476,7 @@
 			isInline         = false;
 
 			// Unbind submit.
-			submit.unbind();
+			submit.off();
 			submit.on(
 				'click',
 				function( e ) {
@@ -487,7 +487,7 @@
 
 			base.setSubmitText( s.submit_add );
 
-			cancel.unbind();
+			cancel.off();
 			cancel.on(
 				'click',
 				function( e ) {
@@ -561,7 +561,7 @@
 						base.settingValue( setting, value );
 
 						// Update highlights.
-						setting.change();
+						setting.trigger( 'change' );
 
 						// If global setting changes and we access settings, it should declare loaded settings as changed even if they equal the global value, just so they aren't lost on save.
 						if ( ! setting.hasClass( gs.special ) ) {
@@ -605,7 +605,8 @@
 
 			// Inline.
 			inline = $( '#' + s.inline_css );
-			inline.change(
+			inline.on(
+				'change',
 				function() {
 					var inlineHide;
 					var inlineSingle;
@@ -644,7 +645,7 @@
 				}
 			);
 
-			inline.change();
+			inline.trigger( 'change' );
 
 			// Show the dialog.
 			dialogTitle = editing ? s.edit_text : s.add_text;
@@ -871,7 +872,7 @@
 					base.settingValue( setting, setting.attr( gs.orig_value ) );
 
 					// Update highlights.
-					setting.change();
+					setting.trigger( 'change' );
 				}
 			);
 
@@ -946,5 +947,5 @@
 		base.setSubmitText = function( text ) {
 			submit.html( text );
 		};
-	};
+	}();
 } )( jQueryUrvanovSyntaxHighlighter, wp );

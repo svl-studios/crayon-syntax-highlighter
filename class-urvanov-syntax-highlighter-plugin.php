@@ -8,8 +8,10 @@
  * Author URI: https://urvanov.ru
  * Text Domain: urvanov-syntax-highlighter
  * Domain Path: /trans/
+ *
  * License: GPL2
  * Copyright 2013    Aram Kocharyan    (email : akarmenia@gmail.com)
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as
  * published by the Free Software Foundation.
@@ -1517,6 +1519,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 	 */
 	public static function scan_posts( $check_comments = false ): array {
 		$crayon_posts = array();
+
 		foreach ( self::get_posts() as $post ) {
 			if ( self::scan_post( $post ) ) {
 				$crayon_posts[] = $post->ID;
@@ -1575,7 +1578,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 		);
 
 		$captures = self::capture_crayons( $id, $post->post_content, array(), $args );
-
+//var_dump($captures);
 		if ( $captures['has_captured'] ) {
 			return true;
 		} elseif ( $scan_comments ) {
