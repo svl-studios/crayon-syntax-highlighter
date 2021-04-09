@@ -532,6 +532,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 		// Only include if a post exists with Crayon tag.
 		preg_match_all( self::regex(), $wp_content, $matches );
 		$capture['has_captured'] = 0 !== count( $matches[0] );
+
 		if ( $just_check ) {
 			// Backticks are matched after other tags, so they need to be captured here.
 			$result                  = self::replace_backquotes( $wp_content );

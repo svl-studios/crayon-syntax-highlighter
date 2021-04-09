@@ -23,7 +23,7 @@ jqueryPopup.defaultSettings = {
 };
 
 ( function( $ ) {
-	var popupWindow = function( object, instanceSettings, beforeCallback, afterCallback ) {
+	popupWindow = function( object, instanceSettings, beforeCallback, afterCallback ) {
 		var settings;
 
 		beforeCallback = typeof beforeCallback !== 'undefined' ? beforeCallback : null;

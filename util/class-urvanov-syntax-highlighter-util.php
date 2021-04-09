@@ -515,7 +515,7 @@ EOT;
 	 */
 	public static function trim_e( string $str, $delimiter = ',' ) {
 		if ( is_string( $delimiter ) ) {
-			$str = trim( preg_replace( '|\s*' . preg_quote( $delimiter ) . ')\s*|', $delimiter, $str ) ); // phpcs:ignore
+			$str = trim( preg_replace( '|\s*(?:' . preg_quote( $delimiter ) . ')\s*|', $delimiter, $str ) ); // phpcs:ignore
 			return explode( $delimiter, $str );
 		}
 		return $str;

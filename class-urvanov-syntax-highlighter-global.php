@@ -172,7 +172,7 @@ const URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR = true;
 /**
  * Minify switch.
  */
-const URVANOV_SYNTAX_HIGHLIGHTER_MINIFY = true;
+const URVANOV_SYNTAX_HIGHLIGHTER_MINIFY = false;
 
 // These are overridden by functions since v1.1.1.
 $urvanov_syntax_highlighter_version     = '1.1.1';

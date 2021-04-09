@@ -4,7 +4,8 @@
 var jQueryUrvanovSyntaxHighlighter = jQuery;
 
 ( function( $ ) {
-	UrvanovSyntaxHighlighterUtil = new function() {
+	// eslint-disable-next-line no-undef
+	UrvanovSyntaxHighlighterUtil = new function() { // jshint ignore:line
 		var base     = this;
 		var settings = null;
 
@@ -73,8 +74,8 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 
 				qs = qs.split( '+' ).join( ' ' );
 
-				tokens = re.exec( qs );
-				while ( tokens ) {
+				// eslint-disable-next-line no-cond-assign
+				while ( tokens = re.exec( qs ) ) {
 					params[decodeURIComponent( tokens[1] )] = decodeURIComponent( tokens[2] );
 				}
 
@@ -92,8 +93,7 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 		/**
 		 * HTML to elements.
 		 *
-		 * @param {string} html representing any number of sibling elements.
-		 *
+		 * @param {string} html representing any number of sibling elements
 		 * @return {NodeList} Node list.
 		 */
 		base.htmlToElements = function( html ) {
@@ -112,7 +112,6 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 			for ( i in window.GET ) {
 				get += i + '=' + window.GET[i] + '&';
 			}
-
 			window.location = window.currentURL + get;
 		};
 
@@ -157,13 +156,14 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 		 *          then normalizeHueXMulti and normalizeHueYMulti are applied.
 		 *      normalizeHueXMulti: a multiplier to the distance in the x-axis if hue is normalized.
 		 *      normalizeHueYMulti: a multiplier to the distance in the y-axis if hue is normalized.
-		 *
-		 * @return {string} The RGB hex string of black or white.
+		 * @return {string} the RGB hex string of black or white.
 		 */
 		base.getReadableColor = function( hex, args ) {
-			var color;
-			var hsv;
-			var coord;
+			var color = tinycolor( hex );
+			var hsv   = color.toHsv();
+
+			// Origin is white.
+			var coord = { x: hsv.s, y: 1 - hsv.v };
 			var dist;
 
 			args = $.extend(
@@ -181,22 +181,16 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 				args
 			);
 
-			color = tinycolor( hex );
-			hsv   = color.toHsv();
-
-			// Origin is white.
-			coord = { x: hsv.s, y: 1 - hsv.v };
-
 			// Multipliers.
 			coord.x *= args.xMulti;
 			coord.y *= args.yMulti;
-
 			if ( args.normalizeHue && hsv.h > args.normalizeHue[0] && hsv.h < args.normalizeHue[1] ) {
 				coord.x *= args.normalizeHueXMulti;
 				coord.y *= args.normalizeHueYMulti;
 			}
 
 			dist = Math.sqrt( Math.pow( coord.x, 2 ) + Math.pow( coord.y, 2 ) );
+
 			if ( dist < args.amount ) {
 				hsv.v = 0; // black.
 			} else {
@@ -212,10 +206,11 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 			var re = new RegExp( '[' + chars + ']', 'gmi' );
 			return str.replace( re, '' );
 		};
-	};
+	}();
 
 	$( document ).ready(
 		function() {
+			// eslint-disable-next-line no-undef
 			UrvanovSyntaxHighlighterUtil.init();
 		}
 	);
@@ -231,7 +226,7 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 
 		// bind as you normally would
 		// don't want to miss out on any jQuery magic.
-		this.bind( name, fn );
+		this.on( name, fn );
 
 		// Thanks to a comment by @Martin, adding support for
 		// namespaced events too.
@@ -258,14 +253,16 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 
 	// Prototype modifications.
 	RegExp.prototype.execAll = function( string ) {
-		var matches    = [];
-		var match      = null;
-		var matchArray = [];
+		var matches = [];
+		var match   = null;
+		var matchArray;
 		var i;
 
 		while ( null !== ( match = this.exec( string ) ) ) {
+			matchArray = [];
+
 			for ( i in match ) {
-				if ( i === parseInt( i ) ) {
+				if ( parseInt( i ) === i ) {
 					matchArray.push( match[i] );
 				}
 			}
@@ -291,10 +288,8 @@ var jQueryUrvanovSyntaxHighlighter = jQuery;
 			'<': '&lt;',
 			'>': '&gt;',
 		};
-
 		return this.replace(
-			/[&<>]/g,
-			function( tag ) {
+			/[&<>]/g, function( tag ) {
 				return tagsToReplace[tag] || tag;
 			}
 		);

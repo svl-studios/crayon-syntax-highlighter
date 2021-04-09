@@ -1974,7 +1974,7 @@ class Human {
 		echo '<a id="info"></a>';
 		$version     = '<strong>' . esc_html__( 'Version', 'urvanov-syntax-highlighter' ) . ':</strong> ' . $urvanov_syntax_highlighter_version;
 		$date        = $urvanov_syntax_highlighter_date;
-		$developer   = '<strong>' . esc_html__( 'Developer', 'urvanov-syntax-highlighter' ) . ':</strong> <a href="' . esc_url( $urvanov_syntax_highlighter_author_site ) . '" target="_blank">' . esc_url( $urvanov_syntax_highlighter_author ) . '</a>';
+		$developer   = '<strong>' . esc_html__( 'Developer', 'urvanov-syntax-highlighter' ) . ':</strong> <a href="' . esc_url( $urvanov_syntax_highlighter_author_site ) . '" target="_blank">' . $urvanov_syntax_highlighter_author . '</a>';
 		$translators = '<strong>' . esc_html__( 'Translators', 'urvanov-syntax-highlighter' ) . ':</strong> ' .
 						'
             Arabic (Djennad Hamza),

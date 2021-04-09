@@ -1,9 +1,7 @@
 /* global tinymce, UrvanovSyntaxHighlighterTagEditorSettings, UrvanovSyntaxHighlighterTagEditor, jQueryUrvanovSyntaxHighlighter, switchEditors */
 
 ( function( $ ) {
-	var UrvanovSyntaxHighlighterTinyMCE;
-
-	window.UrvanovSyntaxHighlighterTinyMCE = function() {
+	window.UrvanovSyntaxHighlighterTinyMCE = new function() {
 		// TinyMCE specific.
 		var s;
 		var name    = 'urvanov_syntax_highlighter_tinymce';

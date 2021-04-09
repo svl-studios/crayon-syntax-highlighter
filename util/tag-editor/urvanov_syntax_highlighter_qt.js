@@ -2,9 +2,9 @@
 
 ( function( $ ) {
 	var settings = UrvanovSyntaxHighlighterTagEditorSettings;
-	var urvanovSyntaxHighlighterQuickTags;
+	// var urvanovSyntaxHighlighterQuickTags;
 
-	window.urvanovSyntaxHighlighterQuickTags = function() {
+	window.urvanovSyntaxHighlighterQuickTags = new function() {
 		var base = this;
 
 		base.init = function() {

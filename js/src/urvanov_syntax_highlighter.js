@@ -53,8 +53,6 @@
 	var codePopup;
 	var retina;
 	var isSlideHidden;
-	var urvanovSyntaxHighlighterSlide;
-	var UrvanovSyntaxHighlighterSyntax;
 
 	// BEGIN AUXILIARY FUNCTIONS.
 	$.fn.exists = function() {
@@ -96,7 +94,7 @@
 	};
 	// END AUXILIARY FUNCTIONS.
 
-	UrvanovSyntaxHighlighterSyntax = function() {
+	UrvanovSyntaxHighlighterSyntax = new function() {
 		var base = this;
 		var urvanovSyntaxHighlighters;
 		var settings;
