@@ -37,17 +37,19 @@ class UrvanovSyntaxHighlighterUtil {
 	 *
 	 * @return false|mixed|string
 	 */
-	public static function lines( $path, $opts = null ) {
+	public static function lines( string $path, $opts = null ) {
 		$path = self::pathf( $path );
 		$str  = self::file( $path );
 
 		if ( false === $str ) {
+
 			// Log failure, n = no log.
 			if ( strpos( $opts, 'n' ) === false ) {
 				UrvanovSyntaxHighlighterLog::syslog( "Cannot read lines at '$path'.", 'UrvanovSyntaxHighlighterUtil::lines()' );
 			}
 			return false;
 		}
+
 		// Read the options.
 		if ( is_string( $opts ) ) {
 			$lowercase       = strpos( $opts, 'l' ) !== false;
@@ -119,7 +121,7 @@ class UrvanovSyntaxHighlighterUtil {
 	 *
 	 * @return false|string
 	 */
-	public static function file( $path ) {
+	public static function file( string $path ) {
 		$str = file_get_contents( $path ); // TODO:  Replace with wp_filesystem.
 		if ( false === $str ) {
 			return false;
@@ -136,7 +138,10 @@ class UrvanovSyntaxHighlighterUtil {
 	 * @param bool   $remove_existing_zip Remove found file.
 	 *
 	 * @return string
-	 * @throws Exception InvalidArgumentException.
+	 *
+	 * @throws InvalidArgumentException InvalidArgumentException.
+	 * @throws InvalidArgumentException ZIP.
+	 * @throws InvalidArgumentException Destination.
 	 * @throws Exception ZIP.
 	 */
 	public static function create_zip( string $src, string $dest, $remove_existing_zip = false ): string {
@@ -195,14 +200,14 @@ class UrvanovSyntaxHighlighterUtil {
 	/**
 	 * Sends an email in html and plain encodings with a file attachment.
 	 *
-	 * @param array $args Arguments associative array.
+	 * 'to' (string)
+	 * 'from' (string)
+	 * 'subject' (optional string)
+	 * 'message' (HTML string)
+	 * 'plain' (optional plain string)
+	 * 'file' (optional file path of the attachment)
 	 *
-	 *      'to' (string)
-	 *      'from' (string)
-	 *      'subject' (optional string)
-	 *      'message' (HTML string)
-	 *      'plain' (optional plain string)
-	 *      'file' (optional file path of the attachment)
+	 * @param array $args Arguments Associative array.
 	 *
 	 * @see http://webcheatsheet.com/php/send_email_text_html_attachment.php
 	 * @throws Exception File read.
@@ -281,12 +286,13 @@ EOT;
 	/**
 	 * Get Files.
 	 *
+	 * - hidden: If true, hidden files beginning with a dot will be included.
+	 * - ignoreRef: If true, . and .. are ignored.
+	 * - recursive: If true, this function is recursive.
+	 * - ignore: An array of paths to ignore.
+	 *
 	 * @param string $path A directory.
-	 * @param array  $args Argument array.
-	 *                 hidden: If true, hidden files beginning with a dot will be included
-	 *                 ignoreRef: If true, . and .. are ignored
-	 *                 recursive: If true, this function is recursive
-	 *                 ignore: An array of paths to ignore
+	 * @param array  $args Arguments.
 	 *
 	 * @return array Files in the directory.
 	 */
@@ -294,7 +300,7 @@ EOT;
 		$hidden     = self::set_default( $args['hidden'], true );
 		$ignore_ref = self::set_default( $args['ignoreRef'], true );
 		$recursive  = self::set_default( $args['recursive'], false );
-		$ignore     = self::set_default( $args['ignore'], null );
+		$ignore     = self::set_default( $args['ignore'] );
 
 		$ignore_map = array();
 		if ( $ignore ) {
@@ -334,7 +340,7 @@ EOT;
 	 *
 	 * @param string $path Path.
 	 *
-	 * @throws Exception InvalidArgumentException.
+	 * @throws InvalidArgumentException Invalid argument.
 	 */
 	public static function delete_dir( string $path ) {
 		if ( ! is_dir( $path ) ) {
@@ -360,13 +366,13 @@ EOT;
 	/**
 	 * Copy directory.
 	 *
-	 * @param string $src Source.
-	 * @param string $dst Destination.
+	 * @param string $src   Source.
+	 * @param string $dst   Destination.
 	 * @param mixed  $mkdir Make dir.
 	 *
 	 * @throws InvalidArgumentException Invalid argument.
 	 */
-	public static function copy_dir( $src, $dst, $mkdir = null ) {
+	public static function copy_dir( string $src, string $dst, $mkdir = null ) {
 
 		// http://stackoverflow.com/questions/2050859.
 		if ( ! is_dir( $src ) ) {
@@ -422,10 +428,10 @@ EOT;
 	 * Private array flip.
 	 *
 	 * @param array $array Array.
-	 * @param mixed $k Key.
-	 * @param mixed $v Value.
+	 * @param mixed $k     Key.
+	 * @param mixed $v     Value.
 	 */
-	private static function internal_array_flip( &$array, $k, $v ) {
+	private static function internal_array_flip( array &$array, $k, $v ) {
 		if ( is_string( $v ) || is_int( $v ) ) {
 			$array[ $v ] = $k;
 		} else {
@@ -509,7 +515,7 @@ EOT;
 	 */
 	public static function trim_e( string $str, $delimiter = ',' ) {
 		if ( is_string( $delimiter ) ) {
-			$str = trim( preg_replace( '|\s*(?:' . preg_quote( $delimiter ) . ')\s*|', $delimiter, $str ) ); // phpcs:ignore
+			$str = trim( preg_replace( '|\s*' . preg_quote( $delimiter ) . ')\s*|', $delimiter, $str ) ); // phpcs:ignore
 			return explode( $delimiter, $str );
 		}
 		return $str;
@@ -563,7 +569,7 @@ EOT;
 	 *
 	 * @return bool
 	 */
-	public static function str( &$var, string $str, $escape = true ): bool {
+	public static function str( &$var, $str = '', $escape = true ): bool {
 		if ( is_string( $str ) ) {
 			$var = ( true === $escape ? self::htmlentities( $str ) : $str );
 
@@ -603,7 +609,7 @@ EOT;
 	 * @return string
 	 */
 	public static function htmlspecialchars( string $str ): string {
-		return htmlspecialchars( $str, ENT_NOQUOTES, 'UTF-8' );
+		return htmlspecialchars( $str, ENT_NOQUOTES );
 	}
 
 	/**
@@ -673,124 +679,130 @@ EOT;
 	 *
 	 * @return mixed|null
 	 */
-	public static function set_default( &$var, $default = null ) {
+	public static function set_default( $var, $default = null ) {
 		return $var ?? $default;
 	}
 
 	/**
-	 * @param      $var
-	 * @param null $default
+	 * Set default null.
+	 *
+	 * @param mixed $var Variable.
+	 * @param mixed $default Default.
 	 *
 	 * @return mixed|null
 	 */
 	public static function set_default_null( $var, $default = null ) {
-		return $var !== null ? $var : $default;
+		return null !== $var ? $var : $default;
 	}
 
-	// Thanks, http://www.php.net/manual/en/function.str-replace.php#102186
-
 	/**
-	 * @param $str_pattern
-	 * @param $str_replacement
-	 * @param $string
+	 * Thanks, http://www.php.net/manual/en/function.str-replace.php#102186
 	 *
-	 * @return array|mixed|string|string[]
+	 * @param string $str_pattern Pattern.
+	 * @param string $str_replacement Replacement.
+	 * @param string $string String.
+	 *
+	 * @return array|string|string[]
 	 */
-	function str_replace_once( $str_pattern, $str_replacement, $string ) {
-		if ( strpos( $string, $str_pattern ) !== false ) {
+	public function str_replace_once( string $str_pattern, string $str_replacement, string $string ) {
+		if ( false !== strpos( $string, $str_pattern ) ) {
 			$occurrence = strpos( $string, $str_pattern );
+
 			return substr_replace( $string, $str_replacement, strpos( $string, $str_pattern ), strlen( $str_pattern ) );
 		}
+
 		return $string;
 	}
 
-	// Removes non-numeric chars in string
-
 	/**
-	 * @param      $str
-	 * @param bool $return_zero
+	 * Removes non-numeric chars in string.
+	 *
+	 * @param string $str         String.
+	 * @param bool   $return_zero Return zero.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function clean_int( $str, $return_zero = true ) {
+	public static function clean_int( string $str, $return_zero = true ) {
 		$str = preg_replace( '#[^\d]#', '', $str );
 		if ( $return_zero ) {
-			// If '', then returns 0
+
+			// If '', then returns 0.
 			return strval( intval( $str ) );
 		} else {
-			// Might be ''
+
+			// Might be ''.
 			return $str;
 		}
 	}
 
-	// Replaces whitespace with hypthens
-
 	/**
-	 * @param $str
+	 * Replaces whitespace with hypthens.
+	 *
+	 * @param string $str String.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function space_to_hyphen( $str ) {
+	public static function space_to_hyphen( string $str ) {
 		return preg_replace( '#\s+#', '-', $str );
 	}
 
-	// Replaces hypthens with spaces
-
 	/**
-	 * @param $str
+	 * Replaces hypthens with spaces.
+	 *
+	 * @param string $str String.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function hyphen_to_space( $str ) {
+	public static function hyphen_to_space( string $str ) {
 		return preg_replace( '#-#', ' ', $str );
 	}
 
-	// Remove comments with /* */, // or #, if they occur before any other char on a line
-
 	/**
-	 * @param $str
+	 * Remove comments with special characters on a line.
+	 *
+	 * @param string $str String.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function clean_comments( $str ) {
+	public static function clean_comments( string $str ) {
 		$comment_pattern = '#(?:^\s*/\*.*?^\s*\*/)|(?:^(?!\s*$)[\s]*(?://|\#)[^\r\n]*)#ms';
-		$str             = preg_replace( $comment_pattern, '', $str );
-		return $str;
+
+		return preg_replace( $comment_pattern, '', $str );
 	}
 
-	// Convert to title case and replace underscores with spaces
-
 	/**
-	 * @param $str
+	 * Convert to title case and replace underscores with spaces.
+	 *
+	 * @param string $str String.
 	 *
 	 * @return string
 	 */
-	public static function ucwords( $str ) {
-		$str = strval( $str );
+	public static function ucwords( string $str ): string {
 		$str = str_replace( '_', ' ', $str );
+
 		return ucwords( $str );
 	}
 
-	// Escapes regex characters as literals
-
 	/**
-	 * @param $regex
+	 * Escapes regex characters as literals.
+	 *
+	 * @param string $regex RegEx.
 	 *
 	 * @return string
 	 */
-	public static function esc_regex( $regex ) {
+	public static function esc_regex( string $regex ): string {
 		return /*htmlspecialchars(*/
-			preg_quote( $regex ); /* , ENT_NOQUOTES)*/
+			preg_quote( $regex ); // phpcs:ignore
 	}
 
-	// Escapes hash character as literals
-
 	/**
-	 * @param $regex
+	 * Escapes hash character as literals.
+	 *
+	 * @param string $regex Red Ex.
 	 *
 	 * @return array|false|string|string[]|null
 	 */
-	public static function esc_hash( $regex ) {
+	public static function esc_hash( string $regex ) {
 		if ( is_string( $regex ) ) {
 			return preg_replace( '|(?<!\\\\)#|', '\#', $regex );
 		} else {
@@ -798,241 +810,236 @@ EOT;
 		}
 	}
 
-	// Ensure all parenthesis are atomic to avoid conflicting with element matches
-
 	/**
-	 * @param $regex
+	 * Ensure all parenthesis are atomic to avoid conflicting with element matches.
+	 *
+	 * @param string $regex Reg Ex.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function esc_atomic( $regex ) {
+	public static function esc_atomic( string $regex ) {
 		return preg_replace( '#(?<!\\\\)\((?!\?)#', '(?:', $regex );
 	}
 
-	// Returns the current HTTP URL
-
 	/**
+	 * Returns the current HTTP URL.
+	 *
 	 * @return string
 	 */
-	public static function current_url() {
-		$p = self::isSecure() ? 'https://' : 'http://';
-		return $p . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	public static function current_url(): string {
+		$p = self::is_secure() ? 'https://' : 'http://';
+		return $p . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ?? '' ) ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ?? '' ) );
 	}
 
-	// Removes Urvanov Syntax Highlighter plugin path from absolute path
-
 	/**
-	 * @param $url
+	 * Removes Urvanov Syntax Highlighter plugin path from absolute path.
 	 *
-	 * @return array|mixed|string|string[]
-	 */
-	public static function path_rel( $url ) {
-		if ( is_string( $url ) ) {
-			return str_replace( URVANOV_SYNTAX_HIGHLIGHTER_ROOT_PATH, '/', $url );
-		}
-		return $url;
-	}
-
-	// Returns path according to detected use of forwardslash/backslash
-	// Deprecated from regular use after v.1.1.1
-	/**
-	 * @param $path
-	 * @param $detect
+	 * @param string $url URL.
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function path( $path, $detect ) {
+	public static function path_rel( string $url ) {
+		if ( is_string( $url ) ) {
+			return str_replace( URVANOV_SYNTAX_HIGHLIGHTER_ROOT_PATH, '/', $url );
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Returns path according to detected use of forwardslash/backslash.
+	 *
+	 * @param string $path Path.
+	 * @param mixed  $detect Detect.
+	 *
+	 * @depreacted 1.1.1
+	 *
+	 * @return array|string|string[]
+	 */
+	public static function path( string $path, $detect ) {
 		$slash = self::detect_slash( $detect );
 		return str_replace( array( '\\', '/' ), $slash, $path );
 	}
 
-	// Detect which kind of slash is being used in a path
-
 	/**
-	 * @param $path
+	 * Detect which kind of slash is being used in a path.
+	 *
+	 * @param string $path Path.
 	 *
 	 * @return string
 	 */
-	public static function detect_slash( $path ) {
+	public static function detect_slash( string $path ): string {
 		if ( strpos( $path, '\\' ) ) {
-			// Windows
-			return $slash = '\\';
+
+			// Windows.
+			return '\\';
 		} else {
-			// UNIX
-			return $slash = '/';
+
+			// UNIX.
+			return '/';
 		}
 	}
 
-	// Returns path using forward slashes
-
 	/**
-	 * @param $url
+	 * Returns path using forward slashes.
+	 *
+	 * @param string $url URL.
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function pathf( $url ) {
-		return str_replace( '\\', '/', trim( strval( $url ) ) );
+	public static function pathf( string $url ) {
+		return str_replace( '\\', '/', trim( $url ) );
 	}
 
-	// Returns path using back slashes
-
 	/**
-	 * @param $url
+	 * Returns path using back slashes.
+	 *
+	 * @param string $url URL.
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function pathb( $url ) {
-		return str_replace( '/', '\\', trim( strval( $url ) ) );
+	public static function pathb( string $url ) {
+		return str_replace( '/', '\\', trim( $url ) );
 	}
 
-	// returns 'true' or 'false' depending on whether this PHP file was served over HTTPS
-
 	/**
+	 * Returns 'true' or 'false' depending on whether this PHP file was served over HTTPS.
+	 *
 	 * @return bool
 	 */
-	public static function isSecure() {
-		// From https://core.trac.wordpress.org/browser/tags/4.0.1/src/wp-includes/functions.php
+	public static function is_secure(): bool {
+
+		// From https://core.trac.wordpress.org/browser/tags/4.0.1/src/wp-includes/functions.php.
 		if ( isset( $_SERVER['HTTPS'] ) ) {
-			if ( 'on' == strtolower( $_SERVER['HTTPS'] ) ) {
+			if ( 'on' === strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) ) ) ) {
 				return true;
 			}
-			if ( '1' == $_SERVER['HTTPS'] ) {
+
+			if ( '1' === sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) ) ) {
 				return true;
 			}
-		} elseif ( isset( $_SERVER['SERVER_PORT'] ) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
+		} elseif ( isset( $_SERVER['SERVER_PORT'] ) && ( '443' === sanitize_text_field( wp_unslash( $_SERVER['SERVER_PORT'] ) ) ) ) {
 			return true;
 		}
+
 		return false;
 	}
 
 	/**
-	 * @param $haystack
-	 * @param $needle
+	 * Starts with.
+	 *
+	 * @param mixed $haystack Haystack.
+	 * @param mixed $needle Needle.
 	 *
 	 * @return bool
 	 */
-	public static function startsWith( $haystack, $needle ) {
+	public static function starts_with( $haystack, $needle ): bool {
 		return substr( $haystack, 0, strlen( $needle ) ) === $needle;
 	}
 
-	// Append either forward slash or backslash based on environment to paths
-
 	/**
-	 * @param $path
+	 * Append either forward slash or backslash based on environment to paths.
+	 *
+	 * @param string $path Path.
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function path_slash( $path ) {
+	public static function path_slash( string $path ) {
 		$path = self::pathf( $path );
+
 		if ( ! empty( $path ) && ! preg_match( '#\/$#', $path ) ) {
 			$path .= '/';
 		}
-		if ( self::startsWith( $path, 'http://' ) && self::isSecure() ) {
+
+		if ( self::starts_with( $path, 'http://' ) && self::is_secure() ) {
 			$path = str_replace( 'http://', 'https://', $path );
 		}
+
 		return $path;
 	}
 
 	/**
-	 * @param $path
+	 * Path slash remove.
+	 *
+	 * @param string $path Path.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function path_slash_remove( $path ) {
+	public static function path_slash_remove( string $path ) {
 		return preg_replace( '#\/+$#', '', $path );
 	}
 
-	// Append a forward slash to a path if needed
-
 	/**
-	 * @param $url
+	 * Append a forward slash to a path if needed.
+	 *
+	 * @param string $url URL.
 	 *
 	 * @return array|string|string[]
 	 */
-	public static function url_slash( $url ) {
+	public static function url_slash( string $url ) {
 		$url = self::pathf( $url );
+
 		if ( ! empty( $url ) && ! preg_match( '#\/$#', $url ) ) {
 			$url .= '/';
 		}
-		if ( self::startsWith( $url, 'http://' ) && self::isSecure() ) {
+
+		if ( self::starts_with( $url, 'http://' ) && self::is_secure() ) {
 			$url = str_replace( 'http://', 'https://', $url );
 		}
+
 		return $url;
 	}
 
-	// Removes extension from file path
-
 	/**
-	 * @param $path
+	 * Removes extension from file path.
+	 *
+	 * @param string $path Path.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function path_rem_ext( $path ) {
+	public static function path_rem_ext( string $path ) {
 		$path = self::pathf( $path );
+
 		return preg_replace( '#\.\w+$#m', '', $path );
 	}
 
-	// Shorten a URL into a string of given length, used to identify a URL uniquely
-
 	/**
-	 * @param $url
-	 * @param $length
+	 * Creates a unique ID from a string.
 	 *
-	 * @return array|string|string[]|null
-	 */
-	public static function shorten_url_to_length( $url, $length ) {
-		if ( $length < 1 ) {
-			return '';
-		}
-		$url = preg_replace( '#(^\w+://)|([/\.])#si', '', $url );
-		if ( strlen( $url ) > $length ) {
-			$diff      = strlen( $url ) - $length;
-			$rem       = floor( strlen( $url ) / $diff );
-			$rem_count = 0;
-			for ( $i = $rem - 1; $i < strlen( $url ) && $rem_count < $diff; $i = $i + $rem ) {
-				$url[ $i ] = '.';
-				$rem_count++;
-			}
-			$url = preg_replace( '#\.#s', '', $url );
-		}
-		return $url;
-	}
-
-	// Creates a unique ID from a string
-
-	/**
 	 * @return string
 	 */
-	public static function get_var_str() {
+	public static function get_var_str(): string {
 		$get_vars = array();
-		foreach ( $_GET as $get => $val ) {
+		foreach ( $_GET as $get => $val ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$get_vars[] = $get . '=' . $val;
 		}
-		return implode( $get_vars, '&' );
+		return implode( '&', $get_vars );
 	}
 
-	// Creates a unique ID from a string
-
 	/**
-	 * @param $str
+	 * Creates a unique ID from a string.
+	 *
+	 * @param string $str String.
 	 *
 	 * @return string
 	 */
-	public static function str_uid( $str ) {
+	public static function str_uid( $str = '' ): string {
 		$uid = 0;
-		for ( $i = 1; $i < strlen( $str ); $i++ ) {
+
+		$len = strlen( $str );
+		for ( $i = 1; $i < $len; $i++ ) {
 			$uid += round( ord( $str[ $i ] ) * ( $i / strlen( $str ) ), 2 ) * 100;
 		}
-		return strval( dechex( strlen( $str ) ) ) . strval( dechex( $uid ) );
+
+		return dechex( strlen( $str ) ) . dechex( $uid );
 	}
 
-
-	// strpos with an array of $needles
-
 	/**
-	 * @param       $haystack
-	 * @param       $needles
-	 * @param false $insensitive
+	 * - strpos with an array of $needles.
+	 *
+	 * @param mixed $haystack Haystack.
+	 * @param mixed $needles Needles.
+	 * @param bool  $insensitive Case sensitive.
 	 *
 	 * @return false|int
 	 */
@@ -1044,95 +1051,83 @@ EOT;
 				} else {
 					$pos = $insensitive ? stripos( $haystack, $str ) : strpos( $haystack, $str );
 				}
-				if ( $pos !== false ) {
+
+				if ( false !== $pos ) {
 					return $pos;
 				}
 			}
+
 			return false;
 		} else {
 			return strpos( $haystack, $needles );
 		}
 	}
 
-	// tests if $needle is equal to any strings in $haystack
-
 	/**
-	 * @param      $needle
-	 * @param      $haystack
-	 * @param bool $case_insensitive
+	 * Tests if $needle is equal to any strings in $haystack.
+	 *
+	 * @param mixed $needle Needle.
+	 * @param mixed $haystack Haystack.
+	 * @param bool  $case_insensitive Case senitive.
 	 *
 	 * @return bool
 	 */
-	public static function str_equal_array( $needle, $haystack, $case_insensitive = true ) {
+	public static function str_equal_array( $needle, $haystack, $case_insensitive = true ): bool {
 		if ( ! is_string( $needle ) || ! is_array( $haystack ) ) {
 			return false;
 		}
+
 		if ( $case_insensitive ) {
 			$needle = strtolower( $needle );
 		}
+
 		foreach ( $haystack as $hay ) {
 			if ( ! is_string( $hay ) ) {
 				continue;
 			}
+
 			if ( $case_insensitive ) {
 				$hay = strtolower( $hay );
 			}
-			if ( $needle == $hay ) {
+
+			if ( $needle === $hay ) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
-	// Support for singular and plural string variations
-
 	/**
-	 * @param      $int
-	 * @param      $singular
-	 * @param null $plural
+	 * Turn boolean into Yes/No.
+	 *
+	 * @param bool $bool Criteria.
 	 *
 	 * @return string
 	 */
-	public static function spnum( $int, $singular, $plural = null ) {
-		if ( ! is_int( $int ) || ! is_string( $singular ) ) {
-			$int      = intval( $int );
-			$singular = strval( $singular );
-		}
-		if ( $plural == null || ! is_string( $plural ) ) {
-			$plural = $singular . 's';
-		}
-		return $int . ' ' . ( ( $int == 1 ) ? $singular : $plural );
-	}
-
-	// Turn boolean into Yes/No
-
-	/**
-	 * @param $bool
-	 *
-	 * @return string
-	 */
-	public static function bool_yn( $bool ) {
+	public static function bool_yn( bool $bool ): string {
 		return $bool ? 'Yes' : 'No';
 	}
 
-	// String to boolean, default decides what boolean value to return when not found
-
 	/**
-	 * @param      $str
-	 * @param bool $default
+	 * String to boolean, default decides what boolean value to return when not found.
+	 *
+	 * @param string $str String.
+	 * @param bool   $default Default.
 	 *
 	 * @return bool
 	 */
-	public static function str_to_bool( $str, $default = true ) {
+	public static function str_to_bool( $str = '', $default = true ): bool {
 		$str = self::tlower( $str );
-		if ( $default === false ) {
-			if ( $str == 'true' || $str == 'yes' || $str == '1' ) {
+
+		if ( false === $default ) {
+			if ( 'true' === $str || 'yes' === $str || '1' === $str ) {
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			if ( $str == 'false' || $str == 'no' || $str == '0' ) {
+			if ( 'false' === $str || 'no' === $str || '0' === $str ) {
 				return false;
 			} else {
 				return true;
@@ -1141,168 +1136,159 @@ EOT;
 	}
 
 	/**
-	 * @param       $bool
-	 * @param false $strict
+	 * Bool to string.
+	 *
+	 * @param bool $bool   Value.
+	 * @param bool $strict Type safe.
 	 *
 	 * @return string
 	 */
-	public static function bool_to_str( $bool, $strict = false ) {
+	public static function bool_to_str( bool $bool, $strict = false ): string {
 		if ( $strict ) {
-			return $bool === true ? 'true' : 'false';
+			return true === $bool ? 'true' : 'false';
 		} else {
 			return $bool ? 'true' : 'false';
 		}
 	}
 
 	/**
-	 * @param $str
+	 * To lower.
+	 *
+	 * @param string $str String.
 	 *
 	 * @return string
 	 */
-	public static function tlower( $str ) {
+	public static function tlower( string $str ): string {
 		return trim( strtolower( $str ) );
 	}
 
-	// Escapes $ and \ from the replacement to avoid becoming a backreference
-
 	/**
-	 * @param     $pattern
-	 * @param     $replacement
-	 * @param     $subject
-	 * @param int $limit
-	 * @param int $count
+	 * Escapes $ and \ from the replacement to avoid becoming a backreference.
+	 *
+	 * @param string $pattern     Pattern.
+	 * @param string $replacement Replacement.
+	 * @param string $subject     Subject.
+	 * @param int    $limit       Limit.
+	 * @param int    $count       Count.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function preg_replace_escape_back( $pattern, $replacement, $subject, $limit = -1, &$count = 0 ) {
+	public static function preg_replace_escape_back( string $pattern, string $replacement, string $subject, $limit = -1, &$count = 0 ) {
 		return preg_replace( $pattern, self::preg_escape_back( $replacement ), $subject, $limit, $count );
 	}
 
-	// Escape backreferences from string for use with regex
-
 	/**
-	 * @param $string
+	 * Escape backreferences from string for use with regex.
+	 *
+	 * @param string $string String.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function preg_escape_back( $string ) {
-		// Replace $ with \$ and \ with \\
-		$string = preg_replace( '#(\\$|\\\\)#', '\\\\$1', $string );
-		return $string;
+	public static function preg_escape_back( string $string ) {
+		return preg_replace( '#(\\$|\\\\)#', '\\\\$1', $string );
 	}
 
-	// Detect if on a Mac or PC
-
 	/**
-	 * @param false $default
+	 * Detect if on a Mac or PC.
+	 *
+	 * @param bool $default Default value.
 	 *
 	 * @return bool
 	 */
-	public static function is_mac( $default = false ) {
-		$user = $_SERVER['HTTP_USER_AGENT'];
+	public static function is_mac( $default = false ): bool {
+		$user = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) );
+
 		if ( stripos( $user, 'macintosh' ) !== false ) {
 			return true;
 		} elseif ( stripos( $user, 'windows' ) !== false || stripos( $user, 'linux' ) !== false ) {
 			return false;
 		} else {
-			return $default === true;
+			return true === $default;
 		}
 	}
 
-	// Decodes WP html entities
-
 	/**
-	 * @param $str
+	 * Constructs an html element.
+	 * If $content = FALSE, then element is closed.
 	 *
-	 * @return array|mixed|string|string[]
-	 */
-	public static function html_entity_decode_wp( $str ) {
-		if ( ! is_string( $str ) || empty( $str ) ) {
-			return $str;
-		}
-		// http://www.ascii.cl/htmlcodes.htm
-		$wp_entities = array( '&#8216;', '&#8217;', '&#8218;', '&#8220;', '&#8221;' );
-		$wp_replace  = array( '\'', '\'', ',', '"', '"' );
-		$str         = str_replace( $wp_entities, $wp_replace, $str );
-		return $str;
-	}
-
-	// Constructs an html element
-	// If $content = FALSE, then element is closed
-	/**
-	 * @param       $name
-	 * @param null  $content
-	 * @param array $attributes
+	 * @param string $name       Name.
+	 * @param string $content    Content.
+	 * @param array  $attributes Attributes.
 	 *
 	 * @return string
 	 */
-	public static function html_element( $name, $content = null, $attributes = array() ) {
+	public static function html_element( string $name, $content = null, $attributes = array() ): string {
 		$atts = self::html_attributes( $attributes );
 		$tag  = "<$name $atts";
-		$tag .= $content === false ? '/>' : ">$content</$name>";
+		$tag .= false === $content ? '/>' : ">$content</$name>";
+
 		return $tag;
 	}
 
 	/**
-	 * @param        $attributes
-	 * @param string $assign
-	 * @param string $quote
-	 * @param string $glue
+	 * HTML attributes.
+	 *
+	 * @param array  $attributes Attributes.
+	 * @param string $assign     Assign.
+	 * @param string $quote      Quote.
+	 * @param string $glue       Glue.
 	 *
 	 * @return string
 	 */
-	public static function html_attributes( $attributes, $assign = '=', $quote = '"', $glue = ' ' ) {
+	public static function html_attributes( array $attributes, $assign = '=', $quote = '"', $glue = ' ' ): string {
 		$atts = '';
+
 		foreach ( $attributes as $k => $v ) {
 			$atts .= $k . $assign . $quote . $v . $quote . $glue;
 		}
+
 		return $atts;
 	}
 
-	// Strips only the given tags in the given HTML string.
-
 	/**
-	 * @param $html
-	 * @param $tags
+	 * Strips only the given tags in the given HTML string.
 	 *
-	 * @return array|mixed|string|string[]|null
+	 * @param string $html HTML.
+	 * @param array  $tags Tags.
+	 *
+	 * @return array|string|string[]|null
 	 */
-	public static function strip_tags_blacklist( $html, $tags ) {
+	public static function strip_tags_blacklist( string $html, array $tags ) {
 		foreach ( $tags as $tag ) {
 			$regex = '#<\s*\b' . $tag . '\b[^>]*>.*?<\s*/\s*' . $tag . '\b[^>]*>?#msi';
 			$html  = preg_replace( $regex, '', $html );
 		}
+
 		return $html;
 	}
 
-	// Strips the given attributes found in the given HTML string.
-
 	/**
-	 * @param $html
-	 * @param $atts
+	 * Strips the given attributes found in the given HTML string.
 	 *
-	 * @return array|mixed|string|string[]|null
+	 * @param string $html HTML.
+	 * @param array  $atts Attributes.
+	 *
+	 * @return array|string|string[]|null
 	 */
-	public static function strip_attributes( $html, $atts ) {
+	public static function strip_attributes( string $html, array $atts ) {
 		foreach ( $atts as $att ) {
 			$regex = '#\b' . $att . '\b(\s*=\s*[\'"][^\'"]*[\'"])?(?=[^<]*>)#msi';
 			$html  = preg_replace( $regex, '', $html );
 		}
+
 		return $html;
 	}
 
-	// Strips all event attributes on DOM elements (prefixe with "on").
-
 	/**
-	 * @param $html
+	 * Strips all event attributes on DOM elements (prefixe with 'on').
+	 *
+	 * @param string $html HTML.
 	 *
 	 * @return array|string|string[]|null
 	 */
-	public static function strip_event_attributes( $html ) {
+	public static function strip_event_attributes( string $html ) {
 		$regex = '#\bon\w+\b(\s*=\s*[\'"][^\'"]*[\'"])?(?=[^<]*>)#msi';
+
 		return preg_replace( $regex, '', $html );
 	}
-
 }
-
-
