@@ -175,7 +175,7 @@
 		}
 	);
 
-	window.UrvanovSyntaxHighlighterTagEditor = function() {
+	window.UrvanovSyntaxHighlighterTagEditor = new function() {
 		var base    = this;
 		var isInit  = false;
 		var loaded  = false;
@@ -361,7 +361,7 @@
 
 					settingChange = function() {
 						var setting   = $( this );
-						var origValue = $( this ).attr( gs.origValue );
+						var origValue = $( this ).attr( gs.orig_value );
 						var value;
 						var highlight;
 
@@ -858,7 +858,7 @@
 				function() {
 					var setting = $( this );
 
-					setting.attr( gs.origValue, base.settingValue( setting ) );
+					setting.attr( gs.orig_value, base.settingValue( setting ) );
 				}
 			);
 		};
@@ -868,7 +868,7 @@
 			$( '.' + gs.setting ).each(
 				function() {
 					var setting = $( this );
-					base.settingValue( setting, setting.attr( gs.origValue ) );
+					base.settingValue( setting, setting.attr( gs.orig_value ) );
 
 					// Update highlights.
 					setting.change();

@@ -25,7 +25,7 @@ require_once URVANOV_SYNTAX_HIGHLIGHTER_THEMES_PHP;
 class Urvanov_Syntax_Highlighter_Settings {
 
 	/**
-	 * INvalid.
+	 * Invalid.
 	 */
 	const INVALID = - 1; // Used for invalid dropdown index.
 
@@ -858,7 +858,7 @@ class Urvanov_Syntax_Highlighter_Settings {
 
 			return $copy;
 		} elseif ( is_string( $name ) ) {
-			if ( $this->is_setting( $name ) ) {
+			if ( self::is_setting( $name ) ) {
 				return $this->settings[ $name ];
 			}
 		}
@@ -1076,7 +1076,7 @@ class Urvanov_Syntax_Highlighter_Settings {
 
 		// If a setting is given, it is automatically enabled.
 		foreach ( $settings as $name => $value ) {
-			$setting = self::get( $name );
+			$setting = Urvanov_Syntax_Highlighter_Global_Settings::get( $name );
 			if ( false !== $setting && is_bool( $setting->def() ) ) {
 				$value = UrvanovSyntaxHighlighterUtil::str_to_bool( $value );
 			}
@@ -1100,9 +1100,8 @@ class Urvanov_Syntax_Highlighter_Settings {
 				$settings[ self::ERROR_MSG_SHOW ] = true;
 			} elseif ( self::H_ALIGN === $name ) {
 				$settings[ self::FLOAT_ENABLE ] = true;
-
-				$value  = UrvanovSyntaxHighlighterUtil::tlower( $value );
-				$values = array(
+				$value                          = UrvanovSyntaxHighlighterUtil::tlower( $value );
+				$values                         = array(
 					'none'   => 0,
 					'left'   => 1,
 					'center' => 2,
@@ -1126,7 +1125,7 @@ class Urvanov_Syntax_Highlighter_Settings {
 					$settings[ self::SHOW_LANG ] = $values[ $value ];
 				}
 			} elseif ( self::TOOLBAR === $name ) {
-				if ( UrvanovSyntaxHighlighterUtil::tlower( $value ) === 'always' ) {
+				if ( 'always' === UrvanovSyntaxHighlighterUtil::tlower( $value ) ) {
 					$settings[ self::TOOLBAR ] = 1;
 				} elseif ( UrvanovSyntaxHighlighterUtil::str_to_bool( $value ) === false ) {
 					$settings[ self::TOOLBAR ] = 2;

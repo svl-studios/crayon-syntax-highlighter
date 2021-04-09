@@ -85,7 +85,7 @@ jqueryPopup.defaultSettings = {
 					win = window.open( settings.windowURL, settings.windowName, windowFeatures + ',left=' + settings.left + ',top=' + settings.top );
 				}
 				if ( null !== win ) {
-					win.trigger( 'focus' );
+					win.focus();
 					if ( settings.data ) {
 						win.document.write( settings.data );
 					}

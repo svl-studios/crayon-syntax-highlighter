@@ -563,8 +563,8 @@ class Urvanov_Syntax_Highlighter_Plugin {
 			$enqueue = true;
 
 			$count = count( $full_matches );
-			for ( $i = 0; $i < $count; $i ++ ) {
-				// Get attributes.
+
+			for ( $i = 0; $i < count( $full_matches ); $i ++ ) {
 				if ( ! empty( $closed_atts[ $i ] ) ) {
 					$atts = $closed_atts[ $i ];
 				} elseif ( ! empty( $open_atts[ $i ] ) ) {
@@ -970,7 +970,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 	 *
 	 * @param string $the_content Content.
 	 *
-	 * @return array|mixed|string|string[]|null
+	 * @return array|string|string[]|null
 	 */
 	public static function the_content( string $the_content ) {
 		UrvanovSyntaxHighlighterLog::debug( 'the_content' );
@@ -1234,7 +1234,7 @@ class Urvanov_Syntax_Highlighter_Plugin {
 	 *
 	 * @deprecated
 	 */
-	public static function crayon_remove_ignore( string $the_content, $ignore_flag = '$' ) {
+	public static function crayon_remove_ignore( $the_content = '', $ignore_flag = '$' ) {
 		if ( false === $ignore_flag ) {
 			$ignore_flag = '';
 		}

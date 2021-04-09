@@ -678,7 +678,7 @@ class Urvanov_Syntax_Highlighter {
 	 *
 	 * @return array
 	 */
-	public function runtime(): array {
+	public function runtime(): ?array {
 		return $this->runtime;
 	}
 
@@ -695,6 +695,8 @@ class Urvanov_Syntax_Highlighter {
 		} else {
 			$this->is_highlighted = $highlighted;
 		}
+
+		return false;
 	}
 
 	/**

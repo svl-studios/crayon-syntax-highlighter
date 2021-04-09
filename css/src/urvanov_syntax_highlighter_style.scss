@@ -133,22 +133,12 @@
             right: 0;
         }
 
-        .crayon-button .urvanov-syntax-highlighter-button-icon {
-            background-image: url('../images/toolbar/buttons.png');
-            height: 16px !important;
-            width: 100%;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            margin-top: -8px;
-        }
-
         span {
             padding: 0 4px !important;
         }
 
         .crayon-button {
-            display: inline;
+            display: inline!important;
             float: left !important;
             position: relative;
             width: 24px;
@@ -156,6 +146,16 @@
             line-height: 15px;
             border: none;
             text-decoration: none;
+
+            .urvanov-syntax-highlighter-button-icon {
+                background-image: url('../images/toolbar/buttons.png');
+                height: 16px !important;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 50%;
+                margin-top: -8px;
+            }
         }
     }
 

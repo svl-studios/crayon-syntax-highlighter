@@ -157,7 +157,7 @@ if ( ! class_exists( 'Urvanov_Syntax_Highlighter_Global' ) ) {
 /**
  * Debug switch.
  */
-const URVANOV_SYNTAX_HIGHLIGHTER_DEBUG = false;
+const URVANOV_SYNTAX_HIGHLIGHTER_DEBUG = true;
 
 /**
  * Tag editor switch.

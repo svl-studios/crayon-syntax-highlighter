@@ -333,9 +333,9 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 					<th><?php esc_html_e( 'Language', 'urvanov-syntax-highlighter' ); ?></th>
 					<td class="urvanov-syntax-highlighter-nowrap"><?php self::select_resource( 'lang', $langs, $curr_lang ); ?>
 						<span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Line Range', 'urvanov-syntax-highlighter' ); ?> </span>
-						<?php self::textbox( 'range', array( 'placeholder' => esc_html__( '(e.g. 3-5 or 3)', 'urvanov-syntax-highlighter' ) ) ); ?>
+						<?php self::textbox( 'range', array( 'placeholder' => wp_kses_post( '(e.g. 3-5 or 3)', 'urvanov-syntax-highlighter' ) ) ); ?>
 						<span class="urvanov-syntax-highlighter-te-section"><?php esc_html_e( 'Marked Lines', 'urvanov-syntax-highlighter' ); ?> </span>
-						<?php self::textbox( 'mark', array( 'placeholder' => esc_html__( '(e.g. 1,2,3-5)', 'urvanov-syntax-highlighter' ) ) ); ?>
+						<?php self::textbox( 'mark', array( 'placeholder' => wp_kses_post( '(e.g. 1,2,3-5)', 'urvanov-syntax-highlighter' ) ) ); ?>
 					</td>
 				</tr>
 				<tr class="urvanov-syntax-highlighter-tr-center" style="text-align: center;">
@@ -354,7 +354,7 @@ class UrvanovSyntaxHighlighterTagEditorWP {
 				<tr class="urvanov-syntax-highlighter-tr-center">
 					<th id="urvanov-syntax-highlighter-url-th"><?php esc_html_e( 'URL', 'urvanov-syntax-highlighter' ); ?>
 					</th>
-					<td><?php self::textbox( 'url', array( 'placeholder' => esc_html__( 'Relative local path or absolute URL', 'urvanov-syntax-highlighter' ) ) ); ?>
+					<td><?php self::textbox( 'url', array( 'placeholder' => 'Relative local path or absolute URL' ) ); ?>
 						<div id="urvanov-syntax-highlighter-te-url-info" class="urvanov-syntax-highlighter-te-info">
 							<?php
 							esc_html_e( 'If the URL fails to load, the code above will be shown instead. If no code exists, an error is shown.', 'urvanov-syntax-highlighter' );

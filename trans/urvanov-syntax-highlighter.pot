@@ -784,16 +784,8 @@ msgstr ""
 msgid "Line Range"
 msgstr ""
 
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:336
-msgid "(e.g. 3-5 or 3)"
-msgstr ""
-
 #: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:337
 msgid "Marked Lines"
-msgstr ""
-
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:338
-msgid "(e.g. 1,2,3-5)"
 msgstr ""
 
 #: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:347
@@ -806,10 +798,6 @@ msgstr ""
 
 #: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:355
 msgid "URL"
-msgstr ""
-
-#: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:357
-msgid "Relative local path or absolute URL"
 msgstr ""
 
 #: util/tag-editor/class-urvanov-syntax-highlighter-tag-editor-wp.php:360
