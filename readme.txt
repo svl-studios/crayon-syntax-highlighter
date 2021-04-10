@@ -5,7 +5,7 @@ License: GPLv3 or later
 Tags: syntax highlighter, syntax, highlighter, highlighting, crayon, code highlighter, bbpress
 Requires at least: 5.7
 Tested up to: 5.7
-Requires PHP: 7.4
+Requires PHP: 7.0
 Stable tag: trunk
 
 Reincarnation of Crayon Syntax Highlighter. Syntax Highlighter supporting multiple languages, themes, fonts, highlighting from a URL, or post text.
@@ -328,6 +328,15 @@ Contact me at http://twitter.com/crayonsyntax or crayon.syntax@gmail.com.
 5. Theme Editor.
 
 == Changelog ==
+
+= 2.9.0 =
+* MODIFIED
+    * Code base audited and updated to being it in line with official WordPress Coding Standards.
+    * Javascript updated to eliminate jQuery 3.x deprecation warnings.
+* ADDED
+    * Additional escpaing and sanitizing of user input.
+    * Nonce verification for AJAX functions.
+    * bbPress filters so topic, replies, and forum posts are recognized in the Crayon Options > Show Crayon Posts.
 
 = 2.8.22 =
 * ADDED

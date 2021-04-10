@@ -3,7 +3,7 @@
  * Plugin Name: Urvanov Syntax Highlighter
  * Plugin URI: https://github.com/urvanov-ru/crayon-syntax-highlighter
  * Description: Supports multiple languages, themes, highlighting from a URL, local file or post text.
- * Version: 2.8.21
+ * Version: 2.8.22
  * Author: Fedor Urvanov, Aram Kocharyan
  * Author URI: https://urvanov.ru
  * Text Domain: urvanov-syntax-highlighter
@@ -46,7 +46,7 @@ require_once 'class-urvanov-syntax-highlighter-wp.php';
 
 Urvanov_Syntax_Highlighter_Global::set_info(
 	array(
-		'Version'    => '2.8.20',
+		'Version'    => '2.8.22',
 		'Date'       => '%urvanov-syntax-highlighter-date%',
 		'AuthorName' => 'Fedor Urvanov & Aram Kocharyan',
 		'PluginURI'  => 'https://github.com/urvanov-ru/crayon-syntax-highlighter',
