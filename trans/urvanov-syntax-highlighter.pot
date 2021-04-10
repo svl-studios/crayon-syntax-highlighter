@@ -16,6 +16,34 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: class-urvanov-syntax-highlighter-formatter.php:406
+msgid "Toggle Line Numbers"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-formatter.php:410
+msgid "Toggle Plain Code"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-formatter.php:414
+msgid "Toggle Line Wrap"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-formatter.php:418
+msgid "Expand Code"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-formatter.php:422
+msgid "Copy"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-formatter.php:426
+msgid "Open Code In New Window"
+msgstr ""
+
+#: class-urvanov-syntax-highlighter-formatter.php:445
+msgid "Contains Mixed Languages"
+msgstr ""
+
 #: class-urvanov-syntax-highlighter-settings.php:636
 msgid "Hourly"
 msgstr ""

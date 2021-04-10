@@ -811,7 +811,7 @@
 			}
 
 			reconsileDimensions( uid );
-
+console.log(main.css( 'z-index' ))
 			if ( typeof hover !== 'undefined' ) {
 				if ( hover ) {
 					visible = main;
@@ -820,7 +820,7 @@
 					visible = plain;
 					hidden  = main;
 				}
-			} else if ( 1 === main.css( 'z-index' ) ) {
+			} else if ( 1 === Number( main.css( 'z-index' ) ) ) {
 				visible = main;
 				hidden  = plain;
 			} else {

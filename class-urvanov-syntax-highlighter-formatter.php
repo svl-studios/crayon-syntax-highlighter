@@ -403,27 +403,27 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			$buttons = array();
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::NUMS_TOGGLE ) ) {
-				$buttons['nums'] = esc_html__( 'Toggle Line Numbers', 'crayon-syntax-highlighter' );
+				$buttons['nums'] = esc_html__( 'Toggle Line Numbers', 'urvanov-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::PLAIN ) && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::PLAIN_TOGGLE ) ) {
-				$buttons['plain'] = esc_html__( 'Toggle Plain Code', 'crayon-syntax-highlighter' );
+				$buttons['plain'] = esc_html__( 'Toggle Plain Code', 'urvanov-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::WRAP_TOGGLE ) ) {
-				$buttons['wrap'] = esc_html__( 'Toggle Line Wrap', 'crayon-syntax-highlighter' );
+				$buttons['wrap'] = esc_html__( 'Toggle Line Wrap', 'urvanov-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::EXPAND_TOGGLE ) ) {
-				$buttons['expand'] = esc_html__( 'Expand Code', 'crayon-syntax-highlighter' );
+				$buttons['expand'] = esc_html__( 'Expand Code', 'urvanov-syntax-highlighter' );
 			}
 
 			if ( ! $touch && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::PLAIN ) && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::COPY ) ) {
-				$buttons['copy'] = esc_html__( 'Copy', 'crayon-syntax-highlighter' );
+				$buttons['copy'] = esc_html__( 'Copy', 'urvanov-syntax-highlighter' );
 			}
 
 			if ( $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::POPUP ) ) {
-				$buttons['popup'] = esc_html__( 'Open Code In New Window', 'crayon-syntax-highlighter' );
+				$buttons['popup'] = esc_html__( 'Open Code In New Window', 'urvanov-syntax-highlighter' );
 			}
 
 			$buttons_str = '';
@@ -442,7 +442,7 @@ class Urvanov_Syntax_Highlighter_Formatter {
 			 * The table is rendered invisible by CSS and enabled with JS when asked to. If JS
 			 * is not enabled or fails, the toolbar won't work so there is no point to display it.
 			 */
-			$print_plus = $hl->is_mixed() && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::SHOW_ALTERNATE ) ? '<span class="urvanov-syntax-highlighter-mixed-highlight" title="' . Urvanov_Syntax_Highlighter_Global::urvanov__( 'Contains Mixed Languages' ) . '"></span>' : '';
+			$print_plus = $hl->is_mixed() && $hl->setting_val( Urvanov_Syntax_Highlighter_Settings::SHOW_ALTERNATE ) ? '<span class="urvanov-syntax-highlighter-mixed-highlight" title="' . esc_html__( 'Contains Mixed Languages', 'urvanov-syntax-highlighter' ) . '"></span>' : '';
 			$buttons    = $print_plus . $buttons_str . $print_lang;
 			$toolbar    = '
 			<div class="crayon-toolbar" data-settings="' . $toolbar_settings . '" style="' . $toolbar_style . '">' . $print_title . '

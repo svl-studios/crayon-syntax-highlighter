@@ -713,6 +713,8 @@ class Urvanov_Syntax_Highlighter {
 		} else {
 			$this->is_mixed = $mixed;
 		}
+
+		return false;
 	}
 
 	/**
@@ -729,5 +731,7 @@ class Urvanov_Syntax_Highlighter {
 			$inline          = UrvanovSyntaxHighlighterUtil::str_to_bool( $inline, false );
 			$this->is_inline = $inline;
 		}
+
+		return false;
 	}
 }
