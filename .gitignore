@@ -15,7 +15,7 @@
 ######################
 *.log
 *.sql
-log.*
+/log.txt
 
 # OS generated files #
 ######################
