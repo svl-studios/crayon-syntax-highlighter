@@ -31,8 +31,8 @@ const URVANOV_SYNTAX_HIGHLIGHTER_THEME_EDITOR = true;
 const URVANOV_SYNTAX_HIGHLIGHTER_MINIFY = false;
 
 // These are overridden by functions since v1.1.1.
-$urvanov_syntax_highlighter_version     = '2.8.22';
-$urvanov_syntax_highlighter_date        = '22th August, 2020';
+$urvanov_syntax_highlighter_version     = '2.9.0';
+$urvanov_syntax_highlighter_date        = '10th April, 2021';
 $urvanov_syntax_highlighter_author      = 'Fedor Urvanov';
 $urvanov_syntax_highlighter_author_site = 'https://urvanov.ru';
 $urvanov_syntax_highlighter_donate      = 'https://money.yandex.ru/to/41001288941320';
