@@ -30,6 +30,11 @@
  */
 
 // START Editing Project Variables.
+
+// CHANGE THESE FOR EACH NEW VERSION...then compile this script.  It'll update the data in the PHP files.
+var pluginVersion = '2.9.0';
+var pluginDate    = 'April 11, 2021';
+
 // Project related.
 var projectURL = 'http://127.0.0.1';                                // Project URL. Could be something like localhost:8888.
 
@@ -75,6 +80,9 @@ var wpPot        = require( 'gulp-wp-pot' );               // For generating the
 var sort         = require( 'gulp-sort' );                 // Recommended to prevent unnecessary changes in pot-file.
 var merge        = require( 'merge-stream' );
 var sassPackager = require( 'gulp-sass-packager' );
+var replace      = require( 'gulp-replace' );
+var clean        = require( 'gulp-clean' );
+var fs           = require( 'fs' );
 
 sass.compiler = require( 'node-sass' );
 
@@ -389,15 +397,61 @@ function crayonTranslate( done ) {
 	done();
 }
 
+function crayonReplace( done ) {
+	'use strict';
+
+	// getCurrentFilenames();
+
+	// Copying the file to a the same name.
+	fs.copyFileSync(
+		'class-urvanov-syntax-highlighter-global.php',
+		'class-urvanov-syntax-highlighter-global-tmp.php',
+		fs.constants.COPYFILE_FICLONE
+	);
+
+	fs.unlinkSync( './class-urvanov-syntax-highlighter-global.php' );
+
+	fs.copyFileSync(
+		'class-urvanov-syntax-highlighter-plugin.php',
+		'class-urvanov-syntax-highlighter-plugin-tmp.php',
+		fs.constants.COPYFILE_FICLONE
+	);
+
+	fs.unlinkSync( './class-urvanov-syntax-highlighter-plugin.php' );
+
+	gulp.src( [ './class-urvanov-syntax-highlighter-global-tmp.php' ] )
+		// See http://mdn.io/string.replace#Specifying_a_string_as_a_parameter
+		.pipe( replace( /(?<=urvanov_syntax_highlighter_version = ').*?(?=';)/g, pluginVersion ) ) // jshint ignore:line
+		.pipe( replace( /(?<=urvanov_syntax_highlighter_date = ').*?(?=';)/g, pluginDate ) ) // jshint ignore:line
+		.pipe( rename( 'class-urvanov-syntax-highlighter-global.php' ) )
+		.pipe( gulp.dest( './' ) );
+
+	gulp.src( [ './class-urvanov-syntax-highlighter-global-tmp.php' ] )
+		.pipe( gulp.dest( './' ) )
+		.pipe( clean( { force: true } ) );
+
+	gulp.src( [ './class-urvanov-syntax-highlighter-plugin-tmp.php' ] )
+		.pipe( replace( /(?<=Version: ).*?(?=\r?\n)/g, pluginVersion ) ) // jshint ignore:line
+		.pipe( replace( /(?<='Version'    => ').*?(?=',)/g, pluginVersion ) ) // jshint ignore:line
+		.pipe( replace( /(?<='Date'       => ').*?(?=',)/g, pluginDate ) ) // jshint ignore:line
+		.pipe( rename( 'class-urvanov-syntax-highlighter-plugin.php' ) )
+		.pipe( gulp.dest( './' ) );
+
+	gulp.src( [ './class-urvanov-syntax-highlighter-plugin-tmp.php' ] )
+		.pipe( gulp.dest( './' ) )
+		.pipe( clean( { force: true } ) );
+
+	done();
+}
+
 /**
  * Tasks
  */
-gulp.task( 'images', images );
-
-gulp.task( 'crayonJS', crayonMinJS );
-gulp.task( 'crayonCSS', crayonStyles );
-gulp.task( 'crayonImages', crayonImages );
-gulp.task( 'crayonTranslate', crayonTranslate );
+gulp.task( 'js', crayonMinJS );
+gulp.task( 'css', crayonStyles );
+gulp.task( 'images', crayonImages );
+gulp.task( 'translate', crayonTranslate );
+gulp.task( 'replace', crayonReplace );
 
 gulp.task( 'crayon', gulp.series( crayonMinJS, crayonStyles, crayonImages, crayonTranslate ) );
 
