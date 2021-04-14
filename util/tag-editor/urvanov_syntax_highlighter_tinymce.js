@@ -61,7 +61,7 @@
 							}
 
 							$( s.tinymce_button ).parent().addClass( s.tinymce_button_unique );
-							UrvanovSyntaxHighlighterTagEditor.on( '.' + s.tinymce_button_unique );
+							UrvanovSyntaxHighlighterTagEditor.bind( '.' + s.tinymce_button_unique );
 
 							// Remove all selected pre tags.
 							$( '.' + s.css_selected, ed.getContent() ).removeClass( s.css_selected );
